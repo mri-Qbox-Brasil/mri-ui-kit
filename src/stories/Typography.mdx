@@ -1,0 +1,68 @@
+import { Meta } from "@storybook/blocks";
+
+<Meta title="Design System/Tipografia" />
+
+# Tipografia
+
+A aplicação utiliza a família de fontes **Inter**. Abaixo está a escala tipográfica padrão usada em componentes.
+
+**Família da Fonte:** `Inter, ui-sans-serif, system-ui, -apple-system, sans-serif`
+
+<div className="mt-8 flex flex-col gap-8">
+
+  {/* Card preview using actual app classes */}
+  <div className="dark bg-card border border-border rounded-xl p-8 shadow-sm text-foreground">
+    <div className="space-y-8">
+
+      {/* 48px */}
+      <div className="flex flex-col gap-2 border-b border-border/50 pb-8">
+        <span className="text-muted-foreground text-sm font-mono">text-5xl (48px) - Headings</span>
+        <p className="text-5xl font-bold !text-foreground !font-sans">A rápida raposa marrom pula</p>
+      </div>
+
+      {/* 36px */}
+      <div className="flex flex-col gap-2 border-b border-border/50 pb-8">
+        <span className="text-muted-foreground text-sm font-mono">text-4xl (36px) - Page Titles</span>
+        <p className="text-4xl font-bold !text-foreground !font-sans">A rápida raposa marrom pula</p>
+      </div>
+
+      {/* 30px */}
+      <div className="flex flex-col gap-2 border-b border-border/50 pb-8">
+        <span className="text-muted-foreground text-sm font-mono">text-3xl (30px) - Section Headers</span>
+        <p className="text-3xl font-semibold !text-foreground !font-sans">A rápida raposa marrom pula sobre o cão</p>
+      </div>
+
+      {/* 24px */}
+      <div className="flex flex-col gap-2 border-b border-border/50 pb-8">
+        <span className="text-muted-foreground text-sm font-mono">text-2xl (24px) - Card Titles</span>
+        <p className="text-2xl font-semibold !text-foreground !font-sans">A rápida raposa marrom pula sobre o cão</p>
+      </div>
+
+      {/* 20px */}
+       <div className="flex flex-col gap-2 border-b border-border/50 pb-8">
+        <span className="text-muted-foreground text-sm font-mono">text-xl (20px) - Subtitles</span>
+        <p className="text-xl font-medium !text-foreground !font-sans">A rápida raposa marrom pula sobre o cão preguiçoso</p>
+      </div>
+
+      {/* 16px */}
+      <div className="flex flex-col gap-2 border-b border-border/50 pb-8">
+        <span className="text-muted-foreground text-sm font-mono">text-base (16px) - Body Text</span>
+        <p className="text-base !text-foreground !font-sans">A rápida raposa marrom pula sobre o cão preguiçoso. A rápida raposa marrom pula sobre o cão preguiçoso.</p>
+      </div>
+
+      {/* 14px */}
+      <div className="flex flex-col gap-2 border-b border-border/50 pb-8">
+        <span className="text-muted-foreground text-sm font-mono">text-sm (14px) - UI Elements / Dense Text</span>
+        <p className="text-sm !text-foreground !font-sans">A rápida raposa marrom pula sobre o cão preguiçoso. Utilizado em tabelas, botões e inputs.</p>
+      </div>
+
+       {/* 12px */}
+      <div className="flex flex-col gap-2">
+        <span className="text-muted-foreground text-sm font-mono">text-xs (12px) - Meta / Captions</span>
+        <p className="text-xs !text-foreground !font-sans">A rápida raposa marrom pula sobre o cão preguiçoso. Legendas, carimbos de data/hora e dicas.</p>
+      </div>
+
+    </div>
+  </div>
+
+</div>
