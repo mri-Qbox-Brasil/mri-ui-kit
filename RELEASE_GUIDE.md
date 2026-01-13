@@ -135,3 +135,49 @@ Na tela de configuração da importação, defina o seguinte:
 
 ### 4. Atualizações Automáticas
 Sempre que você fizer um `git push` para a branch `main` do seu repositório `mri-ui`, a Vercel irá automaticamente reconstruir e atualizar o site do Storybook.
+
+---
+
+## Parte 4: Otimização de Tráfego (Cloudflare & Vercel)
+
+Se você estiver usando contas gratuitas, aqui estão as melhores configurações para otimizar performance e economizar banda.
+
+### 1. Cloudflare (Recomendado para DNS/Proxy)
+
+Se você gerencia seu domínio pelo Cloudflare (proxy laranja ativado), ative estas opções na aba **Speed** > **Optimization**:
+
+1.  **Auto Minify:** Marque *JavaScript*, *CSS* e *HTML*.
+    *   *O que faz:* Remove espaços e comentários inúteis dos arquivos, reduzindo o tamanho do download.
+2.  **Brotli:** Certifique-se de que está **ON**.
+    *   *O que faz:* Compactação mais eficiente que o Gzip.
+3.  **Rocket Loader:** Ative (ON).
+    *   *O que faz:* Prioriza o conteúdo (texto/imagens) e carrega JavaScripts de forma assíncrona. *Nota: Se quebrar algo no site, desative.*
+
+Na aba **Caching** > **Configuration**:
+
+1.  **Caching Level:** Defina como **Standard**.
+2.  **Browser Cache TTL:** Aumente para **1 mês** ou **1 ano** se o conteúdo muda pouco.
+    *   *O que faz:* Diz ao navegador do usuário para guardar arquivos estáticos por mais tempo, evitando baixar de novo.
+3.  **Crawler Hints:** Ative (ON).
+
+**Bônus de Segurança (Scrape Shield):**
+*   Ative **Email Address Obfuscation** para evitar bots de spam.
+*   Ative **Hotlink Protection** para impedir que outros sites usem suas imagens diretamente (economiza banda).
+
+### 2. Vercel (Hospedagem)
+
+A Vercel já faz muita coisa automaticamente, mas você pode garantir o máximo de performance:
+
+1.  **Vercel Edge Network:**
+    *   Seu site já é distribuído globalmente pela CDN da Vercel. Não há configuração extra necessária no plano free.
+
+2.  **Cache de Arquivos Estáticos:**
+    *   Assets gerados pelo Vite (na pasta `assets` com hash no nome) já são servidos com `Cache-Control: immutable`. Isso significa que o navegador nunca pede o arquivo de novo até que você faça um novo deploy (que muda o hash).
+
+3.  **Speed Insights (Analytics):**
+    *   Ative o **Speed Insights** na aba do projeto na Vercel.
+    *   *Plano Grátis:* Permite ver a pontuação real de performance (Core Web Vitals) dos seus usuários. Isso te ajuda a saber se o site está lento em 3G/4G.
+
+4.  **Otimização de Imagens (Cuidado):**
+    *   O componente `<Image />` do Next.js ou Vercel otimiza imagens automaticamente, MAS o plano gratuito tem limite de 1000 otimizações/mês.
+    *   *Dica:* Para sites pequenos/pessoais, prefira enviar as imagens já otimizadas (WebP) e usar a tag `<img>` padrão ou o componente do Storybook para não estourar o limite da Vercel.
