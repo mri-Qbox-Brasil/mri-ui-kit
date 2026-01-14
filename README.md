@@ -5,9 +5,14 @@
 
 Biblioteca oficial de componentes de UI para o ecossistema Mri.
 
-Desenhada para ser moderna, responsiva e com suporte nativo a temas escuros (Dark Mode), utilizando **React**, **Tailwind CSS** e **Radix UI**.
+Desenhada para ser moderna, responsiva e com suporte nativo a temas escuros (Dark Mode), utilizando **React**, **Tailwind CSS**, **Radix UI** e seguindo a arquitetura do **shadcn/ui**.
 
-## Instalação
+## 🚀 Como usar
+
+Você pode utilizar esta biblioteca de duas formas principais:
+
+### 1. Pacote NPM (Uso Tradicional)
+Ideal se você quer apenas usar os componentes prontos e receber atualizações automáticas.
 
 ```bash
 pnpm add @mriqbox/ui-kit
@@ -15,59 +20,55 @@ pnpm add @mriqbox/ui-kit
 npm install @mriqbox/ui-kit
 ```
 
-## Configuração
+**Uso:**
+```tsx
+import { Button } from '@mriqbox/ui-kit';
 
-### 1. CSS Global
+export default function MyComponent() {
+  return <Button>Clique aqui</Button>;
+}
+```
 
-Adicione o CSS da biblioteca no arquivo de entrada da sua aplicação (ex: `main.tsx` ou `App.tsx`):
+### 2. Shadcn CLI / Copy & Paste (Controle Total)
+Ideal se você quer ter o código dos componentes no seu projeto para customizá-los livremente ("Own your UI").
 
+Este projeto contém um arquivo `components.json` na raiz, permitindo o uso da CLI do shadcn.
+
+**Adicionar componente via CLI:**
+No diretório raiz deste projeto:
+```bash
+npx shadcn-ui@latest add button
+```
+Isso irá baixar o código do componente `Button` para `src/components/ui/button.tsx`.
+
+## ⚙️ Configuração (Para uso via NPM)
+
+Se você instalou via NPM, precisa configurar seu projeto para carregar os estilos corretamente.
+
+### 1. Importar CSS Global
+Adicione no seu arquivo de entrada (ex: `main.tsx` ou `App.tsx`):
 ```tsx
 import '@mriqbox/ui-kit/dist/style.css';
 ```
 
-### 2. Tailwind CSS
-
-Para que o Tailwind da sua aplicação reconheça as classes da biblioteca, adicione o caminho do pacote ao seu `tailwind.config.js`:
+### 2. Configurar Tailwind CSS
+No seu `tailwind.config.js`, adicione o caminho da biblioteca para o `content`:
 
 ```js
 module.exports = {
   content: [
     "./src/**/*.{ts,tsx}",
-    "./node_modules/@mriqbox/ui-kit/dist/**/*.{js,mjs}"
+    "./node_modules/@mriqbox/ui-kit/dist/**/*.{js,mjs}" // <--- Adicione esta linha
   ],
   // ...
 }
 ```
 
-## Uso
-
-Importe os componentes diretamente do pacote:
-
-```tsx
-import { Button, Modal } from '@mriqbox/ui-kit';
-
-function App() {
-  return (
-    <div>
-      <Button variant="primary">Clique Aqui</Button>
-
-      <Modal open={true}>
-        {/* Conteúdo do Modal */}
-      </Modal>
-    </div>
-  );
-}
-```
-
-## Documentação
-
+## 📚 Documentação
 Para ver todos os componentes disponíveis e suas propriedades, consulte nosso Storybook:
+[**Acessar Storybook**](https://ui.mriqbox.com.br)
 
-[Link para o Storybook](https://ui.mriqbox.com.br)
-
-## Desenvolvimento
-
-Para rodar o projeto localmente:
+## 🛠️ Desenvolvimento Local
 
 1. Clone o repositório.
 2. Instale dependências: `pnpm install`
