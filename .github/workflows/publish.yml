@@ -46,5 +46,4 @@ jobs:
             echo "Error: NPM_TOKEN is missing. Please add it to repository secrets."
             exit 1
           fi
-          echo "//registry.npmjs.org/:_authToken=${NODE_AUTH_TOKEN}" > .npmrc
           pnpm publish --no-git-checks
