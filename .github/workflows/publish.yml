@@ -43,7 +43,7 @@ jobs:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
         run: |
           if [ -z "$NODE_AUTH_TOKEN" ]; then
-            echo "Error: NPM_TOKEN is missing. Please add it to repository secrets."
+            echo "Error: NODE_AUTH_TOKEN is missing. Please add NPM_TOKEN to repository secrets."
             exit 1
           fi
           pnpm publish --no-git-checks
