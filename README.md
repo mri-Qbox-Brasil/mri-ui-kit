@@ -1,5 +1,8 @@
 # Mri UI
 
+![CI](https://github.com/mri-Qbox-Brasil/mri-ui-kit/actions/workflows/ci.yml/badge.svg)
+![NPM Version](https://img.shields.io/npm/v/@mriqbox/ui-kit)
+
 Biblioteca oficial de componentes de UI para o ecossistema Mri.
 
 Desenhada para ser moderna, responsiva e com suporte nativo a temas escuros (Dark Mode), utilizando **React**, **Tailwind CSS** e **Radix UI**.
