@@ -30,7 +30,7 @@ jobs:
           VERSION=${GITHUB_REF_NAME#v}
           echo "Release Tag: $GITHUB_REF_NAME"
           echo "Setting package version to: $VERSION"
-          npm version $VERSION --no-git-tag-version --allow-same-version
+          pnpm version $VERSION --no-git-tag-version --allow-same-version
 
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
