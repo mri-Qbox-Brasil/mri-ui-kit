@@ -6,7 +6,7 @@ export function Modal({ children, onClose, className }: { children: React.ReactN
   useEffect(() => {
     function onKey(e: KeyboardEvent) {
       if (e.key === 'Escape' || e.key === 'Esc') {
-        onClose && onClose()
+        onClose?.()
       }
     }
     window.addEventListener('keydown', onKey)
@@ -17,11 +17,11 @@ export function Modal({ children, onClose, className }: { children: React.ReactN
   useEffect(() => {
     try {
       document.body.dataset.psModalOpen = 'true'
-    } catch (e) {}
+    } catch {}
     return () => {
       try {
         delete document.body.dataset.psModalOpen
-      } catch (e) {}
+      } catch {}
     }
   }, [])
 

@@ -18,8 +18,7 @@ const options = [
     { label: 'Purple', value: 'purple' },
 ];
 
-export const Default: StoryObj<typeof SelectSearch> = {
-  render: () => {
+const SelectSearchDemo = () => {
     const [value, setValue] = useState('red');
     return (
         <div className="w-[300px]">
@@ -35,5 +34,8 @@ export const Default: StoryObj<typeof SelectSearch> = {
             </div>
         </div>
     )
-  }
+};
+
+export const Default: StoryObj<typeof SelectSearch> = {
+  render: () => <SelectSearchDemo />
 };

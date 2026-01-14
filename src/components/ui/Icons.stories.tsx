@@ -15,7 +15,7 @@ export const AllIcons: StoryObj = {
          if (name === 'default') return null;
          return (
            <div key={name} className="flex flex-col items-center justify-center p-4 border rounded hover:bg-muted/50">
-             {/* @ts-ignore */}
+             {/* @ts-expect-error - IconComponent type is dynamic */}
              <IconComponent className="w-8 h-8 mb-2" />
              <span className="text-xs text-muted-foreground">{name}</span>
            </div>

@@ -25,8 +25,7 @@ const items: SidebarItem[] = [
     { label: 'Settings', route: 'settings', icon: Settings },
 ];
 
-export const Default: StoryObj<typeof Sidebar> = {
-  render: () => {
+const SidebarDemo = () => {
     const [active, setActive] = useState('dashboard');
     const [collapsed, setCollapsed] = useState(false); // Start expanded in story
     return (
@@ -57,5 +56,8 @@ export const Default: StoryObj<typeof Sidebar> = {
             </div>
         </div>
     )
-  }
+};
+
+export const Default: StoryObj<typeof Sidebar> = {
+  render: () => <SidebarDemo />
 };

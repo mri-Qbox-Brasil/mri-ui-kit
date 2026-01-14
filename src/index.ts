@@ -16,3 +16,5 @@ export * from './lib/utils'
 
 // Future exports: Sidebar, etc.
 export * from './components/ui/Sidebar'
+export * from './components/ui/button-variants'
+export * from './components/ui/badge-variants'
