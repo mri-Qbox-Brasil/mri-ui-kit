@@ -24,6 +24,14 @@ jobs:
           node-version: '20.x'
           registry-url: 'https://registry.npmjs.org'
 
+      - name: Sync version with tag
+        run: |
+          # Removes the 'v' prefix if present (e.g. v1.0.0 -> 1.0.0)
+          VERSION=${GITHUB_REF_NAME#v}
+          echo "Release Tag: $GITHUB_REF_NAME"
+          echo "Setting package version to: $VERSION"
+          npm version $VERSION --no-git-tag-version --allow-same-version
+
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
@@ -31,6 +39,12 @@ jobs:
         run: pnpm build
 
       - name: Publish
-        run: pnpm publish --no-git-checks
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+        run: |
+          if [ -z "$NODE_AUTH_TOKEN" ]; then
+            echo "Error: NPM_TOKEN is missing. Please add it to repository secrets."
+            exit 1
+          fi
+          echo "//registry.npmjs.org/:_authToken=${NODE_AUTH_TOKEN}" > .npmrc
+          pnpm publish --no-git-checks
