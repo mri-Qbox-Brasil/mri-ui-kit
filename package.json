@@ -1,7 +1,9 @@
 {
-    "name": "@ps-adminmenu/ui",
-    "private": true,
-    "version": "0.0.1",
+    "name": "@mriqbox/ui-kit",
+    "publishConfig": {
+        "access": "public"
+    },
+    "version": "1.0.1",
     "type": "module",
     "main": "./dist/index.umd.js",
     "module": "./dist/index.es.js",

@@ -7,12 +7,10 @@ Desenhada para ser moderna, responsiva e com suporte nativo a temas escuros (Dar
 ## Instalação
 
 ```bash
-pnpm add @mri-org/ui
+pnpm add @mriqbox/ui-kit
 # ou
-npm install @mri-org/ui
+npm install @mriqbox/ui-kit
 ```
-
-*(Certifique-se de ajustar o nome do pacote conforme publicado no NPM)*
 
 ## Configuração
 
@@ -21,7 +19,7 @@ npm install @mri-org/ui
 Adicione o CSS da biblioteca no arquivo de entrada da sua aplicação (ex: `main.tsx` ou `App.tsx`):
 
 ```tsx
-import '@mri-org/ui/dist/style.css';
+import '@mriqbox/ui-kit/dist/style.css';
 ```
 
 ### 2. Tailwind CSS
@@ -32,7 +30,7 @@ Para que o Tailwind da sua aplicação reconheça as classes da biblioteca, adic
 module.exports = {
   content: [
     "./src/**/*.{ts,tsx}",
-    "./node_modules/@mri-org/ui/dist/**/*.{js,mjs}"
+    "./node_modules/@mriqbox/ui-kit/dist/**/*.{js,mjs}"
   ],
   // ...
 }
@@ -43,7 +41,7 @@ module.exports = {
 Importe os componentes diretamente do pacote:
 
 ```tsx
-import { Button, Modal } from '@mri-org/ui';
+import { Button, Modal } from '@mriqbox/ui-kit';
 
 function App() {
   return (
