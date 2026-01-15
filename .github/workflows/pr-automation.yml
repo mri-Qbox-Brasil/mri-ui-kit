@@ -9,7 +9,7 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       pull-requests: write
-      metadata: read # required to list collaborators
+
     steps:
       - name: Auto-assign reviewers and assignees
         uses: actions/github-script@v7
