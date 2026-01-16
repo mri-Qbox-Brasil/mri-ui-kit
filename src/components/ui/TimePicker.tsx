@@ -44,13 +44,16 @@ export function TimePicker({ value, onChange, disabled, hourLabel = "Hora", minu
         ) {
             return [0, 0];
         }
+const HOURS_OPTIONS = Array.from({ length: 24 }, (_, i) => i);
+const MINUTES_OPTIONS = Array.from({ length: 60 }, (_, i) => i);
 
-        return [hour, minute];
-    };
+export function TimePicker({ value, onChange, disabled, hourLabel = "Hora", minuteLabel = "Minuto" }: TimePickerProps) {
+    const [isOpen, setIsOpen] = React.useState(false);
 
-    const [hours, minutes] = parseTime(value);
-    const hoursOptions = Array.from({ length: 24 }, (_, i) => i);
-    const minutesOptions = Array.from({ length: 60 }, (_, i) => i);
+    const [hours, minutes] = (value || "00:00").split(":").map(Number);
+
+    const hoursOptions = HOURS_OPTIONS;
+    const minutesOptions = MINUTES_OPTIONS;
 
     const handleTimeChange = (type: "hour" | "minute", newVal: number) => {
         let newH = hours;
