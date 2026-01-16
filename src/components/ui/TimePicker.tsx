@@ -17,40 +17,41 @@ interface TimePickerProps {
     minuteLabel?: string;
 }
 
-export function TimePicker({ value, onChange, disabled, hourLabel = "Hora", minuteLabel = "Minuto" }: TimePickerProps) {
-    const [isOpen, setIsOpen] = React.useState(false);
-
-    const parseTime = (time?: string): [number, number] => {
-        if (!time) {
-            return [0, 0];
-        }
-
-        const parts = time.split(":");
-        if (parts.length !== 2) {
-            return [0, 0];
-        }
-
-        const [hourStr, minuteStr] = parts;
-        const hour = Number(hourStr);
-        const minute = Number(minuteStr);
-
-        if (
-            !Number.isFinite(hour) ||
-            !Number.isFinite(minute) ||
-            hour < 0 ||
-            hour > 23 ||
-            minute < 0 ||
-            minute > 59
-        ) {
-            return [0, 0];
-        }
 const HOURS_OPTIONS = Array.from({ length: 24 }, (_, i) => i);
 const MINUTES_OPTIONS = Array.from({ length: 60 }, (_, i) => i);
 
+const parseTime = (time?: string): [number, number] => {
+    if (!time) {
+        return [0, 0];
+    }
+
+    const parts = time.split(":");
+    if (parts.length !== 2) {
+        return [0, 0];
+    }
+
+    const [hourStr, minuteStr] = parts;
+    const hour = Number(hourStr);
+    const minute = Number(minuteStr);
+
+    if (
+        !Number.isFinite(hour) ||
+        !Number.isFinite(minute) ||
+        hour < 0 ||
+        hour > 23 ||
+        minute < 0 ||
+        minute > 59
+    ) {
+        return [0, 0];
+    }
+
+    return [hour, minute];
+};
+
 export function TimePicker({ value, onChange, disabled, hourLabel = "Hora", minuteLabel = "Minuto" }: TimePickerProps) {
     const [isOpen, setIsOpen] = React.useState(false);
 
-    const [hours, minutes] = (value || "00:00").split(":").map(Number);
+    const [hours, minutes] = parseTime(value);
 
     const hoursOptions = HOURS_OPTIONS;
     const minutesOptions = MINUTES_OPTIONS;
