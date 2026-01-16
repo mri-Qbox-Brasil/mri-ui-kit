@@ -1,0 +1,29 @@
+import type { Meta, StoryObj } from '@storybook/react';
+import { ThemeToggle } from './ThemeToggle';
+import { ThemeProvider } from 'next-themes';
+import React from 'react';
+
+const meta: Meta<typeof ThemeToggle> = {
+  title: 'UI/ThemeToggle',
+  component: ThemeToggle,
+  parameters: {
+    layout: 'centered',
+  },
+  tags: ['autodocs'],
+  decorators: [
+    (Story) => (
+      <ThemeProvider attribute="class" defaultTheme="dark" enableSystem>
+        <div className="flex items-center justify-center p-8 bg-background text-foreground border rounded-lg">
+           {/* Wrapper to visualize theme change effect inside the story if possible,
+               although next-themes usually applies to html/body */}
+           <Story />
+        </div>
+      </ThemeProvider>
+    ),
+  ],
+};
+
+export default meta;
+type Story = StoryObj<typeof meta>;
+
+export const Default: Story = {};
