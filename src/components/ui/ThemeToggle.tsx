@@ -4,7 +4,7 @@ import { useTheme } from "next-themes";
 import { Button } from "@/components/ui/Button";
 import { cn } from "@/lib/utils";
 
-export const ThemeToggle = ({ themeLabel = "Tema", themeIconLabel = "Alterar tema", lightLabel = "Claro", darkLabel = "Escuro", systemLabel = "Sistema" }: { disabled?: boolean, themeLabel?: string, themeIconLabel?: string, lightLabel?: string, darkLabel?: string, systemLabel?: string }) => {
+export const ThemeToggle = ({ themeLabel = "Tema", themeIconLabel = "Alterar tema", lightLabel = "Claro", darkLabel = "Escuro", systemLabel = "Sistema" }: { themeLabel?: string, themeIconLabel?: string, lightLabel?: string, darkLabel?: string, systemLabel?: string }) => {
   const { theme, setTheme } = useTheme();
   const [expanded, setExpanded] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);

@@ -44,4 +44,5 @@ export const Disabled: Story = {
   args: {
     disabled: true,
   },
+  render: (args) => <DatePickerWithState {...args} />,
 };
