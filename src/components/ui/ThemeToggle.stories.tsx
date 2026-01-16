@@ -1,7 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { ThemeToggle } from './ThemeToggle';
 import { ThemeProvider } from 'next-themes';
-import React from 'react';
 
 const meta: Meta<typeof ThemeToggle> = {
   title: 'UI/ThemeToggle',
@@ -27,3 +26,13 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {};
+
+export const WithCustomLabels: Story = {
+  args: {
+    themeLabel: "Appearance",
+    themeIconLabel: "Toggle theme",
+    lightLabel: "Light Mode",
+    darkLabel: "Dark Mode",
+    systemLabel: "System Default",
+  },
+};

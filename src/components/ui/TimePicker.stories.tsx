@@ -30,6 +30,14 @@ export const WithPreselectedValue: Story = {
   render: (args) => <TimePickerWithState {...args} />,
 };
 
+export const WithCustomLabels: Story = {
+  args: {
+    hourLabel: "Horas",
+    minuteLabel: "Minutos",
+  },
+  render: (args) => <TimePickerWithState {...args} />,
+};
+
 export const Disabled: Story = {
   render: (args) => {
     return <TimePicker {...args} value="12:00" onChange={() => {}} disabled />;

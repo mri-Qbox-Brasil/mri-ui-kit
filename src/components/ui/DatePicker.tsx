@@ -1,5 +1,5 @@
-import { format } from "date-fns";
-import { ptBR } from "date-fns/locale"; // Opcional: para usar português
+import { format, Locale } from "date-fns";
+import { ptBR } from "date-fns/locale";
 import { CalendarIcon } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/Button";
@@ -15,9 +15,10 @@ interface DatePickerProps {
     onChange: (date: Date | undefined) => void;
     placeholder?: string;
     disabled?: boolean;
+    locale?: Locale;
 }
 
-export function DatePicker({ value, onChange, placeholder = "Selecione", disabled }: DatePickerProps) {
+export function DatePicker({ value, onChange, placeholder = "Selecione", disabled, locale = ptBR }: DatePickerProps) {
     return (
         <Popover>
             <PopoverTrigger asChild>
@@ -39,7 +40,7 @@ export function DatePicker({ value, onChange, placeholder = "Selecione", disable
                     selected={value || undefined}
                     onSelect={onChange}
                     initialFocus
-                    locale={ptBR} // Opcional
+                    locale={locale}
                 />
             </PopoverContent>
         </Popover>

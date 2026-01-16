@@ -4,12 +4,11 @@ import { useTheme } from "next-themes";
 import { Button } from "@/components/ui/Button";
 import { cn } from "@/lib/utils";
 
-export const ThemeToggle = () => {
+export const ThemeToggle = ({ themeLabel = "Tema", themeIconLabel = "Alterar tema", lightLabel = "Claro", darkLabel = "Escuro", systemLabel = "Sistema" }: { disabled?: boolean, themeLabel?: string, themeIconLabel?: string, lightLabel?: string, darkLabel?: string, systemLabel?: string }) => {
   const { theme, setTheme } = useTheme();
   const [expanded, setExpanded] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
 
-  // Fecha ao clicar fora
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (containerRef.current && !containerRef.current.contains(event.target as Node)) {
@@ -21,9 +20,9 @@ export const ThemeToggle = () => {
   }, []);
 
   const items = [
-    { value: "light", icon: Sun, label: "Claro" },
-    { value: "dark", icon: Moon, label: "Escuro" },
-    { value: "system", icon: Laptop, label: "Sistema" },
+    { value: "light", icon: Sun, label: lightLabel },
+    { value: "dark", icon: Moon, label: darkLabel },
+    { value: "system", icon: Laptop, label: systemLabel },
   ];
 
   return (
@@ -36,7 +35,7 @@ export const ThemeToggle = () => {
       onClick={() => {
         if (!expanded) setExpanded(true);
       }}
-      title={expanded ? "Selecione um tema" : "Alterar tema"}
+      title={expanded ? themeLabel : themeIconLabel}
     >
       {items.map((item) => {
         const isActive = theme === item.value;

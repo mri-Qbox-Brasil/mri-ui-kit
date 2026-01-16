@@ -13,15 +13,15 @@ interface TimePickerProps {
     value?: string;
     onChange: (time: string) => void;
     disabled?: boolean;
+    hourLabel?: string;
+    minuteLabel?: string;
 }
 
-export function TimePicker({ value, onChange, disabled }: TimePickerProps) {
+export function TimePicker({ value, onChange, disabled, hourLabel = "Hora", minuteLabel = "Minuto" }: TimePickerProps) {
     const [isOpen, setIsOpen] = React.useState(false);
 
-    // Parse current value
     const [hours, minutes] = (value || "00:00").split(":").map(Number);
 
-    // Generate options
     const hoursOptions = Array.from({ length: 24 }, (_, i) => i);
     const minutesOptions = Array.from({ length: 60 }, (_, i) => i);
 
@@ -59,7 +59,7 @@ export function TimePicker({ value, onChange, disabled }: TimePickerProps) {
                 <div className="flex h-[300px] divide-x divide-border">
                     {/* Hours Column */}
                     <div className="flex flex-col">
-                        <div className="p-2 text-center font-medium bg-muted/50 text-xs">Hora</div>
+                        <div className="p-2 text-center font-medium bg-muted/50 text-xs">{hourLabel}</div>
                         <ScrollArea className="h-full w-[80px]">
                             <div className="p-2 space-y-1">
                                 {hoursOptions.map((h) => (
@@ -82,7 +82,7 @@ export function TimePicker({ value, onChange, disabled }: TimePickerProps) {
 
                     {/* Minutes Column */}
                     <div className="flex flex-col">
-                        <div className="p-2 text-center font-medium bg-muted/50 text-xs">Minuto</div>
+                        <div className="p-2 text-center font-medium bg-muted/50 text-xs">{minuteLabel}</div>
                         <ScrollArea className="h-full w-[80px]">
                             <div className="p-2 space-y-1">
                                 {minutesOptions.map((m) => (

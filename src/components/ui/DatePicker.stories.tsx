@@ -30,6 +30,16 @@ export const WithValue: Story = {
   render: (args) => <DatePickerWithState {...args} />,
 };
 
+import { enUS } from 'date-fns/locale';
+
+export const EnglishLocale: Story = {
+  args: {
+    placeholder: "Select a date",
+    locale: enUS,
+  },
+  render: (args) => <DatePickerWithState {...args} />,
+};
+
 export const Disabled: Story = {
   args: {
     disabled: true,
