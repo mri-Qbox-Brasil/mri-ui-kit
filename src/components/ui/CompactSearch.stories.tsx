@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { CompactSearch } from './CompactSearch';
 
 const meta: Meta<typeof CompactSearch> = {
@@ -22,16 +22,18 @@ const options = [
   { value: 'astro', label: 'Astro' },
 ];
 
+const CompactSearchWithState = (args: React.ComponentProps<typeof CompactSearch>) => {
+  const [value, setValue] = useState(args.value || "");
+  return <CompactSearch {...args} options={options} value={value} onChange={setValue} />;
+};
+
 export const Default: Story = {
-  render: (args) => {
-    const [value, setValue] = useState("");
-    return <CompactSearch {...args} options={options} value={value} onChange={setValue} />;
-  },
+  render: (args) => <CompactSearchWithState {...args} />,
 };
 
 export const Preselected: Story = {
-  render: (args) => {
-    const [value, setValue] = useState("sveltekit");
-    return <CompactSearch {...args} options={options} value={value} onChange={setValue} />;
+  args: {
+    value: "sveltekit",
   },
+  render: (args) => <CompactSearchWithState {...args} />,
 };

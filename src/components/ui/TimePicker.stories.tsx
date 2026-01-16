@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { TimePicker } from './TimePicker';
 
 const meta: Meta<typeof TimePicker> = {
@@ -14,18 +14,20 @@ const meta: Meta<typeof TimePicker> = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-export const Default: Story = {
-  render: (args) => {
-    const [time, setTime] = useState<string>("00:00");
+const TimePickerWithState = (args: React.ComponentProps<typeof TimePicker>) => {
+    const [time, setTime] = useState<string>(args.value || "00:00");
     return <TimePicker {...args} value={time} onChange={setTime} />;
-  },
+};
+
+export const Default: Story = {
+  render: (args) => <TimePickerWithState {...args} />,
 };
 
 export const WithPreselectedValue: Story = {
-  render: (args) => {
-    const [time, setTime] = useState<string>("14:30");
-    return <TimePicker {...args} value={time} onChange={setTime} />;
+  args: {
+    value: "14:30",
   },
+  render: (args) => <TimePickerWithState {...args} />,
 };
 
 export const Disabled: Story = {

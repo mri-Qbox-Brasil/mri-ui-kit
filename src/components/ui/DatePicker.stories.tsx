@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { DatePicker } from './DatePicker';
 
 const meta: Meta<typeof DatePicker> = {
@@ -14,18 +14,20 @@ const meta: Meta<typeof DatePicker> = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
+const DatePickerWithState = (args: React.ComponentProps<typeof DatePicker>) => {
+  const [date, setDate] = useState<Date | undefined>(args.value || undefined);
+  return <DatePicker {...args} value={date} onChange={setDate} />;
+};
+
 export const Default: Story = {
-  render: (args) => {
-    const [date, setDate] = useState<Date | undefined>(undefined);
-    return <DatePicker {...args} value={date} onChange={setDate} />;
-  },
+  render: (args) => <DatePickerWithState {...args} />,
 };
 
 export const WithValue: Story = {
-  render: (args) => {
-    const [date, setDate] = useState<Date | undefined>(new Date());
-    return <DatePicker {...args} value={date} onChange={setDate} />;
+  args: {
+    value: new Date(),
   },
+  render: (args) => <DatePickerWithState {...args} />,
 };
 
 export const Disabled: Story = {
