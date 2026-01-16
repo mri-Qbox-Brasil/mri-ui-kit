@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { useState } from 'react';
+import { enUS } from 'date-fns/locale';
 import { DatePicker } from './DatePicker';
 
 const meta: Meta<typeof DatePicker> = {
@@ -29,8 +30,6 @@ export const WithValue: Story = {
   },
   render: (args) => <DatePickerWithState {...args} />,
 };
-
-import { enUS } from 'date-fns/locale';
 
 export const EnglishLocale: Story = {
   args: {
