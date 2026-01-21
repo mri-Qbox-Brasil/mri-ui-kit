@@ -22,10 +22,10 @@ npm install @mriqbox/ui-kit
 
 **Uso:**
 ```tsx
-import { Button } from '@mriqbox/ui-kit';
+import { MriButton } from '@mriqbox/ui-kit';
 
 export default function MyComponent() {
-  return <Button>Clique aqui</Button>;
+  return <MriButton>Clique aqui</MriButton>;
 }
 ```
 
@@ -34,12 +34,15 @@ Ideal se você quer ter o código dos componentes no seu projeto para customizá
 
 Este projeto contém um arquivo `components.json` na raiz, permitindo o uso da CLI do shadcn.
 
-**Adicionar componente via CLI:**
-No diretório raiz deste projeto:
+**Adicionar componente via CLI (Novo):**
+Você pode adicionar componentes individualmente (estilo Shadcn) direto do nosso repositório:
+
 ```bash
-npx shadcn-ui@latest add button
+npx @mriqbox/ui-kit add mri-button
 ```
-Isso irá baixar o código do componente `Button` para `src/components/ui/button.tsx`.
+Isso irá baixar o código fonte do `MriButton.tsx` para `src/components/ui/MriButton.tsx` (ou diretório configurado, se detectado).
+
+**Nota:** A CLI irá baixar apenas o arquivo do componente. Verifique se ele possui dependências de outros componentes `Mri*` e adicione-os também se necessário.
 
 ## ⚙️ Configuração (Para uso via NPM)
 
