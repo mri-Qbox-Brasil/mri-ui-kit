@@ -13,7 +13,43 @@ import path from 'path';
 import https from 'https';
 
 const program = new Command();
-const BASE_URL = 'https://raw.githubusercontent.com/mri-Qbox-Brasil/mri-ui-kit/main/src/components/ui';
+const BASE_PREFIX = 'https://raw.githubusercontent.com/mri-Qbox-Brasil/mri-ui-kit/main/src/components';
+
+const COMPONENT_MAP = {
+    // Atoms
+    'MriBadge': 'atoms',
+    'MriButton': 'atoms',
+    'MriIcons': 'atoms',
+    'MriInput': 'atoms',
+    'MriScrollArea': 'atoms',
+    'MriStatusBadge': 'atoms',
+    'mri-badge-variants': 'atoms',
+    'mri-button-variants': 'atoms',
+
+    // Molecules
+    'MriButtonGroup': 'molecules',
+    'MriCard': 'molecules',
+    'MriCompactSearch': 'molecules',
+    'MriDialog': 'molecules',
+    'MriModal': 'molecules',
+    'MriPopover': 'molecules',
+    'MriSelectSearch': 'molecules',
+    'MriThemeToggle': 'molecules',
+    'MriTimePicker': 'molecules',
+    'MriCommand': 'molecules',
+    'MriCopyButton': 'molecules',
+    'MriEconomyCard': 'molecules',
+    'MriGridActionButton': 'molecules',
+    'MriSearchInput': 'molecules',
+    'MriSectionHeader': 'molecules',
+    'MriDatePicker': 'molecules',
+
+    // Organisms
+    'MriCalendar': 'organisms',
+    'MriPageHeader': 'organisms',
+    'MriSidebar': 'organisms',
+    'MriTable': 'organisms',
+};
 
 function toPascalCase(str) {
     return str
@@ -25,21 +61,17 @@ function ensureDirectory(dir) {
     }
 }
 
-function downloadFile(url, dest) {
+function fetchFileContent(url) {
     return new Promise((resolve, reject) => {
-        const file = fs.createWriteStream(dest);
         https.get(url, (response) => {
             if (response.statusCode === 200) {
-                response.pipe(file);
-                file.on('finish', () => {
-                    file.close(resolve);
-                });
+                let data = '';
+                response.on('data', (chunk) => data += chunk);
+                response.on('end', () => resolve(data));
             } else {
-                fs.unlink(dest, () => { });
                 reject(new Error(`Failed to download: ${response.statusCode} ${response.statusMessage}`));
             }
         }).on('error', (err) => {
-            fs.unlink(dest, () => { });
             reject(err);
         });
     });
@@ -48,8 +80,6 @@ function downloadFile(url, dest) {
 const visited = new Set();
 
 async function processComponent(componentName, installDir) {
-    let targetName = componentName;
-
     let fileName = componentName;
     let isVariant = componentName.includes('variants');
 
@@ -60,46 +90,58 @@ async function processComponent(componentName, installDir) {
         if (!fileName.startsWith('Mri')) {
             fileName = `Mri${fileName}`;
         }
+    }
+
+    // Check map for directory
+    const componentKey = isVariant ? fileName.replace(/\.ts$/, '') : fileName.replace(/\.tsx$/, '');
+    const category = COMPONENT_MAP[componentKey];
+
+    if (!category) {
+        console.warn(chalk.yellow(`⚠️  Component ${fileName} not found in atomic map. Trying legacy path...`));
+    }
+
+    if (!isVariant) {
         if (!fileName.endsWith('.tsx')) fileName += '.tsx';
     } else {
         if (!fileName.endsWith('.ts')) fileName += '.ts';
     }
+
     if (visited.has(fileName)) return;
     visited.add(fileName);
 
     const destPath = path.join(installDir, fileName);
-    const fileUrl = `${BASE_URL}/${fileName}`;
+
+    // Construct URL
+    const remoteDir = category || 'ui';
+    const fileUrl = `${BASE_PREFIX}/${remoteDir}/${fileName}`;
 
     if (fs.existsSync(destPath)) {
         console.log(chalk.gray(`   ${fileName} already exists.`));
-        // Even if exists, we should scan it for dependencies?
-        // Maybe the user has an outdated version.
-        // For detailed recursion, strictly we should read it.
-        // But let's assume if it exists, its deps are likely handled or user manages it.
-        // To be safe for "fresh" installs, let's scan it anyway if we can read it.
-        // But standard 'add' usually skips or prompts overwrite.
-        // Let's just skip download but continues to scan deps if we want to be thorough.
-        // For this "Simple CLI", let's stop at existence to avoid overwriting user changes.
-        // BUT we must check its imports to ensure children exist.
-        checkDependencies(destPath, installDir);
+        await checkDependencies(destPath, installDir);
         return;
     }
 
     console.log(chalk.cyan(`⬇️  Downloading ${fileName}...`));
     try {
-        await downloadFile(fileUrl, destPath);
+        let content = await fetchFileContent(fileUrl);
+
+        // Rewrite imports to be flat
+        // Replace @/components/(atoms|molecules|organisms)/ with @/components/ui/
+        content = content.replace(/@\/components\/(?:atoms|molecules|organisms)\//g, '@/components/ui/');
+
+        fs.writeFileSync(destPath, content);
+
         console.log(chalk.green(`✅ ${fileName} added.`));
 
-        await checkDependencies(destPath, installDir);
+        await checkDependenciesContent(content, installDir);
 
     } catch (err) {
         console.error(chalk.red(`❌ Error downloading ${fileName}: ${err.message}`));
     }
 }
 
-async function checkDependencies(filePath, installDir) {
+async function checkDependenciesContent(content, installDir) {
     try {
-        const content = fs.readFileSync(filePath, 'utf8');
         const importRegex = /from\s+['"](?:@\/components\/ui\/|\.\/)([^'"]+)['"]/g;
         let match;
 
@@ -110,8 +152,13 @@ async function checkDependencies(filePath, installDir) {
             }
         }
     } catch (e) {
-        console.warn(chalk.yellow(`Could not parse dependencies for ${filePath}`));
+        console.warn(chalk.yellow(`Could not parse dependencies.`));
     }
+}
+
+async function checkDependencies(filePath, installDir) {
+    const content = fs.readFileSync(filePath, 'utf8');
+    await checkDependenciesContent(content, installDir);
 }
 
 program
