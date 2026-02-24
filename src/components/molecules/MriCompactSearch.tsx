@@ -31,6 +31,7 @@ interface MriCompactSearchProps {
   disabled?: boolean
   size?: "default" | "sm"
   error?: boolean | string
+  clearable?: boolean
 }
 
 export function MriCompactSearch({
@@ -42,7 +43,8 @@ export function MriCompactSearch({
   className,
   disabled,
   size = "default",
-  error
+  error,
+  clearable = false
 }: MriCompactSearchProps) {
   const [open, setOpen] = useState(false)
 
@@ -82,7 +84,12 @@ export function MriCompactSearch({
                 key={opt.value}
                 value={opt.label}
                 onSelect={() => {
-                  onChange(String(opt.value))
+                  const newValue = String(opt.value)
+                  if (clearable && String(value) === newValue) {
+                    onChange("")
+                  } else {
+                    onChange(newValue)
+                  }
                   setOpen(false)
                 }}
                 className="aria-selected:bg-accent aria-selected:text-accent-foreground rounded-md cursor-pointer"

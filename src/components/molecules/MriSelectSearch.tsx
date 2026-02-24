@@ -34,6 +34,7 @@ interface MriSelectSearchProps {
   size?: "default" | "sm"
   isLoading?: boolean
   error?: boolean | string
+  clearable?: boolean
 }
 
 export function MriSelectSearch({
@@ -47,7 +48,8 @@ export function MriSelectSearch({
   disabled,
   size = "default",
   isLoading = false,
-  error
+  error,
+  clearable = false
 }: MriSelectSearchProps) {
   const [open, setOpen] = useState(false)
 
@@ -92,7 +94,12 @@ export function MriSelectSearch({
                 key={opt.value}
                 value={opt.label} // Command searches by value/label text content usually
                 onSelect={() => {
-                  onChange(String(opt.value))
+                  const newValue = String(opt.value)
+                  if (clearable && String(value) === newValue) {
+                    onChange("")
+                  } else {
+                    onChange(newValue)
+                  }
                   setOpen(false)
                 }}
                 className="aria-selected:bg-accent aria-selected:text-accent-foreground rounded-md cursor-pointer"
