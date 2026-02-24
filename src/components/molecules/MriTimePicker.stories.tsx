@@ -44,6 +44,13 @@ export const Disabled: Story = {
   },
 };
 
+export const ErrorState: Story = {
+  args: {
+    error: "Invalide time",
+  },
+  render: (args) => <TimePickerWithState {...args} />,
+};
+
 export const Small: Story = {
   args: {
     size: 'sm',

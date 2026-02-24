@@ -16,6 +16,7 @@ interface MriTimePickerProps {
     hourLabel?: string;
     minuteLabel?: string;
     size?: "default" | "sm";
+    error?: boolean | string;
 }
 
 const HOURS_OPTIONS = Array.from({ length: 24 }, (_, i) => i);
@@ -49,7 +50,7 @@ const parseTime = (time?: string): [number, number] => {
     return [hour, minute];
 };
 
-export function MriTimePicker({ value, onChange, disabled, hourLabel = "Hora", minuteLabel = "Minuto", size = "default" }: MriTimePickerProps) {
+export function MriTimePicker({ value, onChange, disabled, hourLabel = "Hora", minuteLabel = "Minuto", size = "default", error }: MriTimePickerProps) {
     const [isOpen, setIsOpen] = React.useState(false);
 
     const [hours, minutes] = parseTime(value);
@@ -73,20 +74,28 @@ export function MriTimePicker({ value, onChange, disabled, hourLabel = "Hora", m
     return (
         <MriPopover open={isOpen} onOpenChange={setIsOpen}>
             <MriPopoverTrigger asChild>
-                <MriButton
-                    variant="outline"
-                    size={size}
-                    className={cn(
-                        "w-full min-w-[120px] justify-start pl-3 text-left font-normal",
-                        !value && "text-muted-foreground"
+                <div className="w-full space-y-1">
+                    <MriButton
+                        variant="outline"
+                        size={size}
+                        className={cn(
+                            "w-full min-w-[120px] justify-start pl-3 text-left font-normal",
+                            !value && "text-muted-foreground",
+                            error && "border-destructive focus:ring-destructive"
+                        )}
+                        disabled={disabled}
+                    >
+                        <div className="flex items-center w-full gap-2">
+                            <span>{value || "00:00"}</span>
+                            <Clock className="ml-auto h-4 w-4 opacity-50" />
+                        </div>
+                    </MriButton>
+                    {typeof error === "string" && (
+                        <p className="text-[10px] font-medium text-destructive px-1 animate-in fade-in slide-in-from-top-1">
+                            {error}
+                        </p>
                     )}
-                    disabled={disabled}
-                >
-                    <div className="flex items-center w-full gap-2">
-                        <span>{value || "00:00"}</span>
-                        <Clock className="ml-auto h-4 w-4 opacity-50" />
-                    </div>
-                </MriButton>
+                </div>
             </MriPopoverTrigger>
             <MriPopoverContent className="w-auto p-0 bg-card border-border" align="start">
                 <div className="flex h-[300px] divide-x divide-border">

@@ -44,3 +44,10 @@ export const Small: Story = {
   },
   render: (args) => <CompactSearchWithState {...args} />,
 };
+
+export const ErrorState: Story = {
+  args: {
+    error: "Location not found",
+  },
+  render: (args) => <CompactSearchWithState {...args} />,
+};

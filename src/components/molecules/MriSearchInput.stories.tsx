@@ -41,3 +41,12 @@ export const Small: Story = {
     },
     render: (args) => <SearchInputWrapper {...args} />
 }
+
+export const ErrorState: Story = {
+    args: {
+        placeholder: 'Search...',
+        value: 'broken',
+        error: 'Search service is currently unavailable.'
+    },
+    render: (args) => <SearchInputWrapper {...args} />
+}

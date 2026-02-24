@@ -40,6 +40,27 @@ export const Default: StoryObj<typeof MriSelectSearch> = {
   render: () => <SelectSearchDemo />
 };
 
+export const Loading: StoryObj<typeof MriSelectSearch> = {
+  args: {
+    options: [],
+    isLoading: true,
+    placeholder: "Fetching data...",
+  }
+};
+
+export const ErrorState: StoryObj<typeof MriSelectSearch> = {
+  args: {
+    options,
+    value: "red",
+    error: "You must select a valid color from the list.",
+  },
+  render: (args) => (
+    <div className="w-[300px]">
+      <MriSelectSearch {...args} />
+    </div>
+  )
+};
+
 const SmallSelectSearchDemo = () => {
     const [value, setValue] = useState('red');
     return (

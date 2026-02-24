@@ -37,9 +37,27 @@ export const WithValue: Story = {
   },
 }
 
+import { Mail, ShieldCheck } from 'lucide-react'
+
 export const Small: Story = {
   args: {
     size: 'sm',
     placeholder: 'Small input...',
+  },
+}
+
+export const WithIcons: Story = {
+  args: {
+    placeholder: 'Email',
+    leftIcon: <Mail />,
+    rightIcon: <ShieldCheck className="text-primary" />,
+  },
+}
+
+export const ErrorState: Story = {
+  args: {
+    placeholder: 'Invalid input',
+    error: 'This field is required and must be valid.',
+    value: 'Wrong value',
   },
 }

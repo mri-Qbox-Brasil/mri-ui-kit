@@ -32,6 +32,8 @@ interface MriSelectSearchProps {
   className?: string
   disabled?: boolean
   size?: "default" | "sm"
+  isLoading?: boolean
+  error?: boolean | string
 }
 
 export function MriSelectSearch({
@@ -43,7 +45,9 @@ export function MriSelectSearch({
   emptyMessage = "No results found.",
   className,
   disabled,
-  size = "default"
+  size = "default",
+  isLoading = false,
+  error
 }: MriSelectSearchProps) {
   const [open, setOpen] = useState(false)
 
@@ -52,19 +56,31 @@ export function MriSelectSearch({
   return (
     <MriPopover open={open} onOpenChange={setOpen}>
       <MriPopoverTrigger asChild>
-        <MriButton
-          variant="outline"
-          role="combobox"
-          disabled={disabled}
-          aria-expanded={open}
-          size={size}
-          className={cn("w-full justify-between bg-background border-border hover:bg-muted hover:text-foreground text-foreground", className)}
-        >
-          <span className="truncate">
-            {selectedOption ? selectedOption.label : placeholder}
-          </span>
-          <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
-        </MriButton>
+        <div className="w-full space-y-1">
+          <MriButton
+            variant="outline"
+            role="combobox"
+            disabled={disabled || isLoading}
+            isLoading={isLoading}
+            aria-expanded={open}
+            size={size}
+            className={cn(
+              "w-full justify-between bg-background border-border hover:bg-muted hover:text-foreground text-foreground",
+              error && "border-destructive focus:ring-destructive",
+              className
+            )}
+          >
+            <span className="truncate">
+              {selectedOption ? selectedOption.label : placeholder}
+            </span>
+            <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
+          </MriButton>
+          {typeof error === "string" && (
+            <p className="text-[10px] font-medium text-destructive px-1 animate-in fade-in slide-in-from-top-1">
+              {error}
+            </p>
+          )}
+        </div>
       </MriPopoverTrigger>
       <MriPopoverContent className="w-[--radix-popover-trigger-width] p-0 border-border bg-popover">
         <MriCommand className="bg-transparent">

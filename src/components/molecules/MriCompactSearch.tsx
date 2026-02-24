@@ -30,6 +30,7 @@ interface MriCompactSearchProps {
   className?: string
   disabled?: boolean
   size?: "default" | "sm"
+  error?: boolean | string
 }
 
 export function MriCompactSearch({
@@ -40,27 +41,36 @@ export function MriCompactSearch({
   emptyMessage = "No results found.",
   className,
   disabled,
-  size = "default"
+  size = "default",
+  error
 }: MriCompactSearchProps) {
   const [open, setOpen] = useState(false)
 
   return (
     <MriPopover open={open} onOpenChange={setOpen}>
       <MriPopoverTrigger asChild>
-        <MriButton
-          variant="ghost"
-          size={size === "sm" ? "sm" : "icon"}
-          disabled={disabled}
-          aria-expanded={open}
-          className={cn(
-            "aspect-square p-0 border border-input rounded-md bg-background/50 backdrop-blur-sm hover:bg-accent/50 text-muted-foreground hover:text-foreground transition-all duration-300 shadow-sm",
-            size === "default" && "!h-[42px] !w-[42px]",
-            size === "sm" && "!h-8 !w-8",
-            className
+        <div className="flex flex-col gap-1 items-center">
+          <MriButton
+            variant="ghost"
+            size={size === "sm" ? "sm" : "icon"}
+            disabled={disabled}
+            aria-expanded={open}
+            className={cn(
+              "aspect-square p-0 border rounded-md bg-background/50 backdrop-blur-sm hover:bg-accent/50 text-muted-foreground hover:text-foreground transition-all duration-300 shadow-sm",
+              error ? "border-destructive text-destructive" : "border-input",
+              size === "default" && "!h-[42px] !w-[42px]",
+              size === "sm" && "!h-8 !w-8",
+              className
+            )}
+          >
+            <Search className="h-4 w-4" />
+          </MriButton>
+          {typeof error === "string" && (
+            <p className="text-[10px] font-medium text-destructive animate-in fade-in slide-in-from-top-1 whitespace-nowrap">
+              {error}
+            </p>
           )}
-        >
-          <Search className="h-4 w-4" />
-        </MriButton>
+        </div>
       </MriPopoverTrigger>
       <MriPopoverContent className="w-[200px] p-0 border-border bg-popover" align="start">
         <MriCommand className="bg-transparent">
