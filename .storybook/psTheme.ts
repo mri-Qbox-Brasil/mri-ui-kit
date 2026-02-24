@@ -3,7 +3,7 @@ import { create } from '@storybook/theming';
 export default create({
   base: 'dark',
   brandTitle: 'Mri UI',
-  brandUrl: 'https://github.com/mri-Qbox-Brasil/mri-ui',
+  brandUrl: 'https://github.com/mri-Qbox-Brasil/mri-ui-kit',
   brandImage: 'https://assets.mriqbox.com.br/branding/logo96.png',
   brandTarget: '_self',
 
