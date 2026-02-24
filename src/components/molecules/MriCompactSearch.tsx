@@ -29,6 +29,7 @@ interface MriCompactSearchProps {
   emptyMessage?: string
   className?: string
   disabled?: boolean
+  size?: "default" | "sm"
 }
 
 export function MriCompactSearch({
@@ -38,7 +39,8 @@ export function MriCompactSearch({
   searchPlaceholder = "Search...",
   emptyMessage = "No results found.",
   className,
-  disabled
+  disabled,
+  size = "default"
 }: MriCompactSearchProps) {
   const [open, setOpen] = useState(false)
 
@@ -47,11 +49,13 @@ export function MriCompactSearch({
       <MriPopoverTrigger asChild>
         <MriButton
           variant="ghost"
-          size="icon"
+          size={size === "sm" ? "sm" : "icon"}
           disabled={disabled}
           aria-expanded={open}
           className={cn(
-            "aspect-square !h-[42px] !w-[42px] p-0 border border-input rounded-md bg-background/50 backdrop-blur-sm hover:bg-accent/50 text-muted-foreground hover:text-foreground transition-all duration-300 shadow-sm",
+            "aspect-square p-0 border border-input rounded-md bg-background/50 backdrop-blur-sm hover:bg-accent/50 text-muted-foreground hover:text-foreground transition-all duration-300 shadow-sm",
+            size === "default" && "!h-[42px] !w-[42px]",
+            size === "sm" && "!h-8 !w-8",
             className
           )}
         >

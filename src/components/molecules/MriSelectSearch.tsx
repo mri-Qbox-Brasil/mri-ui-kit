@@ -31,6 +31,7 @@ interface MriSelectSearchProps {
   emptyMessage?: string
   className?: string
   disabled?: boolean
+  size?: "default" | "sm"
 }
 
 export function MriSelectSearch({
@@ -41,7 +42,8 @@ export function MriSelectSearch({
   searchPlaceholder = "Search...",
   emptyMessage = "No results found.",
   className,
-  disabled
+  disabled,
+  size = "default"
 }: MriSelectSearchProps) {
   const [open, setOpen] = useState(false)
 
@@ -55,6 +57,7 @@ export function MriSelectSearch({
           role="combobox"
           disabled={disabled}
           aria-expanded={open}
+          size={size}
           className={cn("w-full justify-between bg-background border-border hover:bg-muted hover:text-foreground text-foreground", className)}
         >
           <span className="truncate">

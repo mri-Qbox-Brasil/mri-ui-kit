@@ -37,3 +37,10 @@ export const Preselected: Story = {
   },
   render: (args) => <CompactSearchWithState {...args} />,
 };
+
+export const Small: Story = {
+  args: {
+    size: "sm",
+  },
+  render: (args) => <CompactSearchWithState {...args} />,
+};

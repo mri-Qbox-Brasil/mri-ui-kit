@@ -45,3 +45,10 @@ export const Disabled: Story = {
   },
   render: (args) => <DatePickerWithState {...args} />,
 };
+
+export const Small: Story = {
+  args: {
+    size: 'sm',
+  },
+  render: (args) => <DatePickerWithState {...args} />,
+};

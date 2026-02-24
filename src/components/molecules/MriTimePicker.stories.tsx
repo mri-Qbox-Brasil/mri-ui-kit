@@ -43,3 +43,10 @@ export const Disabled: Story = {
     return <MriTimePicker {...args} value="12:00" onChange={() => {}} disabled />;
   },
 };
+
+export const Small: Story = {
+  args: {
+    size: 'sm',
+  },
+  render: (args) => <TimePickerWithState {...args} />,
+};

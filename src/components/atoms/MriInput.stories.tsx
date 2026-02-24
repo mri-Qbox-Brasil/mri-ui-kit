@@ -36,3 +36,10 @@ export const WithValue: Story = {
     readOnly: true,
   },
 }
+
+export const Small: Story = {
+  args: {
+    size: 'sm',
+    placeholder: 'Small input...',
+  },
+}

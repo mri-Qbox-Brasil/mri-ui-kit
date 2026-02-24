@@ -15,6 +15,7 @@ interface MriTimePickerProps {
     disabled?: boolean;
     hourLabel?: string;
     minuteLabel?: string;
+    size?: "default" | "sm";
 }
 
 const HOURS_OPTIONS = Array.from({ length: 24 }, (_, i) => i);
@@ -48,7 +49,7 @@ const parseTime = (time?: string): [number, number] => {
     return [hour, minute];
 };
 
-export function MriTimePicker({ value, onChange, disabled, hourLabel = "Hora", minuteLabel = "Minuto" }: MriTimePickerProps) {
+export function MriTimePicker({ value, onChange, disabled, hourLabel = "Hora", minuteLabel = "Minuto", size = "default" }: MriTimePickerProps) {
     const [isOpen, setIsOpen] = React.useState(false);
 
     const [hours, minutes] = parseTime(value);
@@ -74,6 +75,7 @@ export function MriTimePicker({ value, onChange, disabled, hourLabel = "Hora", m
             <MriPopoverTrigger asChild>
                 <MriButton
                     variant="outline"
+                    size={size}
                     className={cn(
                         "w-full min-w-[120px] justify-start pl-3 text-left font-normal",
                         !value && "text-muted-foreground"

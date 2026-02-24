@@ -39,3 +39,26 @@ const SelectSearchDemo = () => {
 export const Default: StoryObj<typeof MriSelectSearch> = {
   render: () => <SelectSearchDemo />
 };
+
+const SmallSelectSearchDemo = () => {
+    const [value, setValue] = useState('red');
+    return (
+        <div className="w-[300px]">
+            <MriSelectSearch
+                options={options}
+                value={value}
+                onChange={setValue}
+                size="sm"
+                placeholder="Pick a color"
+                searchPlaceholder="Search colors..."
+            />
+            <div className="mt-4 text-sm text-gray-500">
+                Selected: {value}
+            </div>
+        </div>
+    )
+};
+
+export const Small: StoryObj<typeof MriSelectSearch> = {
+  render: () => <SmallSelectSearchDemo />
+};

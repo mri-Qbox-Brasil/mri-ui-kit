@@ -16,14 +16,16 @@ interface MriDatePickerProps {
     placeholder?: string;
     disabled?: boolean;
     locale?: Locale;
+    size?: "default" | "sm";
 }
 
-export function MriDatePicker({ value, onChange, placeholder = "Selecione", disabled, locale = ptBR }: MriDatePickerProps) {
+export function MriDatePicker({ value, onChange, placeholder = "Selecione", disabled, locale = ptBR, size = "default" }: MriDatePickerProps) {
     return (
         <MriPopover>
             <MriPopoverTrigger asChild>
                 <MriButton
                     variant="outline"
+                    size={size}
                     className={cn(
                         "w-full justify-start pl-3 text-left font-normal",
                         !value && "text-muted-foreground"
