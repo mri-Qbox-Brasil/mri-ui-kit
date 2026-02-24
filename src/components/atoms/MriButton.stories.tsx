@@ -78,3 +78,10 @@ export const Large: Story = {
     children: 'Large',
   },
 };
+
+export const Loading: Story = {
+  args: {
+    isLoading: true,
+    children: 'Please wait',
+  },
+};

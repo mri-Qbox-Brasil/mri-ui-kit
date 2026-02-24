@@ -8,6 +8,8 @@ export interface MriSearchInputProps {
   placeholder?: string
   className?: string
   width?: string
+  size?: "default" | "sm"
+  error?: boolean | string
 }
 
 export function MriSearchInput({
@@ -15,16 +17,20 @@ export function MriSearchInput({
   onChange,
   placeholder,
   className,
-  width = "w-80"
+  width = "w-80",
+  size = "default",
+  error
 }: MriSearchInputProps) {
   return (
     <div className={cn("relative", width, className)}>
-        <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground pointer-events-none" />
+        <Search className={cn("absolute left-3 top-2.5 w-4 h-4 text-muted-foreground pointer-events-none z-10", size === "sm" && "top-2")} />
         <MriInput
             placeholder={placeholder}
             value={value}
             onChange={(e) => onChange(e.target.value)}
-            className="pl-9 bg-card border-border focus:border-primary/50 h-10 w-full transition-colors"
+            size={size}
+            error={error}
+            className={cn("pl-9 bg-card border-border focus:border-primary/50 w-full transition-colors", size === "default" && "h-10")}
         />
     </div>
   )

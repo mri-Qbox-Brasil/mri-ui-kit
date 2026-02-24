@@ -16,23 +16,34 @@ interface MriDatePickerProps {
     placeholder?: string;
     disabled?: boolean;
     locale?: Locale;
+    size?: "default" | "sm";
+    error?: boolean | string;
 }
 
-export function MriDatePicker({ value, onChange, placeholder = "Selecione", disabled, locale = ptBR }: MriDatePickerProps) {
+export function MriDatePicker({ value, onChange, placeholder = "Selecione", disabled, locale = ptBR, size = "default", error }: MriDatePickerProps) {
     return (
         <MriPopover>
             <MriPopoverTrigger asChild>
-                <MriButton
-                    variant="outline"
-                    className={cn(
-                        "w-full justify-start pl-3 text-left font-normal",
-                        !value && "text-muted-foreground"
+                <div className="w-full space-y-1">
+                    <MriButton
+                        variant="outline"
+                        size={size}
+                        className={cn(
+                            "w-full justify-start pl-3 text-left font-normal",
+                            !value && "text-muted-foreground",
+                            error && "border-destructive focus:ring-destructive"
+                        )}
+                        disabled={disabled}
+                    >
+                        {value ? format(value, "dd/MM/yyyy") : <span>{placeholder}</span>}
+                        <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
+                    </MriButton>
+                    {typeof error === "string" && (
+                        <p className="text-[10px] font-medium text-destructive px-1 animate-in fade-in slide-in-from-top-1">
+                            {error}
+                        </p>
                     )}
-                    disabled={disabled}
-                >
-                    {value ? format(value, "dd/MM/yyyy") : <span>{placeholder}</span>}
-                    <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
-                </MriButton>
+                </div>
             </MriPopoverTrigger>
             <MriPopoverContent className="w-auto p-0" align="start">
                 <MriCalendar

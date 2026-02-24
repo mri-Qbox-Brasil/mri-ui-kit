@@ -32,3 +32,21 @@ export const CustomWidth: Story = {
     },
     render: (args) => <div className="w-[500px] border p-4"><SearchInputWrapper {...args} /></div>
 }
+
+export const Small: Story = {
+    args: {
+        placeholder: 'Small search...',
+        value: '',
+        size: 'sm'
+    },
+    render: (args) => <SearchInputWrapper {...args} />
+}
+
+export const ErrorState: Story = {
+    args: {
+        placeholder: 'Search...',
+        value: 'broken',
+        error: 'Search service is currently unavailable.'
+    },
+    render: (args) => <SearchInputWrapper {...args} />
+}

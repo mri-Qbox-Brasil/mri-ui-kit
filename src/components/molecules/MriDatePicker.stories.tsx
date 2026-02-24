@@ -45,3 +45,17 @@ export const Disabled: Story = {
   },
   render: (args) => <DatePickerWithState {...args} />,
 };
+
+export const ErrorState: Story = {
+  args: {
+    error: "Field is required",
+  },
+  render: (args) => <DatePickerWithState {...args} />,
+};
+
+export const Small: Story = {
+  args: {
+    size: 'sm',
+  },
+  render: (args) => <DatePickerWithState {...args} />,
+};
