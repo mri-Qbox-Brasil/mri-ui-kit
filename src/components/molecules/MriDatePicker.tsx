@@ -18,9 +18,21 @@ interface MriDatePickerProps {
     locale?: Locale;
     size?: "default" | "sm";
     error?: boolean | string;
+    fromDate?: Date;
+    toDate?: Date;
 }
 
-export function MriDatePicker({ value, onChange, placeholder = "Selecione", disabled, locale = ptBR, size = "default", error }: MriDatePickerProps) {
+export function MriDatePicker({
+    value,
+    onChange,
+    placeholder = "Selecione",
+    disabled,
+    locale = ptBR,
+    size = "default",
+    error,
+    fromDate,
+    toDate
+}: MriDatePickerProps) {
     return (
         <MriPopover>
             <MriPopoverTrigger asChild>
@@ -52,6 +64,8 @@ export function MriDatePicker({ value, onChange, placeholder = "Selecione", disa
                     onSelect={onChange}
                     initialFocus
                     locale={locale}
+                    fromDate={fromDate}
+                    toDate={toDate}
                 />
             </MriPopoverContent>
         </MriPopover>
