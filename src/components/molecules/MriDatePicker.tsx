@@ -22,17 +22,7 @@ interface MriDatePickerProps {
     toDate?: Date;
 }
 
-export function MriDatePicker({
-    value,
-    onChange,
-    placeholder = "Selecione",
-    disabled,
-    locale = ptBR,
-    size = "default",
-    error,
-    fromDate,
-    toDate
-}: MriDatePickerProps) {
+export function MriDatePicker({ value, onChange, placeholder = "Selecione", disabled, locale = ptBR, size = "default", error, fromDate, toDate }: MriDatePickerProps) {
     return (
         <MriPopover>
             <MriPopoverTrigger asChild>

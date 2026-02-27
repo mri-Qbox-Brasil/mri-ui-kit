@@ -11,7 +11,17 @@ export default {
   tags: ['autodocs'],
 };
 
-const ActionModalDemo = ({ title, icon, variant, children, confirmLabel }: any) => {
+import { LucideIcon } from "lucide-react";
+
+interface ActionModalDemoProps {
+  title: string;
+  icon: LucideIcon;
+  variant?: "warning" | "destructive" | "default";
+  children: React.ReactNode;
+  confirmLabel?: string;
+}
+
+const ActionModalDemo = ({ title, icon, variant, children, confirmLabel }: ActionModalDemoProps) => {
   const [open, setOpen] = useState(false);
   return (
     <>

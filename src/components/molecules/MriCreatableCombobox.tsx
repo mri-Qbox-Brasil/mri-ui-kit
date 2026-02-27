@@ -9,7 +9,7 @@ import { MriCommand, MriCommandEmpty, MriCommandGroup, MriCommandInput, MriComma
 export interface MriCreatableComboboxOption {
   label: string
   value: string
-  [key: string]: any
+  [key: string]: unknown
 }
 
 export interface MriCreatableComboboxProps {

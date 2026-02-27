@@ -1,192 +1,204 @@
 import * as React from "react"
 import { ChevronLeft, ChevronRight } from "lucide-react"
 import { DayPicker } from "react-day-picker"
-import { format, addYears, setMonth, setYear } from "date-fns"
+import { format, addYears, setMonth, setYear, isBefore, isAfter, startOfMonth, endOfMonth, startOfYear, endOfYear } from "date-fns"
 import { ptBR } from "date-fns/locale"
 
 import { cn } from "@/lib/utils"
 import { mriButtonVariants } from "@/components/atoms/mri-button-variants"
+import { MriButton } from "@/components/atoms/MriButton"
+import { MriScrollArea } from "@/components/atoms/MriScrollArea"
 
-export type MriCalendarProps = React.ComponentProps<typeof DayPicker>
+export type MriCalendarProps = React.ComponentProps<typeof DayPicker> & {
+    fromDate?: Date
+    toDate?: Date
+}
 
 function MriCalendar({
   className,
   classNames,
   showOutsideDays = true,
-  month,
-  onMonthChange,
   ...props
 }: MriCalendarProps) {
-  const [view, setView] = React.useState<"days" | "months" | "years">("days")
-  const [internalMonth, setInternalMonth] = React.useState<Date>(() => {
-    if (month) return month
-    if (props.defaultMonth) return props.defaultMonth
-    if (props.selected instanceof Date) return props.selected
-    return new Date()
-  })
+  const [viewMode, setViewMode] = React.useState<'days' | 'months' | 'years'>('days')
+  const [internalMonth, setInternalMonth] = React.useState<Date>(props.month || props.defaultMonth || new Date())
 
-  // Keep internal month synced if controlled month changes
+  // Sync internalMonth with props if they change
   React.useEffect(() => {
-    if (month) {
-      setInternalMonth(month)
+    if (props.month) {
+        setInternalMonth(props.month)
     }
-  }, [month])
-
-  const displayMonth = month || internalMonth
+  }, [props.month])
 
   const handleMonthChange = (newMonth: Date) => {
     setInternalMonth(newMonth)
-    onMonthChange?.(newMonth)
+    if (props.onMonthChange) {
+        props.onMonthChange(newMonth)
+    }
   }
 
-  if (view === "months") {
+  const renderMonthPicker = () => {
+    const months = [
+      "Jan", "Fev", "Mar", "Abr", "Mai", "Jun",
+      "Jul", "Ago", "Set", "Out", "Nov", "Dez"
+    ]
+    const currentYear = internalMonth.getFullYear()
+
     return (
-      <div className={cn("p-3", className)}>
-        <div className="flex justify-between items-center pt-1 relative pb-4">
-          <button
-            type="button"
-            onClick={() => handleMonthChange(addYears(displayMonth, -1))}
-            disabled={props.fromDate && displayMonth.getFullYear() <= props.fromDate.getFullYear()}
-            className={cn(
-              mriButtonVariants({ variant: "outline" }),
-              "h-7 w-7 bg-transparent p-0 opacity-50 hover:opacity-100 absolute left-1 disabled:opacity-20"
-            )}
-          >
-            <ChevronLeft className="h-4 w-4" />
-          </button>
+      <div className="grid grid-cols-3 gap-2 p-3">
+        {months.map((m, i) => {
+          const date = setMonth(new Date(currentYear, 0, 1), i)
+          const isSelected = internalMonth.getMonth() === i
 
-          <button
-            type="button"
-            className={cn(
-              mriButtonVariants({ variant: "ghost" }),
-              "h-7 px-2 text-sm font-medium mx-auto"
-            )}
-            onClick={() => setView("years")}
-          >
-            {format(displayMonth, "yyyy")}
-          </button>
+          let isDisabled = false
+          if (props.fromDate) {
+             isDisabled = isBefore(endOfMonth(date), props.fromDate)
+          }
+          if (props.toDate) {
+             isDisabled = isDisabled || isAfter(startOfMonth(date), props.toDate)
+          }
 
-          <button
-            type="button"
-            onClick={() => handleMonthChange(addYears(displayMonth, 1))}
-            disabled={props.toDate && displayMonth.getFullYear() >= props.toDate.getFullYear()}
-            className={cn(
-              mriButtonVariants({ variant: "outline" }),
-              "h-7 w-7 bg-transparent p-0 opacity-50 hover:opacity-100 absolute right-1 disabled:opacity-20"
-            )}
-          >
-            <ChevronRight className="h-4 w-4" />
-          </button>
-        </div>
-
-        <div className="grid grid-cols-4 gap-2 mt-4">
-          {Array.from({ length: 12 }).map((_, i) => {
-            const isSelected = displayMonth.getMonth() === i
-
-            let isDisabled = false
-            if (props.fromDate) {
-              const fromYear = props.fromDate.getFullYear()
-              const fromMonth = props.fromDate.getMonth()
-              if (displayMonth.getFullYear() < fromYear || (displayMonth.getFullYear() === fromYear && i < fromMonth)) {
-                isDisabled = true
-              }
-            }
-            if (props.toDate) {
-              const toYear = props.toDate.getFullYear()
-              const toMonth = props.toDate.getMonth()
-              if (displayMonth.getFullYear() > toYear || (displayMonth.getFullYear() === toYear && i > toMonth)) {
-                isDisabled = true
-              }
-            }
-
-            return (
-              <button
-                key={i}
-                type="button"
-                disabled={isDisabled}
-                className={cn(
-                  mriButtonVariants({ variant: isSelected ? "default" : "ghost" }),
-                  "h-10 w-full font-normal disabled:opacity-20 disabled:cursor-not-allowed"
-                )}
-                onClick={() => {
-                  handleMonthChange(setMonth(displayMonth, i))
-                  setView("days")
-                }}
-              >
-                {format(new Date(2000, i, 1), "MMM", { locale: props.locale || ptBR })}
-              </button>
-            )
-          })}
-        </div>
+          return (
+            <MriButton
+              key={m}
+              variant="ghost"
+              size="sm"
+              disabled={isDisabled}
+              className={cn(
+                "h-9 font-normal justify-center",
+                isSelected && "bg-primary text-primary-foreground hover:bg-primary hover:text-primary-foreground"
+              )}
+              onClick={() => {
+                handleMonthChange(date)
+                setViewMode('days')
+              }}
+            >
+              {m}
+            </MriButton>
+          )
+        })}
       </div>
     )
   }
 
-  if (view === "years") {
-    const currentYear = displayMonth.getFullYear()
-    const startYear = Math.floor(currentYear / 10) * 10
-    const years = Array.from({ length: 12 }).map((_, i) => startYear - 1 + i)
+  const renderYearPicker = () => {
+    const currentYear = internalMonth.getFullYear()
+    const startDecade = Math.floor(currentYear / 12) * 12
+    const years = Array.from({ length: 12 }, (_, i) => startDecade + i)
 
     return (
-      <div className={cn("p-3", className)}>
-        <div className="flex justify-between items-center pt-1 relative pb-4">
-          <button
-            type="button"
-            onClick={() => handleMonthChange(addYears(displayMonth, -10))}
-            disabled={props.fromDate && years[0] <= props.fromDate.getFullYear()}
-            className={cn(
-              mriButtonVariants({ variant: "outline" }),
-              "h-7 w-7 bg-transparent p-0 opacity-50 hover:opacity-100 absolute left-1 disabled:opacity-20"
-            )}
-          >
-            <ChevronLeft className="h-4 w-4" />
-          </button>
-
-          <div className={cn(
-            mriButtonVariants({ variant: "ghost" }),
-            "h-7 px-2 text-sm font-medium mx-auto cursor-pointer pointer-events-none"
-          )}>
-            {years[0]} - {years[years.length - 1]}
-          </div>
-
-          <button
-            type="button"
-            onClick={() => handleMonthChange(addYears(displayMonth, 10))}
-            disabled={props.toDate && years[years.length - 1] >= props.toDate.getFullYear()}
-            className={cn(
-              mriButtonVariants({ variant: "outline" }),
-              "h-7 w-7 bg-transparent p-0 opacity-50 hover:opacity-100 absolute right-1 disabled:opacity-20"
-            )}
-          >
-            <ChevronRight className="h-4 w-4" />
-          </button>
-        </div>
-
-        <div className="grid grid-cols-4 gap-2 mt-4">
+      <MriScrollArea className="h-[200px] p-3">
+        <div className="grid grid-cols-3 gap-2">
           {years.map((y) => {
-            const isSelected = displayMonth.getFullYear() === y
-            const isDisabled = (props.fromDate && y < props.fromDate.getFullYear()) ||
-                               (props.toDate && y > props.toDate.getFullYear())
+            const date = setYear(internalMonth, y)
+            const isSelected = currentYear === y
+
+            let isDisabled = false
+            if (props.fromDate) {
+                isDisabled = isBefore(endOfYear(date), props.fromDate)
+            }
+            if (props.toDate) {
+                isDisabled = isDisabled || isAfter(startOfYear(date), props.toDate)
+            }
 
             return (
-              <button
+              <MriButton
                 key={y}
-                type="button"
+                variant="ghost"
+                size="sm"
                 disabled={isDisabled}
                 className={cn(
-                  mriButtonVariants({ variant: isSelected ? "default" : "ghost" }),
-                  "h-10 w-full font-normal disabled:opacity-20 disabled:cursor-not-allowed"
+                  "h-9 font-normal justify-center",
+                  isSelected && "bg-primary text-primary-foreground hover:bg-primary hover:text-primary-foreground"
                 )}
                 onClick={() => {
-                  handleMonthChange(setYear(displayMonth, y))
-                  setView("months")
+                  handleMonthChange(date)
+                  setViewMode('months')
                 }}
               >
                 {y}
-              </button>
+              </MriButton>
             )
           })}
         </div>
+      </MriScrollArea>
+    )
+  }
+
+  const customComponents = {
+    CaptionLabel: () => (
+      <MriButton
+        variant="ghost"
+        size="sm"
+        className="h-7 font-medium px-2 py-0 hover:bg-accent hover:text-accent-foreground"
+        onClick={() => {
+          if (viewMode === 'days') setViewMode('months')
+          else if (viewMode === 'months') setViewMode('years')
+          else setViewMode('days')
+        }}
+      >
+        {viewMode === 'years'
+          ? `${Math.floor(internalMonth.getFullYear() / 12) * 12} - ${Math.floor(internalMonth.getFullYear() / 12) * 12 + 11}`
+          : format(internalMonth, viewMode === 'months' ? "yyyy" : "MMMM yyyy", { locale: props.locale || ptBR })
+        }
+      </MriButton>
+    ),
+    IconLeft: () => <ChevronLeft className="h-4 w-4" />,
+    IconRight: () => <ChevronRight className="h-4 w-4" />,
+  }
+
+  if (viewMode === 'months') {
+    return (
+      <div className={cn("p-3", className)}>
+        <div className="flex justify-between items-center mb-4 px-1">
+           <customComponents.CaptionLabel />
+           <div className="flex gap-1">
+             <MriButton
+               variant="outline"
+               className="h-7 w-7 p-0"
+               disabled={props.fromDate && internalMonth.getFullYear() <= props.fromDate.getFullYear()}
+               onClick={() => handleMonthChange(addYears(internalMonth, -1))}
+             >
+               <ChevronLeft className="h-4 w-4" />
+             </MriButton>
+             <MriButton
+               variant="outline"
+               className="h-7 w-7 p-0"
+               disabled={props.toDate && internalMonth.getFullYear() >= props.toDate.getFullYear()}
+               onClick={() => handleMonthChange(addYears(internalMonth, 1))}
+             >
+               <ChevronRight className="h-4 w-4" />
+             </MriButton>
+           </div>
+        </div>
+        {renderMonthPicker()}
+      </div>
+    )
+  }
+
+  if (viewMode === 'years') {
+    return (
+      <div className={cn("p-3", className)}>
+        <div className="flex justify-between items-center mb-4 px-1">
+           <customComponents.CaptionLabel />
+           <div className="flex gap-1">
+             <MriButton
+               variant="outline"
+               className="h-7 w-7 p-0"
+               onClick={() => handleMonthChange(addYears(internalMonth, -12))}
+             >
+               <ChevronLeft className="h-4 w-4" />
+             </MriButton>
+             <MriButton
+               variant="outline"
+               className="h-7 w-7 p-0"
+               onClick={() => handleMonthChange(addYears(internalMonth, 12))}
+             >
+               <ChevronRight className="h-4 w-4" />
+             </MriButton>
+           </div>
+        </div>
+        {renderYearPicker()}
       </div>
     )
   }
@@ -195,13 +207,13 @@ function MriCalendar({
     <DayPicker
       showOutsideDays={showOutsideDays}
       className={cn("p-3", className)}
-      month={displayMonth}
+      month={internalMonth}
       onMonthChange={handleMonthChange}
       classNames={{
         months: "flex flex-col sm:flex-row space-y-4 sm:space-x-4 sm:space-y-0",
         month: "space-y-4",
         caption: "flex justify-center pt-1 relative items-center",
-        caption_label: "text-sm font-medium",
+        caption_label: "hidden", // Use custom caption component
         nav: "space-x-1 flex items-center",
         nav_button: cn(
           mriButtonVariants({ variant: "outline" }),
@@ -234,20 +246,7 @@ function MriCalendar({
       components={{
         IconLeft: () => <ChevronLeft className="h-4 w-4" />,
         IconRight: () => <ChevronRight className="h-4 w-4" />,
-        CaptionLabel: () => {
-          return (
-            <button
-              type="button"
-              className={cn(
-                mriButtonVariants({ variant: "ghost" }),
-                "h-7 px-2 text-sm font-medium z-10"
-              )}
-              onClick={() => setView("months")}
-            >
-              {format(displayMonth, "MMMM yyyy", { locale: props.locale || ptBR })}
-            </button>
-          )
-        },
+        CaptionLabel: customComponents.CaptionLabel,
         ...props.components,
       }}
       {...props}

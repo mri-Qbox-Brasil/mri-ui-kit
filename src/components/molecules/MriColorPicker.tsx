@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react"
 import { HexColorPicker } from "react-colorful"
 import { colord, extend } from "colord"
-// @ts-ignore
 import namesPlugin from "colord/plugins/names"
 import { cn } from "../../lib/utils"
 import * as Popover from "@radix-ui/react-popover"
@@ -37,16 +36,19 @@ export const MriColorPicker = ({ color, onChange, active, format = 'hsl-string' 
 
     useEffect(() => {
         const newHex = parseCustomFormat(color)
-        if (colord(newHex).toHex() !== colord(hex).toHex()) {
+        const currentHex = colord(hex).toHex()
+        if (colord(newHex).toHex() !== currentHex) {
+             // eslint-disable-next-line react-hooks/set-state-in-effect
              setHex(newHex)
              const newC = colord(newHex)
+              
              setInputState({
                  hex: newHex,
                  rgb: newC.toRgb(),
                  hsl: newC.toHsl()
              })
         }
-    }, [color])
+    }, [color, hex])
 
     const handleChange = (newHex: string) => {
         setHex(newHex)
@@ -73,10 +75,8 @@ export const MriColorPicker = ({ color, onChange, active, format = 'hsl-string' 
         if (type === 'hex') {
             newData.hex = val as string
         } else if (type === 'rgb' && part) {
-            // @ts-ignore
             newData.rgb = { ...newData.rgb, [part]: val }
         } else if (type === 'hsl' && part) {
-            // @ts-ignore
             newData.hsl = { ...newData.hsl, [part]: val }
         }
         setInputState(newData)

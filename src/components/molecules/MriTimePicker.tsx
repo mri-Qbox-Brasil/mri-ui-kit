@@ -17,8 +17,8 @@ interface MriTimePickerProps {
     minuteLabel?: string;
     size?: "default" | "sm";
     error?: boolean | string;
-    minTime?: string;
-    maxTime?: string;
+    minTime?: string; // Format "HH:mm"
+    maxTime?: string; // Format "HH:mm"
 }
 
 const HOURS_OPTIONS = Array.from({ length: 24 }, (_, i) => i);
@@ -52,25 +52,24 @@ const parseTime = (time?: string): [number, number] => {
     return [hour, minute];
 };
 
-export function MriTimePicker({
-    value,
-    onChange,
-    disabled,
-    hourLabel = "Hora",
-    minuteLabel = "Minuto",
-    size = "default",
-    error,
-    minTime,
-    maxTime
-}: MriTimePickerProps) {
+export function MriTimePicker({ value, onChange, disabled, hourLabel = "Hora", minuteLabel = "Minuto", size = "default", error, minTime, maxTime }: MriTimePickerProps) {
     const [isOpen, setIsOpen] = React.useState(false);
 
     const [hours, minutes] = parseTime(value);
     const [minH, minM] = parseTime(minTime);
-    const [maxH, maxM] = parseTime(maxTime);
+    const [maxH, maxM] = maxTime ? parseTime(maxTime) : [23, 59];
 
-    const hasMinConstraint = !!minTime;
-    const hasMaxConstraint = !!maxTime;
+    const hoursOptions = HOURS_OPTIONS.map(h => ({
+        value: h,
+        disabled: h < minH || h > maxH
+    }));
+
+    const minutesOptions = MINUTES_OPTIONS.map(m => {
+        let isDisabled = false;
+        if (hours === minH && m < minM) isDisabled = true;
+        if (hours === maxH && m > maxM) isDisabled = true;
+        return { value: m, disabled: isDisabled };
+    });
 
     const handleTimeChange = (type: "hour" | "minute", newVal: number) => {
         let newH = hours;
@@ -78,12 +77,11 @@ export function MriTimePicker({
 
         if (type === "hour") {
             newH = newVal;
-            // If changing hour makes the current minute invalid due to constraints, adjust it
-            if (hasMinConstraint && newH === minH && newM < minM) newM = minM;
-            if (hasMaxConstraint && newH === maxH && newM > maxM) newM = maxM;
-        } else {
-            newM = newVal;
+            // Adjust minutes if they become invalid for the new hour
+            if (newH === minH && newM < minM) newM = minM;
+            if (newH === maxH && newM > maxM) newM = maxM;
         }
+        if (type === "minute") newM = newVal;
 
         const formattedH = newH.toString().padStart(2, "0");
         const formattedM = newM.toString().padStart(2, "0");
@@ -124,24 +122,21 @@ export function MriTimePicker({
                         <div className="p-2 text-center font-medium bg-muted/50 text-xs">{hourLabel}</div>
                         <MriScrollArea className="h-full w-[80px]">
                             <div className="p-2 space-y-1">
-                                {HOURS_OPTIONS.map((h) => {
-                                    const isHourDisabled = (hasMinConstraint && h < minH) || (hasMaxConstraint && h > maxH);
-                                    return (
-                                        <MriButton
-                                            key={h}
-                                            variant="ghost"
-                                            size="sm"
-                                            disabled={isHourDisabled}
-                                            className={cn(
-                                                "w-full justify-center text-sm disabled:opacity-20",
-                                                hours === h ? "bg-primary text-primary-foreground hover:bg-primary/90" : "text-muted-foreground hover:text-foreground"
-                                            )}
-                                            onClick={() => handleTimeChange("hour", h)}
-                                        >
-                                            {h.toString().padStart(2, "0")}
-                                        </MriButton>
-                                    );
-                                })}
+                                {hoursOptions.map(({ value: h, disabled: isDisabled }) => (
+                                    <MriButton
+                                        key={h}
+                                        variant="ghost"
+                                        size="sm"
+                                        disabled={isDisabled}
+                                        className={cn(
+                                            "w-full justify-center text-sm font-normal",
+                                            hours === h ? "bg-primary text-primary-foreground hover:bg-primary/90" : "text-muted-foreground hover:text-foreground"
+                                        )}
+                                        onClick={() => handleTimeChange("hour", h)}
+                                    >
+                                        {h.toString().padStart(2, "0")}
+                                    </MriButton>
+                                ))}
                             </div>
                         </MriScrollArea>
                     </div>
@@ -151,25 +146,21 @@ export function MriTimePicker({
                         <div className="p-2 text-center font-medium bg-muted/50 text-xs">{minuteLabel}</div>
                         <MriScrollArea className="h-full w-[80px]">
                             <div className="p-2 space-y-1">
-                                {MINUTES_OPTIONS.map((m) => {
-                                    const isMinuteDisabled = (hasMinConstraint && hours === minH && m < minM) ||
-                                                             (hasMaxConstraint && hours === maxH && m > maxM);
-                                    return (
-                                        <MriButton
-                                            key={m}
-                                            variant="ghost"
-                                            size="sm"
-                                            disabled={isMinuteDisabled}
-                                            className={cn(
-                                                "w-full justify-center text-sm disabled:opacity-20",
-                                                minutes === m ? "bg-primary text-primary-foreground hover:bg-primary/90" : "text-muted-foreground hover:text-foreground"
-                                            )}
-                                            onClick={() => handleTimeChange("minute", m)}
-                                        >
-                                            {m.toString().padStart(2, "0")}
-                                        </MriButton>
-                                    );
-                                })}
+                                {minutesOptions.map(({ value: m, disabled: isDisabled }) => (
+                                    <MriButton
+                                        key={m}
+                                        variant="ghost"
+                                        size="sm"
+                                        disabled={isDisabled}
+                                        className={cn(
+                                            "w-full justify-center text-sm font-normal",
+                                            minutes === m ? "bg-primary text-primary-foreground hover:bg-primary/90" : "text-muted-foreground hover:text-foreground"
+                                        )}
+                                        onClick={() => handleTimeChange("minute", m)}
+                                    >
+                                        {m.toString().padStart(2, "0")}
+                                    </MriButton>
+                                ))}
                             </div>
                         </MriScrollArea>
                     </div>

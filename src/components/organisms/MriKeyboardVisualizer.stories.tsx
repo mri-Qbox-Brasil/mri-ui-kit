@@ -2,11 +2,14 @@ import type { Meta, StoryObj } from '@storybook/react'
 import { MriKeyboardVisualizer } from './MriKeyboardVisualizer'
 
 const meta: Meta<typeof MriKeyboardVisualizer> = {
-  title: 'Organisms/KeyboardVisualizer',
+  title: 'Organisms/MriKeyboardVisualizer',
   component: MriKeyboardVisualizer,
   tags: ['autodocs'],
   argTypes: {
     pressedKeys: { control: 'object' },
+  },
+  args: {
+    pressedKeys: [],
   },
 }
 
