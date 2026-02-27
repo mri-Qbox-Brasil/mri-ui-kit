@@ -84,8 +84,8 @@ export function MriSelectSearch({
           )}
         </div>
       </MriPopoverTrigger>
-      <MriPopoverContent className="w-[--radix-popover-trigger-width] p-0 border-border bg-popover">
-        <MriCommand className="bg-transparent">
+      <MriPopoverContent className="w-[--radix-popover-trigger-width] p-0 border-border bg-popover z-50">
+        <MriCommand className="bg-transparent text-popover-foreground">
           <MriCommandInput placeholder={searchPlaceholder} className="h-9" />
           <MriCommandEmpty>{emptyMessage}</MriCommandEmpty>
           <MriCommandGroup className="max-h-60 overflow-auto p-1">

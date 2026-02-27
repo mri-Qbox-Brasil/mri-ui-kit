@@ -18,6 +18,8 @@ const BASE_PREFIX = 'https://raw.githubusercontent.com/mri-Qbox-Brasil/mri-ui-ki
 const COMPONENT_MAP = {
     // Atoms
     'MriBadge': 'atoms',
+    'MriSkeleton': 'atoms',
+    'MriSpinner': 'atoms',
     'MriButton': 'atoms',
     'MriIcons': 'atoms',
     'MriInput': 'atoms',
@@ -27,6 +29,9 @@ const COMPONENT_MAP = {
     'mri-button-variants': 'atoms',
 
     // Molecules
+    'MriActionButton': 'molecules',
+    'MriActionDropdown': 'molecules',
+    'MriActionModal': 'molecules',
     'MriButtonGroup': 'molecules',
     'MriCard': 'molecules',
     'MriCompactSearch': 'molecules',
@@ -36,16 +41,20 @@ const COMPONENT_MAP = {
     'MriSelectSearch': 'molecules',
     'MriThemeToggle': 'molecules',
     'MriTimePicker': 'molecules',
+    'MriColorPicker': 'molecules',
     'MriCommand': 'molecules',
+    'MriCreatableCombobox': 'molecules',
     'MriCopyButton': 'molecules',
     'MriEconomyCard': 'molecules',
     'MriGridActionButton': 'molecules',
     'MriSearchInput': 'molecules',
     'MriSectionHeader': 'molecules',
     'MriDatePicker': 'molecules',
+    'MriDrawer': 'molecules',
 
     // Organisms
     'MriCalendar': 'organisms',
+    'MriKeyboardVisualizer': 'organisms',
     'MriPageHeader': 'organisms',
     'MriSidebar': 'organisms',
     'MriTable': 'organisms',
