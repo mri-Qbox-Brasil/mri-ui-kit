@@ -51,3 +51,10 @@ export const ErrorState: Story = {
   },
   render: (args) => <CompactSearchWithState {...args} />,
 };
+
+export const Clearable: Story = {
+  args: {
+    clearable: true,
+  },
+  render: (args) => <CompactSearchWithState {...args} />,
+};

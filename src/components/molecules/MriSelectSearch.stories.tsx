@@ -61,6 +61,21 @@ export const ErrorState: StoryObj<typeof MriSelectSearch> = {
   )
 };
 
+export const Clearable: StoryObj<typeof MriSelectSearch> = {
+  args: {
+    options,
+    clearable: true,
+  },
+  render: (args) => {
+    const [value, setValue] = useState("");
+    return (
+      <div className="w-[300px]">
+        <MriSelectSearch {...args} value={value} onChange={setValue} placeholder="Select (Toggle to Clear)" />
+      </div>
+    );
+  }
+};
+
 const SmallSelectSearchDemo = () => {
     const [value, setValue] = useState('red');
     return (
