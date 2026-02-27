@@ -3,7 +3,7 @@ import { MriCreatableCombobox } from './MriCreatableCombobox'
 import { useState } from 'react'
 
 const meta: Meta<typeof MriCreatableCombobox> = {
-  title: 'Molecules/CreatableCombobox',
+  title: 'Molecules/MriCreatableCombobox',
   component: MriCreatableCombobox,
   tags: ['autodocs'],
   argTypes: {

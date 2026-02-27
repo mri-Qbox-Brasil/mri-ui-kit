@@ -3,7 +3,7 @@ import { MriColorPicker } from './MriColorPicker'
 import { useState } from 'react'
 
 const meta: Meta<typeof MriColorPicker> = {
-  title: 'Molecules/ColorPicker',
+  title: 'Molecules/MriColorPicker',
   component: MriColorPicker,
   tags: ['autodocs'],
   argTypes: {
