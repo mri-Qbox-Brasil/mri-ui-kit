@@ -61,19 +61,28 @@ export const ErrorState: StoryObj<typeof MriSelectSearch> = {
   )
 };
 
+const ClearableDemo = (args: Record<string, unknown>) => {
+  const [value, setValue] = useState("");
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const props = args as any;
+  return (
+    <div className="w-[300px]">
+      <MriSelectSearch
+        {...props}
+        value={value}
+        onChange={setValue}
+        placeholder="Select (Toggle to Clear)"
+      />
+    </div>
+  );
+};
+
 export const Clearable: StoryObj<typeof MriSelectSearch> = {
   args: {
     options,
     clearable: true,
   },
-  render: (args) => {
-    const [value, setValue] = useState("");
-    return (
-      <div className="w-[300px]">
-        <MriSelectSearch {...args} value={value} onChange={setValue} placeholder="Select (Toggle to Clear)" />
-      </div>
-    );
-  }
+  render: (args) => <ClearableDemo {...args} />
 };
 
 const SmallSelectSearchDemo = () => {

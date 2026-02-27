@@ -19,28 +19,32 @@ const meta: Meta<typeof MriColorPicker> = {
 export default meta
 type Story = StoryObj<typeof meta>
 
+const ColorPickerWrapper = (args: Record<string, unknown>) => {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const props = args as any
+  const [color, setColor] = useState((props.color as string) || '')
+  return (
+    <div className="p-4 flex gap-4 items-center">
+      <MriColorPicker
+        {...props}
+        color={color}
+        onChange={(newColor) => {
+          setColor(newColor)
+          props.onChange?.(newColor)
+        }}
+      />
+      <div className="font-mono text-sm">Selected: {color}</div>
+    </div>
+  )
+}
+
 export const Default: Story = {
   args: {
     color: '#ff0000',
     active: true,
     format: 'hex',
   },
-  render: (args) => {
-    const [color, setColor] = useState(args.color)
-    return (
-      <div className="p-4 flex gap-4 items-center">
-        <MriColorPicker
-          {...args}
-          color={color}
-          onChange={(newColor) => {
-            setColor(newColor)
-            args.onChange?.(newColor)
-          }}
-        />
-        <div className="font-mono text-sm">Selected: {color}</div>
-      </div>
-    )
-  },
+  render: (args) => <ColorPickerWrapper {...args} />,
 }
 
 export const Inactive: Story = {

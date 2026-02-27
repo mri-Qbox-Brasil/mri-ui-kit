@@ -8,6 +8,9 @@ const meta: Meta<typeof MriKeyboardVisualizer> = {
   argTypes: {
     pressedKeys: { control: 'object' },
   },
+  args: {
+    pressedKeys: [],
+  },
 }
 
 export default meta

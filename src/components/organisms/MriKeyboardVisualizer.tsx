@@ -6,26 +6,42 @@ export interface MriKeyboardVisualizerProps {
     className?: string
 }
 
+interface KeyProps {
+    label: string
+    code?: string
+    className?: string
+    style?: CSSProperties
+    active: boolean
+}
+
+const Key = ({ label, className: keyClass, style, active }: KeyProps) => {
+    return (
+        <div
+            style={style}
+            className={cn(
+                "h-8 flex items-center justify-center rounded-md border text-[10px] font-bold transition-all duration-100 select-none shrink-0 shadow-sm",
+                active
+                    ? "bg-primary text-primary-foreground border-primary shadow-[0_0_15px_rgba(var(--primary),0.5)] scale-90 z-10"
+                    : "bg-black/40 text-white/70 border-white/20 backdrop-blur-md",
+                keyClass
+            )}
+        >
+            {label}
+        </div>
+    )
+}
+
 export const MriKeyboardVisualizer = ({ pressedKeys, className }: MriKeyboardVisualizerProps) => {
     const isPressed = (label: string) => pressedKeys.includes(label.toUpperCase())
 
-    const Key = ({ label, code, className: keyClass, style }: { label: string, code?: string, className?: string, style?: CSSProperties }) => {
-        const active = isPressed(code || label)
-        return (
-            <div
-                style={style}
-                className={cn(
-                    "h-8 flex items-center justify-center rounded-md border text-[10px] font-bold transition-all duration-100 select-none shrink-0 shadow-sm",
-                    active
-                        ? "bg-primary text-primary-foreground border-primary shadow-[0_0_15px_rgba(var(--primary),0.5)] scale-90 z-10"
-                        : "bg-black/40 text-white/70 border-white/20 backdrop-blur-md",
-                    keyClass
-                )}
-            >
-                {label}
-            </div>
-        )
-    }
+    const renderKey = (label: string, code?: string, keyClass?: string, style?: CSSProperties) => (
+        <Key
+            label={label}
+            active={isPressed(code || label)}
+            className={keyClass}
+            style={style}
+        />
+    )
 
     return (
         <div className={cn("p-4 bg-black/40 backdrop-blur-3xl rounded-3xl border border-white/10 flex gap-6 w-fit mx-auto shadow-2xl overflow-hidden", className)}>
@@ -33,73 +49,73 @@ export const MriKeyboardVisualizer = ({ pressedKeys, className }: MriKeyboardVis
             <div className="flex flex-col gap-1.5 w-[480px] shrink-0">
                 {/* Row 1: Function Keys */}
                 <div className="flex gap-1.5 mb-1">
-                    <Key label="ESC" className="w-10 mr-4" />
+                    {renderKey("ESC", undefined, "w-10 mr-4")}
                     <div className="flex gap-1">
-                        <Key label="F1" className="w-9" />
-                        <Key label="F2" className="w-9" />
-                        <Key label="F3" className="w-9" />
-                        <Key label="F4" className="w-9" />
+                        {renderKey("F1", undefined, "w-9")}
+                        {renderKey("F2", undefined, "w-9")}
+                        {renderKey("F3", undefined, "w-9")}
+                        {renderKey("F4", undefined, "w-9")}
                     </div>
                     <div className="w-2" />
                     <div className="flex gap-1">
-                        <Key label="F5" className="w-9" />
-                        <Key label="F6" className="w-9" />
-                        <Key label="F7" className="w-9" />
-                        <Key label="F8" className="w-9" />
+                        {renderKey("F5", undefined, "w-9")}
+                        {renderKey("F6", undefined, "w-9")}
+                        {renderKey("F7", undefined, "w-9")}
+                        {renderKey("F8", undefined, "w-9")}
                     </div>
                     <div className="w-2" />
                     <div className="flex gap-1">
-                        <Key label="F9" className="w-9" />
-                        <Key label="F10" className="w-9" />
-                        <Key label="F11" className="w-9" />
-                        <Key label="F12" className="w-9" />
+                        {renderKey("F9", undefined, "w-9")}
+                        {renderKey("F10", undefined, "w-9")}
+                        {renderKey("F11", undefined, "w-9")}
+                        {renderKey("F12", undefined, "w-9")}
                     </div>
                 </div>
 
                 {/* Row 2: Numbers */}
                 <div className="flex gap-1">
-                    <Key label="~" className="w-8" />
+                    {renderKey("~", undefined, "w-8")}
                     {["1", "2", "3", "4", "5", "6", "7", "8", "9", "0", "-", "="].map(k => (
-                        <Key key={k} label={k} className="flex-1" />
+                        <Key key={k} label={k} active={isPressed(k)} className="flex-1" />
                     ))}
-                    <Key label="BACK" className="w-16" />
+                    {renderKey("BACK", undefined, "w-16")}
                 </div>
 
                 {/* Row 3: TAB */}
                 <div className="flex gap-1">
-                    <Key label="TAB" className="w-14" />
+                    {renderKey("TAB", undefined, "w-14")}
                     {["Q", "W", "E", "R", "T", "Y", "U", "I", "O", "P", "[", "]", "\\"].map(k => (
-                        <Key key={k} label={k} className="flex-1" />
+                        <Key key={k} label={k} active={isPressed(k)} className="flex-1" />
                     ))}
                 </div>
 
                 {/* Row 4: CAPS */}
                 <div className="flex gap-1">
-                    <Key label="CAPS" className="w-16" />
+                    {renderKey("CAPS", undefined, "w-16")}
                     {["A", "S", "D", "F", "G", "H", "J", "K", "L", ";", "'"].map(k => (
-                        <Key key={k} label={k} className="flex-1" />
+                        <Key key={k} label={k} active={isPressed(k)} className="flex-1" />
                     ))}
-                    <Key label="ENTER" className="w-24" />
+                    {renderKey("ENTER", undefined, "w-24")}
                 </div>
 
                 {/* Row 5: SHIFT */}
                 <div className="flex gap-1">
-                    <Key label="SHIFT" className="w-24" />
+                    {renderKey("SHIFT", undefined, "w-24")}
                     {["Z", "X", "C", "V", "B", "N", "M", ",", ".", "/"].map(k => (
-                        <Key key={k} label={k} className="flex-1" />
+                        <Key key={k} label={k} active={isPressed(k)} className="flex-1" />
                     ))}
-                    <Key label="SHIFT" className="w-28" />
+                    {renderKey("SHIFT", undefined, "w-28")}
                 </div>
 
                 {/* Row 6: Bottom Row */}
                 <div className="flex gap-1">
-                    <Key label="CTRL" className="w-14" />
-                    <Key label="WIN" className="w-14" />
-                    <Key label="ALT" className="w-14" />
-                    <Key label="SPACE" className="flex-[6] h-8" />
-                    <Key label="ALT" className="w-14" />
-                    <Key label="WIN" className="w-14" />
-                    <Key label="CTRL" className="w-14" />
+                    {renderKey("CTRL", undefined, "w-14")}
+                    {renderKey("WIN", undefined, "w-14")}
+                    {renderKey("ALT", undefined, "w-14")}
+                    {renderKey("SPACE", undefined, "flex-[6] h-8")}
+                    {renderKey("ALT", undefined, "w-14")}
+                    {renderKey("WIN", undefined, "w-14")}
+                    {renderKey("CTRL", undefined, "w-14")}
                 </div>
             </div>
 
@@ -107,21 +123,23 @@ export const MriKeyboardVisualizer = ({ pressedKeys, className }: MriKeyboardVis
             <div className="flex flex-col gap-6 shrink-0">
                 <div className="h-9 mb-1 invisible" /> {/* Placeholder para alinhamento com linha de funções */}
                 <div className="grid grid-cols-3 gap-1 w-[124px]">
-                    {["INS", "HM", "PU"].map(k => (
-                        <Key key={k} label={k} code={k === "HM" ? "HOME" : k === "PU" ? "PGUP" : k} className="h-8" />
-                    ))}
-                    {["DEL", "END", "PD"].map(k => (
-                        <Key key={k} label={k} code={k === "PD" ? "PGDN" : k} className="h-8" />
-                    ))}
+                    {["INS", "HM", "PU"].map(k => {
+                        const code = k === "HM" ? "HOME" : k === "PU" ? "PGUP" : k;
+                        return <Key key={k} label={k} active={isPressed(code)} className="h-8" />
+                    })}
+                    {["DEL", "END", "PD"].map(k => {
+                        const code = k === "PD" ? "PGDN" : k;
+                        return <Key key={k} label={k} active={isPressed(code)} className="h-8" />
+                    })}
                 </div>
 
                 <div className="grid grid-cols-3 gap-1 w-[124px] mt-auto">
                     <div />
-                    <Key label="UP" code="UP" className="h-8" />
+                    {renderKey("UP", "UP", "h-8")}
                     <div />
-                    <Key label="LFT" code="LEFT" className="h-8" />
-                    <Key label="DWN" code="DOWN" className="h-8" />
-                    <Key label="RGT" code="RIGHT" className="h-8" />
+                    {renderKey("LFT", "LEFT", "h-8")}
+                    {renderKey("DWN", "DOWN", "h-8")}
+                    {renderKey("RGT", "RIGHT", "h-8")}
                 </div>
             </div>
 
@@ -129,39 +147,39 @@ export const MriKeyboardVisualizer = ({ pressedKeys, className }: MriKeyboardVis
             <div className="flex flex-col gap-1 w-[130px] shrink-0">
                 <div className="h-9 mb-1 invisible" /> {/* Align with function row */}
                 <div className="flex gap-1">
-                    <Key label="NM" code="NUM" className="w-8" />
-                    <Key label="/" code="NUM /" className="w-8" />
-                    <Key label="*" code="NUM *" className="w-8" />
-                    <Key label="-" code="NUM -" className="w-8" />
+                    {renderKey("NM", "NUM", "w-8")}
+                    {renderKey("/", "NUM /", "w-8")}
+                    {renderKey("*", "NUM *", "w-8")}
+                    {renderKey("-", "NUM -", "w-8")}
                 </div>
                 <div className="flex gap-1">
                     <div className="flex flex-col gap-1">
                         <div className="flex gap-1">
-                            <Key label="7" code="NUM 7" className="w-8" />
-                            <Key label="8" code="NUM 8" className="w-8" />
-                            <Key label="9" code="NUM 9" className="w-8" />
+                            {renderKey("7", "NUM 7", "w-8")}
+                            {renderKey("8", "NUM 8", "w-8")}
+                            {renderKey("9", "NUM 9", "w-8")}
                         </div>
                         <div className="flex gap-1">
-                            <Key label="4" code="NUM 4" className="w-8" />
-                            <Key label="5" code="NUM 5" className="w-8" />
-                            <Key label="6" code="NUM 6" className="w-8" />
+                            {renderKey("4", "NUM 4", "w-8")}
+                            {renderKey("5", "NUM 5", "w-8")}
+                            {renderKey("6", "NUM 6", "w-8")}
                         </div>
                     </div>
-                    <Key label="+" code="NUM +" className="w-8 h-[68px]" />
+                    {renderKey("+", "NUM +", "w-8 h-[68px]")}
                 </div>
                 <div className="flex gap-1">
                     <div className="flex flex-col gap-1">
                         <div className="flex gap-1">
-                            <Key label="1" code="NUM 1" className="w-8" />
-                            <Key label="2" code="NUM 2" className="w-8" />
-                            <Key label="3" code="NUM 3" className="w-8" />
+                            {renderKey("1", "NUM 1", "w-8")}
+                            {renderKey("2", "NUM 2", "w-8")}
+                            {renderKey("3", "NUM 3", "w-8")}
                         </div>
                         <div className="flex gap-1">
-                            <Key label="0" code="NUM 0" className="w-[40px]" />
-                            <Key label="." code="NUM ." className="w-8" />
+                            {renderKey("0", "NUM 0", "w-[40px]")}
+                            {renderKey(".", "NUM .", "w-8")}
                         </div>
                     </div>
-                    <Key label="EN" code="NUM ENTER" className="w-8 h-[68px]" />
+                    {renderKey("EN", "NUM ENTER", "w-8 h-[68px]")}
                 </div>
             </div>
 
