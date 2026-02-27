@@ -44,3 +44,14 @@ export const DateRange: Story = {
     className: "rounded-md border",
   },
 };
+
+export const WithRangeLimit: Story = {
+  args: {
+    mode: "single",
+    locale: ptBR,
+    className: "rounded-md border",
+    fromDate: new Date(2024, 0, 1),
+    toDate: new Date(2024, 11, 31),
+    defaultMonth: new Date(2024, 0, 1),
+  },
+};

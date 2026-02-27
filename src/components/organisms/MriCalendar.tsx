@@ -44,10 +44,12 @@ function MriCalendar({
       <div className={cn("p-3", className)}>
         <div className="flex justify-between items-center pt-1 relative pb-4">
           <button
+            type="button"
             onClick={() => handleMonthChange(addYears(displayMonth, -1))}
+            disabled={props.fromDate && displayMonth.getFullYear() <= props.fromDate.getFullYear()}
             className={cn(
               mriButtonVariants({ variant: "outline" }),
-              "h-7 w-7 bg-transparent p-0 opacity-50 hover:opacity-100 absolute left-1"
+              "h-7 w-7 bg-transparent p-0 opacity-50 hover:opacity-100 absolute left-1 disabled:opacity-20"
             )}
           >
             <ChevronLeft className="h-4 w-4" />
@@ -65,10 +67,12 @@ function MriCalendar({
           </button>
 
           <button
+            type="button"
             onClick={() => handleMonthChange(addYears(displayMonth, 1))}
+            disabled={props.toDate && displayMonth.getFullYear() >= props.toDate.getFullYear()}
             className={cn(
               mriButtonVariants({ variant: "outline" }),
-              "h-7 w-7 bg-transparent p-0 opacity-50 hover:opacity-100 absolute right-1"
+              "h-7 w-7 bg-transparent p-0 opacity-50 hover:opacity-100 absolute right-1 disabled:opacity-20"
             )}
           >
             <ChevronRight className="h-4 w-4" />
@@ -78,13 +82,31 @@ function MriCalendar({
         <div className="grid grid-cols-4 gap-2 mt-4">
           {Array.from({ length: 12 }).map((_, i) => {
             const isSelected = displayMonth.getMonth() === i
+
+            let isDisabled = false
+            if (props.fromDate) {
+              const fromYear = props.fromDate.getFullYear()
+              const fromMonth = props.fromDate.getMonth()
+              if (displayMonth.getFullYear() < fromYear || (displayMonth.getFullYear() === fromYear && i < fromMonth)) {
+                isDisabled = true
+              }
+            }
+            if (props.toDate) {
+              const toYear = props.toDate.getFullYear()
+              const toMonth = props.toDate.getMonth()
+              if (displayMonth.getFullYear() > toYear || (displayMonth.getFullYear() === toYear && i > toMonth)) {
+                isDisabled = true
+              }
+            }
+
             return (
               <button
                 key={i}
                 type="button"
+                disabled={isDisabled}
                 className={cn(
                   mriButtonVariants({ variant: isSelected ? "default" : "ghost" }),
-                  "h-10 w-full font-normal"
+                  "h-10 w-full font-normal disabled:opacity-20 disabled:cursor-not-allowed"
                 )}
                 onClick={() => {
                   handleMonthChange(setMonth(displayMonth, i))
@@ -109,10 +131,12 @@ function MriCalendar({
       <div className={cn("p-3", className)}>
         <div className="flex justify-between items-center pt-1 relative pb-4">
           <button
+            type="button"
             onClick={() => handleMonthChange(addYears(displayMonth, -10))}
+            disabled={props.fromDate && years[0] <= props.fromDate.getFullYear()}
             className={cn(
               mriButtonVariants({ variant: "outline" }),
-              "h-7 w-7 bg-transparent p-0 opacity-50 hover:opacity-100 absolute left-1"
+              "h-7 w-7 bg-transparent p-0 opacity-50 hover:opacity-100 absolute left-1 disabled:opacity-20"
             )}
           >
             <ChevronLeft className="h-4 w-4" />
@@ -126,10 +150,12 @@ function MriCalendar({
           </div>
 
           <button
+            type="button"
             onClick={() => handleMonthChange(addYears(displayMonth, 10))}
+            disabled={props.toDate && years[years.length - 1] >= props.toDate.getFullYear()}
             className={cn(
               mriButtonVariants({ variant: "outline" }),
-              "h-7 w-7 bg-transparent p-0 opacity-50 hover:opacity-100 absolute right-1"
+              "h-7 w-7 bg-transparent p-0 opacity-50 hover:opacity-100 absolute right-1 disabled:opacity-20"
             )}
           >
             <ChevronRight className="h-4 w-4" />
@@ -139,13 +165,17 @@ function MriCalendar({
         <div className="grid grid-cols-4 gap-2 mt-4">
           {years.map((y) => {
             const isSelected = displayMonth.getFullYear() === y
+            const isDisabled = (props.fromDate && y < props.fromDate.getFullYear()) ||
+                               (props.toDate && y > props.toDate.getFullYear())
+
             return (
               <button
                 key={y}
                 type="button"
+                disabled={isDisabled}
                 className={cn(
                   mriButtonVariants({ variant: isSelected ? "default" : "ghost" }),
-                  "h-10 w-full font-normal"
+                  "h-10 w-full font-normal disabled:opacity-20 disabled:cursor-not-allowed"
                 )}
                 onClick={() => {
                   handleMonthChange(setYear(displayMonth, y))
