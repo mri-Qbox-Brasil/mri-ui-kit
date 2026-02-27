@@ -18,6 +18,8 @@ function MriCalendar({
   className,
   classNames,
   showOutsideDays = true,
+  month,
+  onMonthChange,
   ...props
 }: MriCalendarProps) {
   const [viewMode, setViewMode] = React.useState<'days' | 'months' | 'years'>('days')
@@ -260,6 +262,21 @@ function MriCalendar({
         ),
         IconLeft: () => <ChevronLeft className="h-4 w-4" />,
         IconRight: () => <ChevronRight className="h-4 w-4" />,
+        CaptionLabel: () => {
+          return (
+            <button
+              type="button"
+              className={cn(
+                mriButtonVariants({ variant: "ghost" }),
+                "h-7 px-2 text-sm font-medium z-10"
+              )}
+              onClick={() => setView("months")}
+            >
+              {format(displayMonth, "MMMM yyyy", { locale: props.locale || ptBR })}
+            </button>
+          )
+        },
+        ...props.components,
       }}
       {...props}
     />

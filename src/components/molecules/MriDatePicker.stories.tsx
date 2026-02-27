@@ -59,3 +59,12 @@ export const Small: Story = {
   },
   render: (args) => <DatePickerWithState {...args} />,
 };
+
+export const WithRangeLimit: Story = {
+  args: {
+    fromDate: new Date(2024, 0, 1),
+    toDate: new Date(2024, 11, 31),
+    placeholder: "Range: 2024 only",
+  },
+  render: (args) => <DatePickerWithState {...args} />,
+};

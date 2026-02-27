@@ -57,3 +57,12 @@ export const Small: Story = {
   },
   render: (args) => <TimePickerWithState {...args} />,
 };
+
+export const WithTimeLimit: Story = {
+  args: {
+    minTime: "08:00",
+    maxTime: "18:00",
+    value: "08:00",
+  },
+  render: (args) => <TimePickerWithState {...args} />,
+};
