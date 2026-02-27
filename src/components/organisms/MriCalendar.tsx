@@ -1,6 +1,8 @@
 import * as React from "react"
 import { ChevronLeft, ChevronRight } from "lucide-react"
 import { DayPicker } from "react-day-picker"
+import { format, addYears, setMonth, setYear } from "date-fns"
+import { ptBR } from "date-fns/locale"
 
 import { cn } from "@/lib/utils"
 import { mriButtonVariants } from "@/components/atoms/mri-button-variants"
@@ -11,12 +13,160 @@ function MriCalendar({
   className,
   classNames,
   showOutsideDays = true,
+  month,
+  onMonthChange,
   ...props
 }: MriCalendarProps) {
+  const [view, setView] = React.useState<"days" | "months" | "years">("days")
+  const [internalMonth, setInternalMonth] = React.useState<Date>(() => {
+    if (month) return month
+    if (props.defaultMonth) return props.defaultMonth
+    if (props.selected instanceof Date) return props.selected
+    return new Date()
+  })
+
+  // Keep internal month synced if controlled month changes
+  React.useEffect(() => {
+    if (month) {
+      setInternalMonth(month)
+    }
+  }, [month])
+
+  const displayMonth = month || internalMonth
+
+  const handleMonthChange = (newMonth: Date) => {
+    setInternalMonth(newMonth)
+    onMonthChange?.(newMonth)
+  }
+
+  if (view === "months") {
+    return (
+      <div className={cn("p-3", className)}>
+        <div className="flex justify-between items-center pt-1 relative pb-4">
+          <button
+            onClick={() => handleMonthChange(addYears(displayMonth, -1))}
+            className={cn(
+              mriButtonVariants({ variant: "outline" }),
+              "h-7 w-7 bg-transparent p-0 opacity-50 hover:opacity-100 absolute left-1"
+            )}
+          >
+            <ChevronLeft className="h-4 w-4" />
+          </button>
+
+          <button
+            type="button"
+            className={cn(
+              mriButtonVariants({ variant: "ghost" }),
+              "h-7 px-2 text-sm font-medium mx-auto"
+            )}
+            onClick={() => setView("years")}
+          >
+            {format(displayMonth, "yyyy")}
+          </button>
+
+          <button
+            onClick={() => handleMonthChange(addYears(displayMonth, 1))}
+            className={cn(
+              mriButtonVariants({ variant: "outline" }),
+              "h-7 w-7 bg-transparent p-0 opacity-50 hover:opacity-100 absolute right-1"
+            )}
+          >
+            <ChevronRight className="h-4 w-4" />
+          </button>
+        </div>
+
+        <div className="grid grid-cols-4 gap-2 mt-4">
+          {Array.from({ length: 12 }).map((_, i) => {
+            const isSelected = displayMonth.getMonth() === i
+            return (
+              <button
+                key={i}
+                type="button"
+                className={cn(
+                  mriButtonVariants({ variant: isSelected ? "default" : "ghost" }),
+                  "h-10 w-full font-normal"
+                )}
+                onClick={() => {
+                  handleMonthChange(setMonth(displayMonth, i))
+                  setView("days")
+                }}
+              >
+                {format(new Date(2000, i, 1), "MMM", { locale: props.locale || ptBR })}
+              </button>
+            )
+          })}
+        </div>
+      </div>
+    )
+  }
+
+  if (view === "years") {
+    const currentYear = displayMonth.getFullYear()
+    const startYear = Math.floor(currentYear / 10) * 10
+    const years = Array.from({ length: 12 }).map((_, i) => startYear - 1 + i)
+
+    return (
+      <div className={cn("p-3", className)}>
+        <div className="flex justify-between items-center pt-1 relative pb-4">
+          <button
+            onClick={() => handleMonthChange(addYears(displayMonth, -10))}
+            className={cn(
+              mriButtonVariants({ variant: "outline" }),
+              "h-7 w-7 bg-transparent p-0 opacity-50 hover:opacity-100 absolute left-1"
+            )}
+          >
+            <ChevronLeft className="h-4 w-4" />
+          </button>
+
+          <div className={cn(
+            mriButtonVariants({ variant: "ghost" }),
+            "h-7 px-2 text-sm font-medium mx-auto cursor-pointer pointer-events-none"
+          )}>
+            {years[0]} - {years[years.length - 1]}
+          </div>
+
+          <button
+            onClick={() => handleMonthChange(addYears(displayMonth, 10))}
+            className={cn(
+              mriButtonVariants({ variant: "outline" }),
+              "h-7 w-7 bg-transparent p-0 opacity-50 hover:opacity-100 absolute right-1"
+            )}
+          >
+            <ChevronRight className="h-4 w-4" />
+          </button>
+        </div>
+
+        <div className="grid grid-cols-4 gap-2 mt-4">
+          {years.map((y) => {
+            const isSelected = displayMonth.getFullYear() === y
+            return (
+              <button
+                key={y}
+                type="button"
+                className={cn(
+                  mriButtonVariants({ variant: isSelected ? "default" : "ghost" }),
+                  "h-10 w-full font-normal"
+                )}
+                onClick={() => {
+                  handleMonthChange(setYear(displayMonth, y))
+                  setView("months")
+                }}
+              >
+                {y}
+              </button>
+            )
+          })}
+        </div>
+      </div>
+    )
+  }
+
   return (
     <DayPicker
       showOutsideDays={showOutsideDays}
       className={cn("p-3", className)}
+      month={displayMonth}
+      onMonthChange={handleMonthChange}
       classNames={{
         months: "flex flex-col sm:flex-row space-y-4 sm:space-x-4 sm:space-y-0",
         month: "space-y-4",
@@ -54,6 +204,21 @@ function MriCalendar({
       components={{
         IconLeft: () => <ChevronLeft className="h-4 w-4" />,
         IconRight: () => <ChevronRight className="h-4 w-4" />,
+        CaptionLabel: () => {
+          return (
+            <button
+              type="button"
+              className={cn(
+                mriButtonVariants({ variant: "ghost" }),
+                "h-7 px-2 text-sm font-medium z-10"
+              )}
+              onClick={() => setView("months")}
+            >
+              {format(displayMonth, "MMMM yyyy", { locale: props.locale || ptBR })}
+            </button>
+          )
+        },
+        ...props.components,
       }}
       {...props}
     />
