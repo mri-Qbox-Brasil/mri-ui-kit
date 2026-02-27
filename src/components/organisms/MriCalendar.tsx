@@ -244,36 +244,9 @@ function MriCalendar({
         ...classNames,
       }}
       components={{
-        Caption: () => (
-          <div className="flex justify-center pt-1 relative items-center">
-             <customComponents.CaptionLabel />
-             <div className="nav space-x-1 flex items-center absolute right-1">
-                <MriButton
-                  variant="outline"
-                  className="h-7 w-7 bg-transparent p-0 opacity-50 hover:opacity-100"
-                  disabled={props.fromDate && isBefore(startOfMonth(internalMonth), props.fromDate)}
-                  onClick={() => handleMonthChange(setMonth(internalMonth, internalMonth.getMonth() - 1))}
-                  style={{ display: 'none' }} // react-day-picker nav is handled internally, but we use custom for months/years
-                />
-             </div>
-          </div>
-        ),
         IconLeft: () => <ChevronLeft className="h-4 w-4" />,
         IconRight: () => <ChevronRight className="h-4 w-4" />,
-        CaptionLabel: () => {
-          return (
-            <button
-              type="button"
-              className={cn(
-                mriButtonVariants({ variant: "ghost" }),
-                "h-7 px-2 text-sm font-medium z-10"
-              )}
-              onClick={() => setView("months")}
-            >
-              {format(displayMonth, "MMMM yyyy", { locale: props.locale || ptBR })}
-            </button>
-          )
-        },
+        CaptionLabel: customComponents.CaptionLabel,
         ...props.components,
       }}
       {...props}
