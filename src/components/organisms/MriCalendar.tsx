@@ -18,8 +18,6 @@ function MriCalendar({
   className,
   classNames,
   showOutsideDays = true,
-  month,
-  onMonthChange,
   ...props
 }: MriCalendarProps) {
   const [viewMode, setViewMode] = React.useState<'days' | 'months' | 'years'>('days')
