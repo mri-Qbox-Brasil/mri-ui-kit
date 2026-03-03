@@ -41,7 +41,7 @@ export const MriColorPicker = ({ color, onChange, active, format = 'hsl-string' 
              // eslint-disable-next-line react-hooks/set-state-in-effect
              setHex(newHex)
              const newC = colord(newHex)
-              
+
              setInputState({
                  hex: newHex,
                  rgb: newC.toRgb(),
@@ -58,17 +58,17 @@ export const MriColorPicker = ({ color, onChange, active, format = 'hsl-string' 
             rgb: newC.toRgb(),
             hsl: newC.toHsl()
         })
+
+        // Real-time update
+        if (format === 'hex') {
+            onChange(newHex)
+        } else {
+            const hsl = newC.toHsl()
+            const hslString = `${Math.round(hsl.h)} ${Math.round(hsl.s)}% ${Math.round(hsl.l)}%`
+            onChange(hslString)
+        }
     }
 
-    const commitChange = () => {
-         if (format === 'hex') {
-             onChange(hex)
-         } else {
-             const hsl = colord(hex).toHsl()
-             const hslString = `${Math.round(hsl.h)} ${Math.round(hsl.s)}% ${Math.round(hsl.l)}%`
-             onChange(hslString)
-         }
-    }
 
     const updateFromInput = (type: string, val: string | number, part?: string) => {
         const newData = { ...inputState }
@@ -102,7 +102,7 @@ export const MriColorPicker = ({ color, onChange, active, format = 'hsl-string' 
     }
 
     return (
-        <Popover.Root onOpenChange={(open) => !open && commitChange()}>
+        <Popover.Root>
             <Popover.Trigger asChild>
                 <button
                     className={cn(
@@ -121,7 +121,12 @@ export const MriColorPicker = ({ color, onChange, active, format = 'hsl-string' 
             <Popover.Portal>
                 <Popover.Content sideOffset={5} className="z-50 w-64 rounded-xl border bg-popover p-3 text-popover-foreground shadow-md outline-none animate-in fade-in-0 zoom-in-95 data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=closed]:zoom-out-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2">
                     <div className="space-y-3">
-                        <HexColorPicker color={hex} onChange={handleChange} className="!w-full !h-[120px] !rounded-lg" />
+                        <div
+                            style={{ touchAction: 'none' }}
+                            onPointerDown={(e) => e.stopPropagation()}
+                        >
+                            <HexColorPicker color={hex} onChange={handleChange} className="!w-full !h-[120px] !rounded-lg" />
+                        </div>
 
                         <div className="space-y-3">
                             <div className="flex bg-muted/50 p-1 rounded-lg">
