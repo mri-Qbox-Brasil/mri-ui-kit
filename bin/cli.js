@@ -57,6 +57,7 @@ const COMPONENT_MAP = {
     'MriKeyboardVisualizer': 'organisms',
     'MriPageHeader': 'organisms',
     'MriSidebar': 'organisms',
+    'MriTopbar': 'organisms',
     'MriTable': 'organisms',
 };
 
