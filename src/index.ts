@@ -38,6 +38,7 @@ export * from './components/molecules/MriCreatableCombobox'
 export * from './components/organisms/MriCalendar'
 export * from './components/organisms/MriPageHeader'
 export * from './components/organisms/MriSidebar'
+export * from './components/organisms/MriTopbar'
 export * from './components/organisms/MriTable'
 export * from './components/organisms/MriKeyboardVisualizer'
 
