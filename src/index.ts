@@ -33,13 +33,16 @@ export * from './components/molecules/MriSectionHeader'
 export * from './components/molecules/MriDatePicker'
 export * from './components/molecules/MriColorPicker'
 export * from './components/molecules/MriCreatableCombobox'
+export * from './components/molecules/MriPlayerVitals'
+export * from './components/molecules/MriVitalAdjustModal'
 
 // Organisms
 export * from './components/organisms/MriCalendar'
 export * from './components/organisms/MriPageHeader'
 export * from './components/organisms/MriSidebar'
 export * from './components/organisms/MriTopbar'
-export * from './components/organisms/MriTable'
+export * from './components/organisms/MriTopbar'
 export * from './components/organisms/MriKeyboardVisualizer'
+export * from './components/organisms/MriPlayerScreenStream'
 
 export * from './lib/utils'
