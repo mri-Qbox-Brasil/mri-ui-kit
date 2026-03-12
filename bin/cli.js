@@ -51,6 +51,8 @@ const COMPONENT_MAP = {
     'MriSectionHeader': 'molecules',
     'MriDatePicker': 'molecules',
     'MriDrawer': 'molecules',
+    'MriPlayerVitals': 'molecules',
+    'MriVitalAdjustModal': 'molecules',
 
     // Organisms
     'MriCalendar': 'organisms',
@@ -59,6 +61,7 @@ const COMPONENT_MAP = {
     'MriSidebar': 'organisms',
     'MriTopbar': 'organisms',
     'MriTable': 'organisms',
+    'MriPlayerScreenStream': 'organisms',
 };
 
 function toPascalCase(str) {
@@ -174,7 +177,7 @@ async function checkDependencies(filePath, installDir) {
 program
     .name('mri-ui')
     .description('Add Mri UI components to your project')
-    .version('2.0.0');
+    .version('3.4.0');
 
 program
     .command('add <component>')
