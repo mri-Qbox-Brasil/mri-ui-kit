@@ -35,6 +35,7 @@ export * from './components/molecules/MriColorPicker'
 export * from './components/molecules/MriCreatableCombobox'
 export * from './components/molecules/MriPlayerVitals'
 export * from './components/molecules/MriVitalAdjustModal'
+export * from './components/molecules/MriMultiSelect'
 
 // Organisms
 export * from './components/organisms/MriCalendar'

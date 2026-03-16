@@ -11,6 +11,14 @@ export interface MriVitalAdjustModalProps {
     vital: 'health' | 'armor' | 'hunger' | 'thirst' | 'stress'
     currentValue: number
     playerName: string
+    // Top-level prop overrides
+    title?: string
+    description?: string
+    icon?: LucideIcon
+    confirmLabel?: string
+    cancelLabel?: string
+    newValueLabel?: string
+    showFullProgress?: boolean
     labels?: {
         health?: string
         armor?: string
@@ -20,6 +28,7 @@ export interface MriVitalAdjustModalProps {
         newValue?: string
         confirm?: string
         cancel?: string
+        playerNameLabel?: string
     }
 }
 
@@ -31,7 +40,22 @@ const VITAL_CONFIG: Record<string, { icon: LucideIcon; color: string; bgColor: s
     stress: { icon: Brain, color: 'text-purple-500', bgColor: 'bg-purple-500', hex: '#a855f7', label: 'stress', max: 100 },
 }
 
-export function MriVitalAdjustModal({ isOpen, onClose, onSubmit, vital, currentValue, playerName, labels }: MriVitalAdjustModalProps) {
+export function MriVitalAdjustModal({
+    isOpen,
+    onClose,
+    onSubmit,
+    vital,
+    currentValue,
+    playerName,
+    labels,
+    icon,
+    showFullProgress = true,
+    title,
+    description,
+    confirmLabel,
+    cancelLabel,
+    newValueLabel
+}: MriVitalAdjustModalProps) {
     const [value, setValue] = useState(currentValue)
 
     useEffect(() => {
@@ -41,11 +65,17 @@ export function MriVitalAdjustModal({ isOpen, onClose, onSubmit, vital, currentV
     if (!isOpen) return null
 
     const config = VITAL_CONFIG[vital]
-    const Icon = config.icon
+    const Icon = icon || config.icon
 
     const getLabel = (key: string, defaultText: string) => {
         return labels?.[key as keyof typeof labels] || defaultText;
     };
+
+    const displayTitle = title || getLabel(config.label, config.label.charAt(0).toUpperCase() + config.label.slice(1))
+    const displayDescription = description || getLabel('playerNameLabel', playerName)
+    const displayConfirm = confirmLabel || getLabel('confirm', 'Confirm')
+    const displayCancel = cancelLabel || getLabel('cancel', 'Cancel')
+    const displayNewValue = newValueLabel || getLabel('newValue', 'New Value')
 
     return (
         <MriModal onClose={onClose} className="w-[420px] p-0 bg-card/95 border-primary/10 backdrop-blur-xl shadow-2xl overflow-hidden animate-in zoom-in-95 duration-200">
@@ -65,8 +95,8 @@ export function MriVitalAdjustModal({ isOpen, onClose, onSubmit, vital, currentV
                         <Icon size={24} className="animate-pulse" />
                     </div>
                     <div>
-                        <h2 className="text-xl font-black text-foreground tracking-tight uppercase">{getLabel(config.label, config.label.charAt(0).toUpperCase() + config.label.slice(1))}</h2>
-                        <p className="text-xs text-muted-foreground/70 font-medium">{playerName}</p>
+                        <h2 className="text-xl font-black text-foreground tracking-tight uppercase">{displayTitle}</h2>
+                        <p className="text-xs text-muted-foreground/70 font-medium">{displayDescription}</p>
                     </div>
                 </div>
             </div>
@@ -75,7 +105,7 @@ export function MriVitalAdjustModal({ isOpen, onClose, onSubmit, vital, currentV
             <div className="p-8 space-y-8">
                 <div className="space-y-6">
                     <div className="flex justify-between items-end">
-                        <span className="text-xs font-bold text-muted-foreground uppercase tracking-widest">{getLabel('newValue', 'New Value')}</span>
+                        <span className="text-xs font-bold text-muted-foreground uppercase tracking-widest">{displayNewValue}</span>
                         <div className="flex items-baseline gap-1">
                             <span className={cn("text-4xl font-black font-mono leading-none drop-shadow-sm", config.color)}>{Math.round(value)}</span>
                             <span className="text-lg font-bold text-muted-foreground">%</span>
@@ -92,10 +122,10 @@ export function MriVitalAdjustModal({ isOpen, onClose, onSubmit, vital, currentV
                             onChange={(e) => setValue(Number(e.target.value))}
                             className="vital-adjust-slider"
                             style={{
-                                background: `linear-gradient(to right, ${config.hex} ${value}%, var(--muted) ${value}%)`,
+                                background: `linear-gradient(to right, ${config.hex} ${value}%, ${showFullProgress ? 'var(--vital-color-20)' : 'var(--muted)'} ${value}%)`,
                                 '--vital-color': config.hex,
                                 '--vital-color-60': config.hex + '66',
-                                '--vital-color-20': config.hex + '33'
+                                '--vital-color-20': config.hex + '33',
                             } as React.CSSProperties}
                         />
                         <div className="flex justify-between mt-4 text-[10px] font-black font-mono text-muted-foreground/40 uppercase tracking-tighter">
@@ -113,15 +143,15 @@ export function MriVitalAdjustModal({ isOpen, onClose, onSubmit, vital, currentV
             <div className="p-6 pt-2 flex gap-4 bg-muted/30">
                 <MriButton
                     variant="ghost"
-                    className="flex-1 h-12 gap-2 text-muted-foreground font-bold border border-transparent hover:border-border/50 transition-all uppercase text-xs"
+                    className="flex-1 h-12 gap-2 text-muted-foreground border border-transparent hover:border-border/50 transition-all uppercase text-xs"
                     onClick={onClose}
                 >
-                    <X size={16} /> {getLabel('cancel', 'Cancel')}
+                    <X size={16} /> {displayCancel}
                 </MriButton>
                 <MriButton
                     variant="default"
                     className={cn(
-                        "flex-1 h-12 gap-2 text-white font-black uppercase text-xs transition-all active:scale-95",
+                        "flex-1 h-12 gap-2 text-white uppercase text-xs transition-all active:scale-95",
                         config.bgColor,
                         "hover:brightness-110 shadow-lg",
                         vital === 'health' ? 'shadow-red-500/20' :
@@ -131,7 +161,7 @@ export function MriVitalAdjustModal({ isOpen, onClose, onSubmit, vital, currentV
                     )}
                     onClick={() => onSubmit(value)}
                 >
-                    <Save size={16} /> {getLabel('confirm', 'Confirm')}
+                    <Save size={16} /> {displayConfirm}
                 </MriButton>
             </div>
 
@@ -144,7 +174,6 @@ export function MriVitalAdjustModal({ isOpen, onClose, onSubmit, vital, currentV
                     outline: none;
                     border: 1px solid var(--border);
                     transition: all 0.3s ease;
-                    background: var(--muted);
                 }
                 .vital-adjust-slider::-webkit-slider-thumb {
                     -webkit-appearance: none;
