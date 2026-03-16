@@ -143,7 +143,7 @@ export function MriVitalAdjustModal({
             <div className="p-6 pt-2 flex gap-4 bg-muted/30">
                 <MriButton
                     variant="ghost"
-                    className="flex-1 h-12 gap-2 text-muted-foreground font-bold border border-transparent hover:border-border/50 transition-all uppercase text-xs"
+                    className="flex-1 h-12 gap-2 text-muted-foreground border border-transparent hover:border-border/50 transition-all uppercase text-xs"
                     onClick={onClose}
                 >
                     <X size={16} /> {displayCancel}
@@ -151,7 +151,7 @@ export function MriVitalAdjustModal({
                 <MriButton
                     variant="default"
                     className={cn(
-                        "flex-1 h-12 gap-2 text-white font-black uppercase text-xs transition-all active:scale-95",
+                        "flex-1 h-12 gap-2 text-white uppercase text-xs transition-all active:scale-95",
                         config.bgColor,
                         "hover:brightness-110 shadow-lg",
                         vital === 'health' ? 'shadow-red-500/20' :
