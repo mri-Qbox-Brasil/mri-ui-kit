@@ -177,7 +177,7 @@ async function checkDependencies(filePath, installDir) {
 program
     .name('mri-ui')
     .description('Add Mri UI components to your project')
-    .version('3.4.1');
+    .version('3.4.2');
 
 program
     .command('add <component>')

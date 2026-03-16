@@ -22,7 +22,7 @@ export interface MriMultiSelectOption {
   value: string | number
 }
 
-interface MriMultiSelectProps {
+export interface MriMultiSelectProps {
   options: MriMultiSelectOption[]
   value: (string | number)[]
   onChange: (value: (string | number)[]) => void
