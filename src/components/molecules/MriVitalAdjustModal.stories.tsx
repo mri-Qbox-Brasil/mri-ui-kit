@@ -2,6 +2,7 @@ import { useState } from 'react';
 import type { Meta, StoryObj } from '@storybook/react';
 import { MriVitalAdjustModal, type MriVitalAdjustModalProps } from './MriVitalAdjustModal';
 import { MriButton } from '@/components/atoms/MriButton';
+import { Zap } from 'lucide-react';
 
 const meta: Meta<typeof MriVitalAdjustModal> = {
     title: 'Molecules/MriVitalAdjustModal',
@@ -47,6 +48,40 @@ export const Health: Story = {
         vital: 'health',
         currentValue: 85,
         playerName: 'John Doe [102]',
+    },
+};
+
+export const CustomIcon: Story = {
+    render: (args) => <StatefulModal {...args} />,
+    args: {
+        vital: 'stress',
+        currentValue: 30,
+        playerName: 'John Doe [102]',
+        icon: Zap,
+    },
+};
+
+export const CustomLabels: Story = {
+    render: (args) => <StatefulModal {...args} />,
+    args: {
+        vital: 'health',
+        currentValue: 50,
+        playerName: 'John Doe [102]',
+        title: 'Vitalidade',
+        newValueLabel: 'Novo Nível',
+        confirmLabel: 'Salvar Alterações',
+        cancelLabel: 'Descartar',
+        description: 'Paciente: John Doe',
+    },
+};
+
+export const HiddenProgress: Story = {
+    render: (args) => <StatefulModal {...args} />,
+    args: {
+        vital: 'armor',
+        currentValue: 60,
+        playerName: 'John Doe [102]',
+        showFullProgress: false,
     },
 };
 
