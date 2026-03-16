@@ -143,7 +143,7 @@ export function MriPlayerScreenStream({
         }
 
         return () => {
-            stopListening();
+            if (typeof stopListening === 'function') stopListening();
             if (isMock) {
                 window.removeEventListener('keydown', handleBrowserKeys);
                 window.removeEventListener('keyup', handleBrowserKeys);
@@ -163,23 +163,23 @@ export function MriPlayerScreenStream({
 
     // ── Init Signaling ──
     useEffect(() => {
-        if (!playerId || !signaling || !webrtcConfig || !selfId) return;
+        if (isMock || !playerId || !signaling || !webrtcConfig || !selfId) return;
 
         signaling.init(webrtcConfig.url, 'viewer-' + selfId, webrtcConfig.provider);
 
         return () => {
             signaling.disconnect();
         };
-    }, [signaling, webrtcConfig, playerId, selfId]);
+    }, [signaling, webrtcConfig, playerId, selfId, isMock]);
 
     // ── Signaling / WebRTC Logic ──
     useEffect(() => {
-        if (!playerId || !selfId || !signaling) return;
-
         if (isMock) {
             queueMicrotask(() => setLoading(false));
             return;
         }
+
+        if (!playerId || !selfId || !signaling) return;
 
         const provider = webrtcConfig?.provider || 'websocket';
         const iceServers = webrtcConfig?.iceServers || DEFAULT_RTC_CONFIG.iceServers;
@@ -204,7 +204,7 @@ export function MriPlayerScreenStream({
 
             onSendNui?.('GetPlayerScreen', { targetId: playerId });
             return () => {
-                unsubSignal();
+                if (typeof unsubSignal === 'function') unsubSignal();
                 if (peerRef.current) peerRef.current.close();
                 onSendNui?.('StopPlayerScreen', { targetId: playerId });
             };
@@ -276,7 +276,7 @@ export function MriPlayerScreenStream({
         signaling.onConnect(trigger);
 
         return () => {
-            unsub();
+            if (typeof unsub === 'function') unsub();
             if (peerRef.current) {
                 peerRef.current.close();
                 peerRef.current = null;
