@@ -1,7 +1,7 @@
 
 import type { Meta, StoryObj } from "@storybook/react"
 import { useState } from "react"
-import { MriMultiSelect } from "./MriMultiSelect"
+import { MriMultiSelect, type MriMultiSelectProps } from "./MriMultiSelect"
 
 const meta: Meta<typeof MriMultiSelect> = {
   title: "Molecules/MriMultiSelect",
@@ -26,15 +26,21 @@ const OPTIONS = [
   { label: "Astro", value: "astro" },
 ]
 
+interface MriMultiSelectStatefulProps extends Omit<MriMultiSelectProps, "value" | "onChange"> {
+  defaultValue?: (string | number)[]
+}
+
+const MriMultiSelectStateful = ({ defaultValue = [], ...args }: MriMultiSelectStatefulProps) => {
+  const [value, setValue] = useState<(string | number)[]>(defaultValue)
+  return <MriMultiSelect {...args} value={value} onChange={setValue} />
+}
+
 export const Default: Story = {
-  render: (args) => {
-    const [value, setValue] = useState<(string | number)[]>([])
-    return (
-      <div className="w-[300px]">
-        <MriMultiSelect {...args} value={value} onChange={setValue} />
-      </div>
-    )
-  },
+  render: (args) => (
+    <div className="w-[300px]">
+      <MriMultiSelectStateful {...args} />
+    </div>
+  ),
   args: {
     options: OPTIONS,
     placeholder: "Select technologies...",
@@ -42,14 +48,11 @@ export const Default: Story = {
 }
 
 export const ManySelected: Story = {
-  render: (args) => {
-    const [value, setValue] = useState<(string | number)[]>(["react", "vue", "nextjs", "astro", "svelte"])
-    return (
-      <div className="w-[400px]">
-        <MriMultiSelect {...args} value={value} onChange={setValue} />
-      </div>
-    )
-  },
+  render: (args) => (
+    <div className="w-[400px]">
+      <MriMultiSelectStateful {...args} defaultValue={["react", "vue", "nextjs", "astro", "svelte"]} />
+    </div>
+  ),
   args: {
     options: OPTIONS,
     maxVisibleValues: 3,
