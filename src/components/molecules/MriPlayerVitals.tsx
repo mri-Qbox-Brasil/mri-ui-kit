@@ -18,6 +18,7 @@ export interface MriPlayerVitalsProps {
     vitals: VitalsData;
     size?: 'mini' | 'compact' | 'full';
     onAction?: (vital: string, label: string, value: number) => void;
+    onIconClick?: (vital: string, label: string, value: number) => void;
     className?: string;
     labels?: {
         health?: string;
@@ -46,7 +47,7 @@ const VITAL_CONFIG: {
         { key: 'stress', icon: Brain, color: 'bg-purple-500', hex: '#a855f7', border: 'border-border/50', shadow: 'shadow-[0_0_10px_rgba(168,85,247,0.4)]', hoverBorder: 'hover:border-purple-500/50', hoverShadow: 'hover:shadow-[0_0_20px_rgba(168,85,247,0.1)]', inverted: true },
     ];
 
-const VitalBar = ({ val, color, hex, icon: Icon, label, onClick }: { val: number, color: string, hex: string, icon: LucideIcon, label?: string, onClick?: () => void }) => (
+const VitalBar = ({ val, color, hex, icon: Icon, label, onClick, onIconClick }: { val: number, color: string, hex: string, icon: LucideIcon, label?: string, onClick?: () => void, onIconClick?: () => void }) => (
     <div
         className={cn(
             "flex items-center gap-3 w-full transition-all duration-300",
@@ -55,7 +56,15 @@ const VitalBar = ({ val, color, hex, icon: Icon, label, onClick }: { val: number
         onClick={onClick}
         title={onClick ? `Adjust ${label}` : undefined}
     >
-        <div className="relative">
+        <div 
+            className={cn("relative", onIconClick && "cursor-pointer hover:scale-110 transition-transform")}
+            onClick={(e) => {
+                if (onIconClick) {
+                    e.stopPropagation();
+                    onIconClick();
+                }
+            }}
+        >
             <Icon size={14} className="shrink-0 transition-all duration-500 group-hover/vbar:scale-110" style={{ color: hex }} />
             <div className="absolute inset-0 blur-[4px] opacity-0 group-hover/vbar:opacity-40 transition-opacity" style={{ backgroundColor: hex }} />
         </div>
@@ -73,7 +82,7 @@ const VitalBar = ({ val, color, hex, icon: Icon, label, onClick }: { val: number
     </div>
 )
 
-export function MriPlayerVitals({ vitals, size = 'compact', onAction, className, labels }: MriPlayerVitalsProps) {
+export function MriPlayerVitals({ vitals, size = 'compact', onAction, onIconClick, className, labels }: MriPlayerVitalsProps) {
     const getVitalValue = (key: string): number => {
         if (!vitals) return 0;
         const val = (vitals[key] !== undefined ? vitals[key] : vitals.metadata?.[key]) as number | undefined;
@@ -105,6 +114,7 @@ export function MriPlayerVitals({ vitals, size = 'compact', onAction, className,
                             icon={v.icon}
                             label={label}
                             onClick={onAction ? () => onAction(v.key, label, val) : undefined}
+                            onIconClick={onIconClick ? () => onIconClick(v.key, label, val) : undefined}
                         />
                     );
                 })}
@@ -138,7 +148,17 @@ export function MriPlayerVitals({ vitals, size = 'compact', onAction, className,
 
                             <div className="flex justify-between items-center text-[10px] font-black uppercase tracking-widest text-muted-foreground/60 group-hover/vital:text-foreground transition-colors">
                                 <span className="flex items-center gap-2">
-                                    <v.icon className="w-3.5 h-3.5 transition-transform duration-500 group-hover/vital:scale-110" style={{ color: v.hex }} />
+                                    <div 
+                                        className={cn("p-1 -m-1 rounded-md transition-all", onIconClick && "hover:bg-white/10 cursor-pointer active:scale-90")}
+                                        onClick={(e) => {
+                                            if (onIconClick) {
+                                                e.stopPropagation();
+                                                onIconClick(v.key, label, val);
+                                            }
+                                        }}
+                                    >
+                                        <v.icon className="w-3.5 h-3.5 transition-transform duration-500 group-hover/vital:scale-110" style={{ color: v.hex }} />
+                                    </div>
                                     {label}
                                 </span>
                                 <span className="font-mono text-xs group-hover/vital:scale-110 transition-transform">{val}%</span>
@@ -179,6 +199,7 @@ export function MriPlayerVitals({ vitals, size = 'compact', onAction, className,
                         icon={v.icon}
                         label={label}
                         onClick={onAction ? () => onAction(v.key, label, val) : undefined}
+                        onIconClick={onIconClick ? () => onIconClick(v.key, label, val) : undefined}
                     />
                 );
             })}

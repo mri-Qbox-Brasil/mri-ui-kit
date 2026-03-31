@@ -11,6 +11,7 @@ import {
   MriCommandGroup,
   MriCommandInput,
   MriCommandItem,
+  MriCommandList,
 } from "@/components/molecules/MriCommand"
 import { Check, Search } from "lucide-react"
 import { cn } from "@/lib/utils"
@@ -32,6 +33,7 @@ interface MriCompactSearchProps {
   size?: "default" | "sm"
   error?: boolean | string
   clearable?: boolean
+  portal?: boolean
 }
 
 export function MriCompactSearch({
@@ -44,7 +46,8 @@ export function MriCompactSearch({
   disabled,
   size = "default",
   error,
-  clearable = false
+  clearable = false,
+  portal = true
 }: MriCompactSearchProps) {
   const [open, setOpen] = useState(false)
 
@@ -74,36 +77,41 @@ export function MriCompactSearch({
           )}
         </div>
       </MriPopoverTrigger>
-      <MriPopoverContent className="w-[200px] p-0 border-border bg-popover" align="start">
+      <MriPopoverContent portal={portal} className="w-[200px] p-0 border-border bg-popover" align="start">
         <MriCommand className="bg-transparent">
           <MriCommandInput placeholder={searchPlaceholder} className="h-9" />
           <MriCommandEmpty>{emptyMessage}</MriCommandEmpty>
-          <MriCommandGroup className="max-h-60 overflow-auto p-1">
-            {options.map((opt) => (
-              <MriCommandItem
-                key={opt.value}
-                value={opt.label}
-                onSelect={() => {
-                  const newValue = String(opt.value)
-                  if (clearable && String(value) === newValue) {
-                    onChange("")
-                  } else {
-                    onChange(newValue)
-                  }
-                  setOpen(false)
-                }}
-                className="aria-selected:bg-accent aria-selected:text-accent-foreground rounded-md cursor-pointer"
-              >
-                <Check
-                  className={cn(
-                    "mr-2 h-4 w-4 text-primary",
-                    String(value) === String(opt.value) ? "opacity-100" : "opacity-0"
-                  )}
-                />
-                <span className="truncate">{opt.label}</span>
-              </MriCommandItem>
-            ))}
-          </MriCommandGroup>
+          <MriCommandList 
+            className="max-h-60 overflow-auto p-1 custom-scrollbar"
+            onWheel={(e) => e.stopPropagation()}
+          >
+            <MriCommandGroup>
+              {options.map((opt) => (
+                <MriCommandItem
+                  key={opt.value}
+                  value={opt.label}
+                  onSelect={() => {
+                    const newValue = String(opt.value)
+                    if (clearable && String(value) === newValue) {
+                      onChange("")
+                    } else {
+                      onChange(newValue)
+                    }
+                    setOpen(false)
+                  }}
+                  className="aria-selected:bg-accent aria-selected:text-accent-foreground rounded-md cursor-pointer"
+                >
+                  <Check
+                    className={cn(
+                      "mr-2 h-4 w-4 text-primary",
+                      String(value) === String(opt.value) ? "opacity-100" : "opacity-0"
+                    )}
+                  />
+                  <span className="truncate">{opt.label}</span>
+                </MriCommandItem>
+              ))}
+            </MriCommandGroup>
+          </MriCommandList>
         </MriCommand>
       </MriPopoverContent>
     </MriPopover>
