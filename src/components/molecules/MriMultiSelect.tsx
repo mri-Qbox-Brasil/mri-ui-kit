@@ -15,6 +15,7 @@ import {
   MriCommandGroup,
   MriCommandInput,
   MriCommandItem,
+  MriCommandList,
 } from "@/components/molecules/MriCommand"
 
 export interface MriMultiSelectOption {
@@ -34,6 +35,7 @@ export interface MriMultiSelectProps {
   maxVisibleValues?: number
   isLoading?: boolean
   error?: boolean | string
+  portal?: boolean
 }
 
 export function MriMultiSelect({
@@ -48,6 +50,7 @@ export function MriMultiSelect({
   maxVisibleValues = 3,
   isLoading = false,
   error,
+  portal = true
 }: MriMultiSelectProps) {
   const [open, setOpen] = useState(false)
 
@@ -125,7 +128,7 @@ export function MriMultiSelect({
           )}
         </div>
       </MriPopoverTrigger>
-      <MriPopoverContent className="w-[--radix-popover-trigger-width] p-0 border-border bg-popover z-50 shadow-2xl overflow-hidden rounded-xl">
+      <MriPopoverContent portal={portal} className="w-[--radix-popover-trigger-width] p-0 border-border bg-popover z-[100] shadow-2xl overflow-hidden rounded-xl">
         <MriCommand className="bg-transparent text-popover-foreground">
           <MriCommandInput 
             placeholder={searchPlaceholder} 
@@ -134,33 +137,38 @@ export function MriMultiSelect({
           <MriCommandEmpty className="py-6 text-sm text-center text-muted-foreground">
             {emptyMessage}
           </MriCommandEmpty>
-          <MriCommandGroup className="max-h-64 overflow-auto p-1.5 space-y-0.5">
-            {options.map((opt) => (
-              <MriCommandItem
-                key={opt.value}
-                value={opt.label}
-                onSelect={() => handleSelect(opt.value)}
-                className="aria-selected:bg-primary/10 aria-selected:text-primary rounded-lg cursor-pointer flex items-center justify-between py-2.5 px-3 transition-all active:scale-[0.98]"
-              >
-                <div className="flex items-center gap-2">
-                   <div className={cn(
-                        "w-4 h-4 rounded border flex items-center justify-center transition-all duration-200",
-                        value.includes(opt.value) 
-                        ? "bg-primary border-primary" 
-                        : "border-border bg-background"
-                   )}>
-                        {value.includes(opt.value) && <Check className="h-3 w-3 text-primary-foreground stroke-[3px]" />}
-                   </div>
-                   <span className={cn(
-                        "text-sm font-medium",
-                        value.includes(opt.value) ? "text-primary" : "text-foreground"
-                   )}>
-                        {opt.label}
-                   </span>
-                </div>
-              </MriCommandItem>
-            ))}
-          </MriCommandGroup>
+          <MriCommandList 
+            className="max-h-64 overflow-auto p-1.5 space-y-0.5 custom-scrollbar"
+            onWheel={(e) => e.stopPropagation()}
+          >
+            <MriCommandGroup>
+              {options.map((opt) => (
+                <MriCommandItem
+                  key={opt.value}
+                  value={opt.label}
+                  onSelect={() => handleSelect(opt.value)}
+                  className="aria-selected:bg-primary/10 aria-selected:text-primary rounded-lg cursor-pointer flex items-center justify-between py-2.5 px-3 transition-all active:scale-[0.98]"
+                >
+                  <div className="flex items-center gap-2">
+                    <div className={cn(
+                          "w-4 h-4 rounded border flex items-center justify-center transition-all duration-200",
+                          value.includes(opt.value) 
+                          ? "bg-primary border-primary" 
+                          : "border-border bg-background"
+                    )}>
+                          {value.includes(opt.value) && <Check className="h-3 w-3 text-primary-foreground stroke-[3px]" />}
+                    </div>
+                    <span className={cn(
+                          "text-sm font-medium",
+                          value.includes(opt.value) ? "text-primary" : "text-foreground"
+                    )}>
+                          {opt.label}
+                    </span>
+                  </div>
+                </MriCommandItem>
+              ))}
+            </MriCommandGroup>
+          </MriCommandList>
         </MriCommand>
       </MriPopoverContent>
     </MriPopover>

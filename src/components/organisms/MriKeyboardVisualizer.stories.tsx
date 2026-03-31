@@ -22,7 +22,7 @@ export const Default: Story = {
   },
   render: (args) => (
     <div className="p-8 bg-black">
-      <MriKeyboardVisualizer {...args} />
+      <MriKeyboardVisualizer {...args} pressedKeys={args.pressedKeys || []} />
     </div>
   )
 }

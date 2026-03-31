@@ -9,12 +9,15 @@ const meta: Meta<typeof MriTimePicker> = {
     layout: 'centered',
   },
   tags: ['autodocs'],
+  args: {
+    onChange: () => {},
+  }
 };
 
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-const TimePickerWithState = (args: React.ComponentProps<typeof MriTimePicker>) => {
+const TimePickerWithState = (args: Partial<React.ComponentProps<typeof MriTimePicker>>) => {
     const [time, setTime] = useState<string>(args.value || "00:00");
     return <MriTimePicker {...args} value={time} onChange={setTime} />;
 };

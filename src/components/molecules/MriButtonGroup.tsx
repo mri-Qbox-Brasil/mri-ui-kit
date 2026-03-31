@@ -1,5 +1,5 @@
 import React from 'react'
-import { MriButton } from "@/components/atoms/MriButton"
+import { MriButton } from "../atoms/MriButton"
 
 type Action = { icon?: React.ReactNode; label: string; onClick?: () => void; disabled?: boolean }
 

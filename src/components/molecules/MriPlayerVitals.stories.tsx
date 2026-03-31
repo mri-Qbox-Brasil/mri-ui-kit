@@ -11,6 +11,7 @@ const meta: Meta<typeof MriPlayerVitals> = {
             options: ['mini', 'compact', 'full'],
         },
         onAction: { action: 'onAction' },
+        onIconClick: { action: 'onIconClick' },
     },
 };
 
@@ -60,5 +61,12 @@ export const CriticalState: Story = {
             },
         },
         size: 'full',
+    },
+};
+
+export const WithIconClick: Story = {
+    args: {
+        vitals: mockVitals,
+        size: 'compact',
     },
 };
