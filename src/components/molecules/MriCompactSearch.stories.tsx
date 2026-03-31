@@ -9,22 +9,32 @@ const meta: Meta<typeof MriCompactSearch> = {
     layout: 'centered',
   },
   tags: ['autodocs'],
+  args: {
+    options: [
+      { value: 'next.js', label: 'Next.js' },
+      { value: 'sveltekit', label: 'SvelteKit' },
+      { value: 'nuxt.js', label: 'Nuxt.js' },
+      { value: 'remix', label: 'Remix' },
+      { value: 'astro', label: 'Astro' },
+    ],
+    value: "",
+    onChange: () => {},
+  }
 };
 
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-const options = [
-  { value: 'next.js', label: 'Next.js' },
-  { value: 'sveltekit', label: 'SvelteKit' },
-  { value: 'nuxt.js', label: 'Nuxt.js' },
-  { value: 'remix', label: 'Remix' },
-  { value: 'astro', label: 'Astro' },
-];
-
-const CompactSearchWithState = (args: React.ComponentProps<typeof MriCompactSearch>) => {
+const CompactSearchWithState = (args: any) => {
   const [value, setValue] = useState(args.value || "");
-  return <MriCompactSearch {...args} options={options} value={value} onChange={setValue} />;
+  const baseOptions = [
+    { value: 'next.js', label: 'Next.js' },
+    { value: 'sveltekit', label: 'SvelteKit' },
+    { value: 'nuxt.js', label: 'Nuxt.js' },
+    { value: 'remix', label: 'Remix' },
+    { value: 'astro', label: 'Astro' },
+  ];
+  return <MriCompactSearch {...args} options={args.options || baseOptions} value={value} onChange={setValue} />;
 };
 
 export const Default: Story = {

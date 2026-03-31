@@ -10,12 +10,15 @@ const meta: Meta<typeof MriDatePicker> = {
     layout: 'centered',
   },
   tags: ['autodocs'],
+  args: {
+    onChange: () => {},
+  }
 };
 
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-const DatePickerWithState = (args: React.ComponentProps<typeof MriDatePicker>) => {
+const DatePickerWithState = (args: any) => {
   const [date, setDate] = useState<Date | undefined>(args.value || undefined);
   return <MriDatePicker {...args} value={date} onChange={setDate} />;
 };
