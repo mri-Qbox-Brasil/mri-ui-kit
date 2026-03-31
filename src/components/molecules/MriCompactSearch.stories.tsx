@@ -25,7 +25,7 @@ const meta: Meta<typeof MriCompactSearch> = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-const CompactSearchWithState = (args: any) => {
+const CompactSearchWithState = (args: Partial<React.ComponentProps<typeof MriCompactSearch>>) => {
   const [value, setValue] = useState(args.value || "");
   const baseOptions = [
     { value: 'next.js', label: 'Next.js' },

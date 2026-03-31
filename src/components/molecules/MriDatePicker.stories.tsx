@@ -18,7 +18,7 @@ const meta: Meta<typeof MriDatePicker> = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-const DatePickerWithState = (args: any) => {
+const DatePickerWithState = (args: Partial<React.ComponentProps<typeof MriDatePicker>>) => {
   const [date, setDate] = useState<Date | undefined>(args.value || undefined);
   return <MriDatePicker {...args} value={date} onChange={setDate} />;
 };
