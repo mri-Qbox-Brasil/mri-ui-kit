@@ -7,7 +7,7 @@ module.exports = {
         [
             "@semantic-release/exec",
             {
-                "prepareCmd": "npm run build && node scripts/update-cli-version.js"
+                "prepareCmd": "pnpm run build && node scripts/update-cli-version.js"
             }
         ],
         [
