@@ -83,7 +83,7 @@ export const MriCreatableCombobox = ({
               {options.map((opt) => (
                   <MriCommandItem
                       key={opt.value}
-                      value={`${opt.label} ${opt.value}`} // Combine for better searching
+                      value={`${String(opt.label || '')} ${String(opt.value || '')}`} // Combine for better searching
                       onSelect={() => {
                           onChange(opt.value)
                           setOpen(false)
