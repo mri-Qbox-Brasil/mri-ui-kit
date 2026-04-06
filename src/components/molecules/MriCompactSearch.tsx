@@ -89,7 +89,7 @@ export function MriCompactSearch({
               {options.map((opt) => (
                 <MriCommandItem
                   key={opt.value}
-                  value={opt.label}
+                  value={String(opt.label || '')}
                   onSelect={() => {
                     const newValue = String(opt.value)
                     if (clearable && String(value) === newValue) {

@@ -99,7 +99,7 @@ export function MriSelectSearch({
               {options.map((opt) => (
                 <MriCommandItem
                   key={opt.value}
-                  value={opt.label} // Command searches by value/label text content usually
+                  value={String(opt.label || '')}
                   onSelect={() => {
                     const newValue = String(opt.value)
                     if (clearable && String(value) === newValue) {

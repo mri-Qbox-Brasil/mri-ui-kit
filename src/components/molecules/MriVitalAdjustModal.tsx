@@ -30,6 +30,8 @@ export interface MriVitalAdjustModalProps {
         cancel?: string
         playerNameLabel?: string
     }
+    hideBlur?: boolean
+    hideOverlay?: boolean
 }
 
 const VITAL_CONFIG: Record<string, { icon: LucideIcon; color: string; bgColor: string; hex: string; label: string; max: number }> = {
@@ -54,7 +56,9 @@ export function MriVitalAdjustModal({
     description,
     confirmLabel,
     cancelLabel,
-    newValueLabel
+    newValueLabel,
+    hideBlur = true,
+    hideOverlay = true
 }: MriVitalAdjustModalProps) {
     const [value, setValue] = useState(currentValue)
 
@@ -78,7 +82,7 @@ export function MriVitalAdjustModal({
     const displayNewValue = newValueLabel || getLabel('newValue', 'New Value')
 
     return (
-        <MriModal onClose={onClose} className="w-[420px] p-0 bg-card/95 border-primary/10 backdrop-blur-xl shadow-2xl overflow-hidden animate-in zoom-in-95 duration-200">
+        <MriModal hideBlur={hideBlur} hideOverlay={hideOverlay} onClose={onClose} className="w-[420px] p-0 bg-card/95 border-primary/10 backdrop-blur-xl shadow-2xl overflow-hidden animate-in zoom-in-95 duration-200">
             {/* Header */}
             <div className="p-6 pb-4 border-b border-border/40 relative overflow-hidden">
                 <div className={`absolute top-0 right-0 w-32 h-32 ${config.bgColor}/5 blur-3xl rounded-full -mr-16 -mt-16`} />

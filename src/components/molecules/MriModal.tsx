@@ -66,6 +66,8 @@ export function MriModal({
             className
           )}
         >
+          <DialogPrimitive.Title className="sr-only">Modal</DialogPrimitive.Title>
+          <DialogPrimitive.Description className="sr-only">Modal content</DialogPrimitive.Description>
           {children}
         </DialogPrimitive.Content>
       </DialogPrimitive.Portal>
