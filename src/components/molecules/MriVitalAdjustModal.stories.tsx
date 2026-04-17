@@ -120,3 +120,13 @@ export const Stress: Story = {
         playerName: 'John Doe [102]',
     },
 };
+
+export const Disabled: Story = {
+    render: (args) => <StatefulModal {...args} />,
+    args: {
+        vital: 'health',
+        currentValue: 85,
+        playerName: 'John Doe [102]',
+        disabled: true,
+    },
+};

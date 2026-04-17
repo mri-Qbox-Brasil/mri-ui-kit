@@ -29,3 +29,14 @@ export const DisabledItem: Story = {
     ],
   },
 };
+
+export const AllDisabled: Story = {
+  args: {
+    disabled: true,
+    buttons: [
+      { label: 'Home', icon: <Home className="w-4 h-4" />, onClick: () => alert('Home clicked') },
+      { label: 'Profile', icon: <User className="w-4 h-4" />, onClick: () => alert('Profile clicked') },
+      { label: 'Settings', icon: <Settings className="w-4 h-4" />, onClick: () => alert('Settings clicked') },
+    ],
+  },
+};
