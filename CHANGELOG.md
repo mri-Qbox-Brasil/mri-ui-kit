@@ -1,3 +1,11 @@
+## [3.5.2](https://github.com/mri-Qbox-Brasil/mri-ui-kit/compare/v3.5.1...v3.5.2) (2026-04-17)
+
+
+### Bug Fixes
+
+* node 22.x ([437b148](https://github.com/mri-Qbox-Brasil/mri-ui-kit/commit/437b1480300ead4e04699eeb41aa321dfb0a456e))
+* node v22 ([9ee051c](https://github.com/mri-Qbox-Brasil/mri-ui-kit/commit/9ee051c7c9599ae75390584698ed777b286b4e6a))
+
 ## [3.5.1](https://github.com/mri-Qbox-Brasil/mri-ui-kit/compare/v3.5.0...v3.5.1) (2026-04-06)
 
 
