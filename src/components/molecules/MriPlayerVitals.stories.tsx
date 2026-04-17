@@ -70,3 +70,51 @@ export const WithIconClick: Story = {
         size: 'compact',
     },
 };
+
+export const PartialDisabled: Story = {
+    args: {
+        vitals: mockVitals,
+        size: 'full',
+        disabledVitals: ['health', 'armor'],
+    },
+};
+
+export const AllDisabled: Story = {
+    args: {
+        vitals: mockVitals,
+        size: 'compact',
+        disabledVitals: ['health', 'armor', 'hunger', 'thirst', 'stress'],
+    },
+};
+
+export const Dead: Story = {
+    args: {
+        vitals: {
+            health: 100,
+            armor: 0,
+            metadata: {
+                hunger: 30,
+                thirst: 20,
+                stress: 60,
+                isdead: true,
+            },
+        },
+        size: 'compact',
+    },
+};
+
+export const DeadFull: Story = {
+    args: {
+        vitals: {
+            health: 100,
+            armor: 0,
+            metadata: {
+                hunger: 30,
+                thirst: 20,
+                stress: 60,
+                isdead: true,
+            },
+        },
+        size: 'full',
+    },
+};

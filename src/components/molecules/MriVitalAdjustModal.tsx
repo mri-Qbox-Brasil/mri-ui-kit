@@ -32,6 +32,7 @@ export interface MriVitalAdjustModalProps {
     }
     hideBlur?: boolean
     hideOverlay?: boolean
+    disabled?: boolean
 }
 
 const VITAL_CONFIG: Record<string, { icon: LucideIcon; color: string; bgColor: string; hex: string; label: string; max: number }> = {
@@ -58,7 +59,8 @@ export function MriVitalAdjustModal({
     cancelLabel,
     newValueLabel,
     hideBlur = true,
-    hideOverlay = true
+    hideOverlay = true,
+    disabled = false,
 }: MriVitalAdjustModalProps) {
     const [value, setValue] = useState(currentValue)
 
@@ -123,8 +125,9 @@ export function MriVitalAdjustModal({
                             max={config.max}
                             step="1"
                             value={value}
-                            onChange={(e) => setValue(Number(e.target.value))}
-                            className="vital-adjust-slider"
+                            onChange={!disabled ? (e) => setValue(Number(e.target.value)) : undefined}
+                            disabled={disabled}
+                            className={cn("vital-adjust-slider", disabled && "opacity-40 grayscale cursor-not-allowed")}
                             style={{
                                 background: `linear-gradient(to right, ${config.hex} ${value}%, ${showFullProgress ? 'var(--vital-color-20)' : 'var(--muted)'} ${value}%)`,
                                 '--vital-color': config.hex,
@@ -154,6 +157,7 @@ export function MriVitalAdjustModal({
                 </MriButton>
                 <MriButton
                     variant="default"
+                    disabled={disabled}
                     className={cn(
                         "flex-1 h-12 gap-2 text-white uppercase text-xs transition-all active:scale-95",
                         config.bgColor,
@@ -163,7 +167,7 @@ export function MriVitalAdjustModal({
                                 vital === 'hunger' ? 'shadow-orange-500/20' :
                                     vital === 'thirst' ? 'shadow-cyan-500/20' : 'shadow-purple-500/20'
                     )}
-                    onClick={() => onSubmit(value)}
+                    onClick={!disabled ? () => onSubmit(value) : undefined}
                 >
                     <Save size={16} /> {displayConfirm}
                 </MriButton>

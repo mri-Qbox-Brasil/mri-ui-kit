@@ -1,4 +1,4 @@
-import { Heart, Shield, Beef, GlassWater, Brain, type LucideIcon } from 'lucide-react';
+import { Heart, Shield, Beef, GlassWater, Brain, Skull, type LucideIcon } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
 export interface VitalsData {
@@ -26,7 +26,9 @@ export interface MriPlayerVitalsProps {
         hunger?: string;
         thirst?: string;
         stress?: string;
+        dead?: string;
     };
+    disabledVitals?: string[];
 }
 
 const VITAL_CONFIG: {
@@ -47,19 +49,20 @@ const VITAL_CONFIG: {
         { key: 'stress', icon: Brain, color: 'bg-purple-500', hex: '#a855f7', border: 'border-border/50', shadow: 'shadow-[0_0_10px_rgba(168,85,247,0.4)]', hoverBorder: 'hover:border-purple-500/50', hoverShadow: 'hover:shadow-[0_0_20px_rgba(168,85,247,0.1)]', inverted: true },
     ];
 
-const VitalBar = ({ val, color, hex, icon: Icon, label, onClick, onIconClick }: { val: number, color: string, hex: string, icon: LucideIcon, label?: string, onClick?: () => void, onIconClick?: () => void }) => (
+const VitalBar = ({ val, color, hex, icon: Icon, label, onClick, onIconClick, disabled }: { val: number, color: string, hex: string, icon: LucideIcon, label?: string, onClick?: () => void, onIconClick?: () => void, disabled?: boolean }) => (
     <div
         className={cn(
             "flex items-center gap-3 w-full transition-all duration-300",
-            onClick ? 'cursor-pointer hover:bg-white/[0.03] p-1.5 -m-1.5 rounded-lg group/vbar active:scale-[0.98]' : ''
+            onClick && !disabled ? 'cursor-pointer hover:bg-white/[0.03] p-1.5 -m-1.5 rounded-lg group/vbar active:scale-[0.98]' : '',
+            disabled && 'opacity-40 grayscale pointer-events-none'
         )}
-        onClick={onClick}
-        title={onClick ? `Adjust ${label}` : undefined}
+        onClick={!disabled ? onClick : undefined}
+        title={onClick && !disabled ? `Adjust ${label}` : undefined}
     >
-        <div 
-            className={cn("relative", onIconClick && "cursor-pointer hover:scale-110 transition-transform")}
+        <div
+            className={cn("relative", onIconClick && !disabled && "cursor-pointer hover:scale-110 transition-transform")}
             onClick={(e) => {
-                if (onIconClick) {
+                if (onIconClick && !disabled) {
                     e.stopPropagation();
                     onIconClick();
                 }
@@ -82,7 +85,17 @@ const VitalBar = ({ val, color, hex, icon: Icon, label, onClick, onIconClick }: 
     </div>
 )
 
-export function MriPlayerVitals({ vitals, size = 'compact', onAction, onIconClick, className, labels }: MriPlayerVitalsProps) {
+const DeadOverlay = ({ label }: { label: string }) => (
+    <div className="absolute inset-0 z-10 flex flex-col items-center justify-center gap-2 bg-black/60 backdrop-blur-[2px] rounded-xl">
+        <Skull className="w-6 h-6 text-red-500/80" />
+        <span className="text-[10px] font-black uppercase tracking-widest text-red-500/80">{label}</span>
+    </div>
+)
+
+export function MriPlayerVitals({ vitals, size = 'compact', onAction, onIconClick, className, labels, disabledVitals = [] }: MriPlayerVitalsProps) {
+    const isDead = vitals?.metadata?.isdead ?? false
+    const deadLabel = labels?.dead ?? 'Dead'
+
     const getVitalValue = (key: string): number => {
         if (!vitals) return 0;
         const val = (vitals[key] !== undefined ? vitals[key] : vitals.metadata?.[key]) as number | undefined;
@@ -101,7 +114,8 @@ export function MriPlayerVitals({ vitals, size = 'compact', onAction, onIconClic
 
     if (size === 'mini') {
         return (
-            <div className={cn("space-y-3", className)}>
+            <div className={cn("relative space-y-3", className)}>
+                {isDead && <DeadOverlay label={deadLabel} />}
                 {VITAL_CONFIG.filter(v => v.key !== 'stress').map((v) => {
                     const val = getVitalValue(v.key);
                     const label = getLabel(v.key);
@@ -115,6 +129,7 @@ export function MriPlayerVitals({ vitals, size = 'compact', onAction, onIconClic
                             label={label}
                             onClick={onAction ? () => onAction(v.key, label, val) : undefined}
                             onIconClick={onIconClick ? () => onIconClick(v.key, label, val) : undefined}
+                            disabled={disabledVitals.includes(v.key)}
                         />
                     );
                 })}
@@ -124,22 +139,25 @@ export function MriPlayerVitals({ vitals, size = 'compact', onAction, onIconClic
 
     if (size === 'full') {
         return (
-            <div className={cn("grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4", className)}>
+            <div className={cn("relative grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4", className)}>
+                {isDead && <DeadOverlay label={deadLabel} />}
                 {VITAL_CONFIG.map((v) => {
                     const val = getVitalValue(v.key);
                     const label = getLabel(v.key);
                     const isLow = val < 20 && v.key !== 'stress';
                     const isHigh = val > 80 && v.key === 'stress';
 
+                    const isDisabled = disabledVitals.includes(v.key);
                     return (
                         <div
                             key={v.key}
                             className={cn(
                                 "group/vital relative space-y-3 p-4 rounded-xl bg-card border border-border/50 transition-all cursor-pointer select-none overflow-hidden",
                                 "hover:border-primary/20 hover:bg-muted/50 hover:shadow-xl hover:shadow-black/20 active:scale-[0.98]",
-                                (isLow || isHigh) && "animate-pulse border-red-500/20 bg-red-500/[0.02]"
+                                (isLow || isHigh) && "animate-pulse border-red-500/20 bg-red-500/[0.02]",
+                                isDisabled && "opacity-40 grayscale pointer-events-none"
                             )}
-                            onClick={() => onAction?.(v.key, label, val)}
+                            onClick={!isDisabled ? () => onAction?.(v.key, label, val) : undefined}
                         >
                             {/* Animated Background Glow */}
                             <div
@@ -148,10 +166,10 @@ export function MriPlayerVitals({ vitals, size = 'compact', onAction, onIconClic
 
                             <div className="flex justify-between items-center text-[10px] font-black uppercase tracking-widest text-muted-foreground/60 group-hover/vital:text-foreground transition-colors">
                                 <span className="flex items-center gap-2">
-                                    <div 
-                                        className={cn("p-1 -m-1 rounded-md transition-all", onIconClick && "hover:bg-white/10 cursor-pointer active:scale-90")}
+                                    <div
+                                        className={cn("p-1 -m-1 rounded-md transition-all", onIconClick && !isDisabled && "hover:bg-white/10 cursor-pointer active:scale-90")}
                                         onClick={(e) => {
-                                            if (onIconClick) {
+                                            if (onIconClick && !isDisabled) {
                                                 e.stopPropagation();
                                                 onIconClick(v.key, label, val);
                                             }
@@ -185,7 +203,8 @@ export function MriPlayerVitals({ vitals, size = 'compact', onAction, onIconClic
 
     // Default: compact
     return (
-        <div className={cn("flex flex-col gap-4", className)}>
+        <div className={cn("relative flex flex-col gap-4", className)}>
+            {isDead && <DeadOverlay label={deadLabel} />}
             {VITAL_CONFIG.map((v) => {
                 const val = getVitalValue(v.key);
                 const label = getLabel(v.key);
@@ -200,6 +219,7 @@ export function MriPlayerVitals({ vitals, size = 'compact', onAction, onIconClic
                         label={label}
                         onClick={onAction ? () => onAction(v.key, label, val) : undefined}
                         onIconClick={onIconClick ? () => onIconClick(v.key, label, val) : undefined}
+                        disabled={disabledVitals.includes(v.key)}
                     />
                 );
             })}
