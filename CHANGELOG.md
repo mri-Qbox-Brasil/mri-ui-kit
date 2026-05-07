@@ -1,3 +1,10 @@
+# [3.7.0](https://github.com/mri-Qbox-Brasil/mri-ui-kit/compare/v3.6.0...v3.7.0) (2026-05-07)
+
+
+### Features
+
+* font saira ([a369c88](https://github.com/mri-Qbox-Brasil/mri-ui-kit/commit/a369c880bdae704e7c71c35575664449454dde0c))
+
 # [3.6.0](https://github.com/mri-Qbox-Brasil/mri-ui-kit/compare/v3.5.2...v3.6.0) (2026-05-07)
 
 
