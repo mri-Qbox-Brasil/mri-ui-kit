@@ -43,4 +43,7 @@ export * from './components/organisms/MriTopbar'
 export * from './components/organisms/MriKeyboardVisualizer'
 export * from './components/organisms/MriPlayerScreenStream'
 
+// Templates
+export * from './components/templates/MriDashboardLayout'
+
 export * from './lib/utils'
