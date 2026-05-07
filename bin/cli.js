@@ -62,6 +62,9 @@ const COMPONENT_MAP = {
     'MriTopbar': 'organisms',
     'MriTable': 'organisms',
     'MriPlayerScreenStream': 'organisms',
+
+    // Templates
+    'MriDashboardLayout': 'templates',
 };
 
 function toPascalCase(str) {
@@ -140,7 +143,7 @@ async function processComponent(componentName, installDir) {
 
         // Rewrite imports to be flat
         // Replace @/components/(atoms|molecules|organisms)/ with @/components/ui/
-        content = content.replace(/@\/components\/(?:atoms|molecules|organisms)\//g, '@/components/ui/');
+        content = content.replace(/@\/components\/(?:atoms|molecules|organisms|templates)\//g, '@/components/ui/');
 
         fs.writeFileSync(destPath, content);
 
