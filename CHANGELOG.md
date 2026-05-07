@@ -1,3 +1,10 @@
+# [3.6.0](https://github.com/mri-Qbox-Brasil/mri-ui-kit/compare/v3.5.2...v3.6.0) (2026-05-07)
+
+
+### Features
+
+* adiciona camada de templates com MriDashboardLayout ([10dc82f](https://github.com/mri-Qbox-Brasil/mri-ui-kit/commit/10dc82f889ce00280d845736475d98dcdcaf3530))
+
 ## [3.5.2](https://github.com/mri-Qbox-Brasil/mri-ui-kit/compare/v3.5.1...v3.5.2) (2026-04-17)
 
 
