@@ -50,8 +50,8 @@ for ACTION_FULL in $ACTIONS; do
     fi
 done
 
-echo "📦 Buscando a última major version do Node.js..."
-LATEST_NODE=$(curl -sL https://nodejs.org/dist/index.json | jq -r '.[0].version' | grep -oE "^v[0-9]+" | sed 's/v//' 2>/dev/null)
+echo "📦 Buscando a última versão LTS do Node.js..."
+LATEST_NODE=$(curl -sL https://nodejs.org/dist/index.json | jq -r '[.[] | select(.lts != false)] | .[0].version' | grep -oE "^v[0-9]+" | sed 's/v//' 2>/dev/null)
 
 if [ ! -z "$LATEST_NODE" ] && [ "$LATEST_NODE" != "null" ]; then
     echo "✨ Última major version do Node.js encontrada: $LATEST_NODE"
@@ -67,7 +67,7 @@ if [ ! -z "$LATEST_NODE" ] && [ "$LATEST_NODE" != "null" ]; then
                 echo "📝 Node atualizado de $CURRENT_NODE para $LATEST_NODE em $FILE"
                 UPDATED=true
             else
-                echo "✅ Node já está na versão mais recente ($LATEST_NODE) em $FILE"
+                echo "✅ Node já está na versão LTS mais recente ($LATEST_NODE) em $FILE"
             fi
         fi
     done
@@ -93,12 +93,7 @@ if [ "$UPDATED" = true ]; then
     ORG=$(echo "$REPO_FULL" | cut -d'/' -f1)
 
     echo "👥 Buscando membros do time '$TEAM_NAME' em '$ORG'..."
-    if TEAM_MEMBERS_JSON=$(gh api "orgs/$ORG/teams/$TEAM_NAME/members" 2>/dev/null); then
-        ASSIGNEES=$(echo "$TEAM_MEMBERS_JSON" | jq -r '.[].login' | paste -sd "," - || echo "")
-    else
-        echo "⚠️ Erro ao buscar membros do time '$TEAM_NAME'. O PR será criado sem assignees."
-        ASSIGNEES=""
-    fi
+    ASSIGNEES=$(gh api "orgs/$ORG/teams/$TEAM_NAME/members" -q '.[].login' | paste -sd "," - || echo "")
 
     PR_ARGS=(
         --title "chore: update github actions versions [skip ci]"
