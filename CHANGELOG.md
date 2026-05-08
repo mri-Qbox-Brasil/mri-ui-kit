@@ -1,3 +1,17 @@
+# [4.0.0](https://github.com/mri-Qbox-Brasil/mri-ui-kit/compare/v3.8.0...v4.0.0) (2026-05-08)
+
+
+* feat!: inverte convenção de tema para alinhar com shadcn ([16a04db](https://github.com/mri-Qbox-Brasil/mri-ui-kit/commit/16a04db15e11f8322c9a4e451061e6bbda015d55))
+
+
+### BREAKING CHANGES
+
+* projetos que importam @mriqbox/ui-kit/dist/style.css
+e dependiam de dark como tema padrão precisam adicionar a classe
+"dark" no <html> ou <body> para preservar o visual anterior.
+Projetos que já usam darkMode: 'class' no tailwind (a maioria)
+passam a funcionar automaticamente.
+
 # [3.8.0](https://github.com/mri-Qbox-Brasil/mri-ui-kit/compare/v3.7.0...v3.8.0) (2026-05-08)
 
 
