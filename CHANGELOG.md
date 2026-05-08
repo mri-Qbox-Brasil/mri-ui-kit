@@ -1,3 +1,10 @@
+# [3.8.0](https://github.com/mri-Qbox-Brasil/mri-ui-kit/compare/v3.7.0...v3.8.0) (2026-05-08)
+
+
+### Features
+
+* adiciona MriAvatar e MriAccordion ([4e01e8a](https://github.com/mri-Qbox-Brasil/mri-ui-kit/commit/4e01e8ae85daa52af96fb7e8ef749d1cb6b3daef))
+
 # [3.7.0](https://github.com/mri-Qbox-Brasil/mri-ui-kit/compare/v3.6.0...v3.7.0) (2026-05-07)
 
 
