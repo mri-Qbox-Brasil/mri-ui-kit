@@ -1,6 +1,7 @@
 import './index.css'
 
 // Atoms
+export * from './components/atoms/MriAvatar'
 export * from './components/atoms/MriBadge'
 export * from './components/atoms/MriButton'
 export * from './components/atoms/MriIcons'
@@ -12,6 +13,7 @@ export * from './components/atoms/mri-button-variants'
 export * from './components/atoms/MriSpinner'
 
 // Molecules
+export * from './components/molecules/MriAccordion'
 export * from './components/molecules/MriButtonGroup'
 export * from './components/molecules/MriCard'
 export * from './components/molecules/MriCompactSearch'

@@ -17,6 +17,7 @@ const BASE_PREFIX = 'https://raw.githubusercontent.com/mri-Qbox-Brasil/mri-ui-ki
 
 const COMPONENT_MAP = {
     // Atoms
+    'MriAvatar': 'atoms',
     'MriBadge': 'atoms',
     'MriSkeleton': 'atoms',
     'MriSpinner': 'atoms',
@@ -29,6 +30,7 @@ const COMPONENT_MAP = {
     'mri-button-variants': 'atoms',
 
     // Molecules
+    'MriAccordion': 'molecules',
     'MriActionButton': 'molecules',
     'MriActionDropdown': 'molecules',
     'MriActionModal': 'molecules',
