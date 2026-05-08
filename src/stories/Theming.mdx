@@ -217,9 +217,34 @@ end
 
 ## Resources que seguem o pattern
 
-| Resource | Modo | Broadcast runtime |
-|---|---|---|
-| `mri_Qmultichar` | NUI persistente | ✅ |
-| `mri_Qspawn` | NUI persistente | ✅ |
-| `mri_Qadmin` | **Controlador** + NUI persistente | ✅ |
-| `mri_Qloadscreen` | NUI efêmera (handshake) | ❌ (re-le no handover) |
+<table className="w-full border-collapse text-sm mt-4">
+  <thead>
+    <tr className="border-b border-border">
+      <th className="text-left p-2 font-semibold">Resource</th>
+      <th className="text-left p-2 font-semibold">Modo</th>
+      <th className="text-left p-2 font-semibold">Broadcast runtime</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr className="border-b border-border/40">
+      <td className="p-2"><code>mri_Qmultichar</code></td>
+      <td className="p-2">NUI persistente</td>
+      <td className="p-2">✅</td>
+    </tr>
+    <tr className="border-b border-border/40">
+      <td className="p-2"><code>mri_Qspawn</code></td>
+      <td className="p-2">NUI persistente</td>
+      <td className="p-2">✅</td>
+    </tr>
+    <tr className="border-b border-border/40">
+      <td className="p-2"><code>mri_Qadmin</code></td>
+      <td className="p-2"><strong>Controlador</strong> + NUI persistente</td>
+      <td className="p-2">✅</td>
+    </tr>
+    <tr>
+      <td className="p-2"><code>mri_Qloadscreen</code></td>
+      <td className="p-2">NUI efêmera (handshake)</td>
+      <td className="p-2">❌ (re-lê no handover)</td>
+    </tr>
+  </tbody>
+</table>
