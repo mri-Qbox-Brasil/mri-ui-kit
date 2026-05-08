@@ -1,3 +1,10 @@
+## [4.0.1](https://github.com/mri-Qbox-Brasil/mri-ui-kit/compare/v4.0.0...v4.0.1) (2026-05-08)
+
+
+### Bug Fixes
+
+* tema dark consistente em paginas MDX do Storybook ([eba22e8](https://github.com/mri-Qbox-Brasil/mri-ui-kit/commit/eba22e81e1ab31e54639720f3671645cedb5315b))
+
 # [4.0.0](https://github.com/mri-Qbox-Brasil/mri-ui-kit/compare/v3.8.0...v4.0.0) (2026-05-08)
 
 
