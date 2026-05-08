@@ -4,50 +4,50 @@ import { Meta, ColorPalette, ColorItem } from "@storybook/blocks";
 
 # Paleta de Cores
 
-O sistema de cores é construído com variáveis CSS para permitir fácil personalização e suporte ao modo escuro. Valores HSL são usados para controle refinado.
+O sistema de cores é construído com variáveis CSS para permitir fácil personalização e suporte ao modo escuro. Valores HSL são usados para controle refinado, com seus equivalentes em hexadecimal logo abaixo.
 
 <ColorPalette>
   <ColorItem
     title="Primária"
     subtitle="Verde Neon"
     colors={{
-      DEFAULT: 'hsl(160, 100%, 45%)',
-      Foreground: 'hsl(144, 100%, 10%)'
+      'DEFAULT · #00e699': 'hsl(160, 100%, 45%)',
+      'Foreground · #003314': 'hsl(144, 100%, 10%)'
     }}
   />
   <ColorItem
     title="Planos de Fundo"
     subtitle="Cinza Escuro"
     colors={{
-      Background: 'hsl(240, 10%, 4%)',
-      Card: 'hsl(240, 10%, 6%)',
-      Popover: 'hsl(240, 10%, 6%)'
+      'Background · #09090b': 'hsl(240, 10%, 4%)',
+      'Card · #0e0e11': 'hsl(240, 10%, 6%)',
+      'Popover · #0e0e11': 'hsl(240, 10%, 6%)'
     }}
   />
   <ColorItem
     title="Acentos & Bordas"
     subtitle="Elementos de UI"
     colors={{
-      Border: 'hsl(240, 5%, 15%)',
-      Input: 'hsl(240, 5%, 15%)',
-      Muted: 'hsl(240, 5%, 15%)',
-      Secondary: 'hsl(240, 5%, 15%)'
+      'Border · #242428': 'hsl(240, 5%, 15%)',
+      'Input · #242428': 'hsl(240, 5%, 15%)',
+      'Muted · #242428': 'hsl(240, 5%, 15%)',
+      'Secondary · #242428': 'hsl(240, 5%, 15%)'
     }}
   />
   <ColorItem
     title="Primeiro Plano"
     subtitle="Cores de Texto"
     colors={{
-      DEFAULT: 'hsl(0, 0%, 98%)',
-      Muted: 'hsl(240, 5%, 60%)'
+      'DEFAULT · #fafafa': 'hsl(0, 0%, 98%)',
+      'Muted · #94949e': 'hsl(240, 5%, 60%)'
     }}
   />
-    <ColorItem
+  <ColorItem
     title="Destrutivo"
     subtitle="Erros & Perigo"
     colors={{
-      DEFAULT: 'hsl(0, 62.8%, 30.6%)',
-      Foreground: 'hsl(0, 0%, 98%)'
+      'DEFAULT · #7f1d1d': 'hsl(0, 62.8%, 30.6%)',
+      'Foreground · #fafafa': 'hsl(0, 0%, 98%)'
     }}
   />
 </ColorPalette>
