@@ -215,6 +215,84 @@ end
    listener `updateAccentColor` no NUI
 6. **Para NUIs efêmeras**, re-ler `GetConvar` no momento de mostrar (não cachear)
 
+## Roadmap — extrair helpers para o ui-kit
+
+Hoje cada resource da suite **copia** `applyAccentColor()` no seu próprio
+`lib/` e implementa o listener de mensagem inline (`window.addEventListener`).
+Isso significa ~30 linhas duplicadas em 5 lugares e qualquer bug fix precisa
+ser propagado manualmente.
+
+**Plano**: promover dois utilitários para `@mriqbox/ui-kit` e expor como
+exports oficiais. Quando isso for feito, resources passam de:
+
+```ts
+// hoje — cada resource tem sua cópia
+import { applyAccentColor } from './lib/accentColor';
+window.addEventListener('message', (e) => {
+  if (e.data?.action === 'updateAccentColor') {
+    applyAccentColor(e.data.accentColor);
+  }
+});
+```
+
+Para:
+
+```ts
+// futuro — uma fonte da verdade
+import { applyAccentColor, useNuiEvent } from '@mriqbox/ui-kit';
+
+useNuiEvent('updateAccentColor', (data) => {
+  applyAccentColor(data.accentColor);
+});
+```
+
+### `applyAccentColor(hex: string): void`
+Helper que existe hoje espalhado nos resources. Será exportado tal qual,
+sem mudança de comportamento.
+
+### `useNuiEvent<T>(action: string, handler: (data: T) => void): void`
+Hook nascido no `mri_Qchat`, mais elegante que o `window.addEventListener`
+direto: usa `useRef` para evitar stale closures, filtra por
+`action` automaticamente, registra/desregistra no unmount.
+
+### Convenção de naming dos events
+
+Quando a migração rolar, todos os resources vão usar o mesmo nome de
+event: **`updateAccentColor`**. Hoje há divergência (`ON_UPDATE_THEME` no
+Qchat, `updateAccentColor` no resto). A migração padroniza.
+
+### Status
+
+<table className="w-full border-collapse text-sm mt-4">
+  <thead>
+    <tr className="border-b border-border">
+      <th className="text-left p-2 font-semibold">Etapa</th>
+      <th className="text-left p-2 font-semibold">Status</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr className="border-b border-border/40">
+      <td className="p-2"><code>applyAccentColor</code> exportado do ui-kit</td>
+      <td className="p-2">⏳ Planejado</td>
+    </tr>
+    <tr className="border-b border-border/40">
+      <td className="p-2"><code>useNuiEvent</code> exportado do ui-kit</td>
+      <td className="p-2">⏳ Planejado</td>
+    </tr>
+    <tr className="border-b border-border/40">
+      <td className="p-2">Resources migrados para usar do ui-kit</td>
+      <td className="p-2">⏳ Planejado</td>
+    </tr>
+    <tr>
+      <td className="p-2">Naming <code>updateAccentColor</code> em toda a suite</td>
+      <td className="p-2">⏳ Planejado</td>
+    </tr>
+  </tbody>
+</table>
+
+Não há urgência — o pattern atual funciona. Quando bater a vontade de fazer
+um "limpa geral", essa é a melhor estratégia.
+
 ## Resources que seguem o pattern
 
 <table className="w-full border-collapse text-sm mt-4">

@@ -15,6 +15,8 @@ export interface MriActionModalProps {
   cancelLabel?: string;
   isConfirmDisabled?: boolean;
   maxWidth?: string;
+  hideBlur?: boolean;
+  hideOverlay?: boolean;
   children: React.ReactNode;
 }
 
@@ -28,6 +30,8 @@ export const MriActionModal = ({
   cancelLabel = "Cancel",
   isConfirmDisabled = false,
   maxWidth = "max-w-sm",
+  hideBlur = false,
+  hideOverlay = false,
   children,
 }: MriActionModalProps) => {
   const variantStyles = {
@@ -40,7 +44,12 @@ export const MriActionModal = ({
     variant === "destructive" ? "destructive" : "default";
 
   return (
-    <MriModal onClose={onClose} className={cn("w-full", maxWidth)}>
+    <MriModal
+      onClose={onClose}
+      className={cn("w-full", maxWidth)}
+      hideBlur={hideBlur}
+      hideOverlay={hideOverlay}
+    >
       <div className="flex justify-between items-center mb-6">
         <div className="flex items-center gap-2">
           <div className={cn("p-2 rounded-lg", variantStyles[variant])}>
