@@ -1,3 +1,10 @@
+# [4.1.0](https://github.com/mri-Qbox-Brasil/mri-ui-kit/compare/v4.0.1...v4.1.0) (2026-05-09)
+
+
+### Features
+
+* kit actionmodalprops ([248e47a](https://github.com/mri-Qbox-Brasil/mri-ui-kit/commit/248e47abbe7521fa49a0481d16b076da6b4f496a))
+
 ## [4.0.1](https://github.com/mri-Qbox-Brasil/mri-ui-kit/compare/v4.0.0...v4.0.1) (2026-05-08)
 
 
