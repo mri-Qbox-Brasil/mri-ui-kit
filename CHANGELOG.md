@@ -1,3 +1,10 @@
+# [4.3.0](https://github.com/mri-Qbox-Brasil/mri-ui-kit/compare/v4.2.0...v4.3.0) (2026-05-10)
+
+
+### Features
+
+* MriTabs + MriDashboardLayout subnav slot ([c6e5ffb](https://github.com/mri-Qbox-Brasil/mri-ui-kit/commit/c6e5ffbd85d34b040855b9da8c13f05bf08225a2))
+
 # [4.2.0](https://github.com/mri-Qbox-Brasil/mri-ui-kit/compare/v4.1.0...v4.2.0) (2026-05-10)
 
 
