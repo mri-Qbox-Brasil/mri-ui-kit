@@ -8,6 +8,13 @@ export interface MriDashboardLayoutProps {
     sidebar?: ReactNode
     topbar?: ReactNode
     header?: ReactNode
+    /**
+     * Sub-navegacao da pagina (entre header e main). Tipico: <MriTabs/>,
+     * breadcrumbs, segmented control. Layout so reserva o espaco — content
+     * fica a cargo do consumer. Diferente do `header` semanticamente: header
+     * e titulo+acoes da pagina, subnav e navegacao entre subsessoes.
+     */
+    subnav?: ReactNode
     footer?: ReactNode
     children?: ReactNode
     sidebarPosition?: MriDashboardSidebarPosition
@@ -21,6 +28,7 @@ export function MriDashboardLayout({
     sidebar,
     topbar,
     header,
+    subnav,
     footer,
     children,
     sidebarPosition = 'left',
@@ -37,6 +45,7 @@ export function MriDashboardLayout({
         <div className={cn('flex-1 flex flex-col min-w-0 h-full', contentClassName)}>
             {topbarPlacement === 'aside' && topbar}
             {header}
+            {subnav && <div className="shrink-0">{subnav}</div>}
             <main className={cn('flex-1 overflow-y-auto bg-background text-foreground', mainClassName)}>
                 {children}
             </main>

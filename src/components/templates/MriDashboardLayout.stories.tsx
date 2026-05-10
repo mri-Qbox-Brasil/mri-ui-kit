@@ -17,6 +17,7 @@ import { MriTopbar, MriTopbarItem } from '@/components/organisms/MriTopbar'
 import { MriPageHeader } from '@/components/organisms/MriPageHeader'
 import { MriButton } from '@/components/atoms/MriButton'
 import { MriThemeToggle } from '@/components/molecules/MriThemeToggle'
+import { MriTabs } from '@/components/molecules/MriTabs'
 
 const meta: Meta<typeof MriDashboardLayout> = {
     title: 'Templates/MriDashboardLayout',
@@ -183,4 +184,122 @@ const RightSidebar = () => {
 
 export const SidebarRightWithFooter: StoryObj<typeof MriDashboardLayout> = {
     render: () => <RightSidebar />,
+}
+
+// Subnav: tabs entre header e main content. Tipico de paginas de admin que
+// dividem a feature em subseccoes (ex: Spawns | Configurações no mri_Qspawn).
+// Sidebar continua no host (Qadmin), tabs sao navegacao interna da pagina.
+const WithSubnav = () => {
+    const [active, setActive] = useState('dashboard')
+    const [tab, setTab] = useState('overview')
+
+    return (
+        <div className="h-screen">
+            <MriDashboardLayout
+                sidebar={
+                    <MriSidebar items={sidebarItems} activeRoute={active} onNavigate={setActive} />
+                }
+                header={
+                    <MriPageHeader title="Players" icon={Users} count={42} countLabel="online" />
+                }
+                subnav={
+                    <MriTabs
+                        items={[
+                            { label: 'Overview', icon: LayoutDashboard, route: 'overview' },
+                            { label: 'Activity', icon: Bell, route: 'activity' },
+                            { label: 'Settings', icon: Settings, route: 'settings' },
+                        ]}
+                        activeRoute={tab}
+                        onNavigate={setTab}
+                    />
+                }
+            >
+                <PlaceholderContent route={`${active} / ${tab}`} />
+            </MriDashboardLayout>
+        </div>
+    )
+}
+
+export const WithSubnav_: StoryObj<typeof MriDashboardLayout> = {
+    render: () => <WithSubnav />,
+}
+
+// Playground: toggles interativos no painel Controls do Storybook pra experimentar
+// combinacoes de slots (sidebar on/off, subnav on/off, header on/off, footer on/off,
+// sidebar position, topbar placement). Util pra ver visualmente o que cada slot faz.
+type PlaygroundArgs = {
+    showSidebar: boolean
+    showHeader: boolean
+    showSubnav: boolean
+    showFooter: boolean
+    showTopbar: boolean
+    sidebarPosition: 'left' | 'right'
+    topbarPlacement: 'aside' | 'below'
+}
+
+const Playground = (args: PlaygroundArgs) => {
+    const [active, setActive] = useState('dashboard')
+    const [tab, setTab] = useState('overview')
+
+    return (
+        <div className="h-screen">
+            <MriDashboardLayout
+                sidebarPosition={args.sidebarPosition}
+                topbarPlacement={args.topbarPlacement}
+                sidebar={args.showSidebar ? (
+                    <MriSidebar items={sidebarItems} activeRoute={active} onNavigate={setActive} />
+                ) : undefined}
+                topbar={args.showTopbar ? (
+                    <MriTopbar
+                        items={topbarItems}
+                        activeRoute={tab}
+                        onNavigate={setTab}
+                        logo={<span className="font-bold text-primary">MRI</span>}
+                    />
+                ) : undefined}
+                header={args.showHeader ? (
+                    <MriPageHeader title="Playground" icon={LayoutDashboard} count={42} countLabel="items">
+                        <MriButton size="sm">
+                            <Plus className="h-4 w-4 mr-1" />
+                            Action
+                        </MriButton>
+                    </MriPageHeader>
+                ) : undefined}
+                subnav={args.showSubnav ? (
+                    <MriTabs
+                        items={[
+                            { label: 'Overview', icon: LayoutDashboard, route: 'overview' },
+                            { label: 'Activity', icon: Bell, route: 'activity' },
+                            { label: 'Settings', icon: Settings, route: 'settings' },
+                        ]}
+                        activeRoute={tab}
+                        onNavigate={setTab}
+                    />
+                ) : undefined}
+                footer={args.showFooter ? (
+                    <div className="px-6 py-3 text-xs text-muted-foreground">© Mri UI Kit</div>
+                ) : undefined}
+            >
+                <PlaceholderContent route={`${active} / ${tab}`} />
+            </MriDashboardLayout>
+        </div>
+    )
+}
+
+export const Playground_: StoryObj<PlaygroundArgs> = {
+    name: 'Playground',
+    args: {
+        showSidebar: true,
+        showHeader: true,
+        showSubnav: false,
+        showFooter: false,
+        showTopbar: false,
+        sidebarPosition: 'left',
+        topbarPlacement: 'aside',
+    },
+    argTypes: {
+        sidebarPosition: { control: 'inline-radio', options: ['left', 'right'] },
+        topbarPlacement: { control: 'inline-radio', options: ['aside', 'below'] },
+    },
+    render: (args) => <Playground {...args} />,
 }
