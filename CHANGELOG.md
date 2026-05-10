@@ -1,3 +1,10 @@
+# [4.2.0](https://github.com/mri-Qbox-Brasil/mri-ui-kit/compare/v4.1.0...v4.2.0) (2026-05-10)
+
+
+### Features
+
+* tablet frame ([a2cd64c](https://github.com/mri-Qbox-Brasil/mri-ui-kit/commit/a2cd64c2e80b0fc84ce7afebed737e9b73fe33a0))
+
 # [4.1.0](https://github.com/mri-Qbox-Brasil/mri-ui-kit/compare/v4.0.1...v4.1.0) (2026-05-09)
 
 
