@@ -47,5 +47,6 @@ export * from './components/organisms/MriPlayerScreenStream'
 
 // Templates
 export * from './components/templates/MriDashboardLayout'
+export * from './components/templates/MriTabletFrame'
 
 export * from './lib/utils'
