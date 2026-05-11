@@ -1,3 +1,10 @@
+# [4.4.0](https://github.com/mri-Qbox-Brasil/mri-ui-kit/compare/v4.3.0...v4.4.0) (2026-05-11)
+
+
+### Features
+
+* MriSwitch + MriTextarea ([8c29b31](https://github.com/mri-Qbox-Brasil/mri-ui-kit/commit/8c29b31f38075c74eb64e52440bb4deaba584536))
+
 # [4.3.0](https://github.com/mri-Qbox-Brasil/mri-ui-kit/compare/v4.2.0...v4.3.0) (2026-05-10)
 
 
