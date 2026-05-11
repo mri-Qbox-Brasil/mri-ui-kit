@@ -1,3 +1,10 @@
+## [4.6.1](https://github.com/mri-Qbox-Brasil/mri-ui-kit/compare/v4.6.0...v4.6.1) (2026-05-11)
+
+
+### Bug Fixes
+
+* export MriSkeleton from index ([4bab716](https://github.com/mri-Qbox-Brasil/mri-ui-kit/commit/4bab7164cb82bb884a2c2bc8ca25707c54c8c091))
+
 # [4.6.0](https://github.com/mri-Qbox-Brasil/mri-ui-kit/compare/v4.5.0...v4.6.0) (2026-05-11)
 
 
