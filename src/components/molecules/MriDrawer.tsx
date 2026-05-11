@@ -26,23 +26,71 @@ const MriDrawerOverlay = React.forwardRef<
 ))
 MriDrawerOverlay.displayName = DialogPrimitive.Overlay.displayName
 
+export type MriDrawerSide = "top" | "bottom" | "left" | "right"
+
+interface MriDrawerContentProps
+  extends React.ComponentPropsWithoutRef<typeof DialogPrimitive.Content> {
+  /**
+   * Lado da tela de onde o drawer desliza. Default: `bottom` (mobile-style
+   * action sheet). Use `right` pra painel lateral de detalhes/formulario,
+   * `left` pra menu hamburger, `top` pra notificacoes.
+   */
+  side?: MriDrawerSide
+  /**
+   * Esconde o handle (barra horizontal) no topo do drawer bottom. Sem efeito
+   * em outros lados. Default: false.
+   */
+  hideHandle?: boolean
+}
+
+// Classes de posicao + animacao por lado. Cada lado tem:
+// - position: `fixed inset-x/y-0 [side]-0`
+// - size: largura/altura caps no lado oposto da abertura
+// - radius: cantos arredondados no lado interno
+// - animation: slide-in/out na direcao correta
+const SIDE_CLASSES: Record<MriDrawerSide, string> = {
+  bottom:
+    "fixed inset-x-0 bottom-0 mt-24 h-auto max-h-[90vh] rounded-t-[10px] border-t border-x " +
+    "data-[state=open]:slide-in-from-bottom data-[state=closed]:slide-out-to-bottom",
+  top:
+    "fixed inset-x-0 top-0 mb-24 h-auto max-h-[90vh] rounded-b-[10px] border-b border-x " +
+    "data-[state=open]:slide-in-from-top data-[state=closed]:slide-out-to-top",
+  right:
+    "fixed inset-y-0 right-0 h-full w-full max-w-2xl rounded-l-[10px] border-l border-y " +
+    "data-[state=open]:slide-in-from-right data-[state=closed]:slide-out-to-right",
+  left:
+    "fixed inset-y-0 left-0 h-full w-full max-w-2xl rounded-r-[10px] border-r border-y " +
+    "data-[state=open]:slide-in-from-left data-[state=closed]:slide-out-to-left",
+}
+
 const MriDrawerContent = React.forwardRef<
   React.ElementRef<typeof DialogPrimitive.Content>,
-  React.ComponentPropsWithoutRef<typeof DialogPrimitive.Content>
->(({ className, children, ...props }, ref) => (
+  MriDrawerContentProps
+>(({ className, children, side = "bottom", hideHandle = false, ...props }, ref) => (
   <MriDrawerPortal>
     <MriDrawerOverlay />
     <DialogPrimitive.Content
       ref={ref}
       className={cn(
-        "fixed inset-x-0 bottom-0 z-50 mt-24 flex h-auto flex-col rounded-t-[10px] border border-border bg-card shadow-2xl transition-transform duration-300",
-        "data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:slide-out-to-bottom data-[state=open]:slide-in-from-bottom",
+        "z-50 flex flex-col border-border bg-card shadow-2xl transition-transform duration-300",
+        "data-[state=open]:animate-in data-[state=closed]:animate-out",
+        SIDE_CLASSES[side],
         className
       )}
       {...props}
     >
-      <div className="mx-auto mt-4 h-2 w-[100px] rounded-full bg-muted" />
-      <div className="flex-1 overflow-y-auto p-6 pt-2">
+      {/* Handle bar — so faz sentido em side=bottom (action sheet mobile) */}
+      {side === "bottom" && !hideHandle && (
+        <div className="mx-auto mt-4 h-2 w-[100px] rounded-full bg-muted shrink-0" />
+      )}
+      <div
+        className={cn(
+          "flex-1 overflow-y-auto",
+          // Padding maior em bottom (action sheet) vs side drawers (que
+          // geralmente tem header proprio com padding customizado)
+          side === "bottom" ? "p-6 pt-2" : "p-0"
+        )}
+      >
         {children}
       </div>
       <MriDrawerClose className="absolute right-4 top-4 rounded-sm opacity-70 ring-offset-background transition-opacity hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:pointer-events-none data-[state=open]:bg-secondary">

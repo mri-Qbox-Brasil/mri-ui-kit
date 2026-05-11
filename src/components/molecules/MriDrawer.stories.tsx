@@ -23,29 +23,43 @@ const meta = {
 export default meta
 type Story = StoryObj<typeof meta>
 
+const DrawerDemo = ({ side }: { side?: 'top' | 'right' | 'bottom' | 'left' }) => (
+  <MriDrawer>
+    <MriDrawerTrigger asChild>
+      <MriButton variant="outline">Open Drawer ({side ?? 'bottom'})</MriButton>
+    </MriDrawerTrigger>
+    <MriDrawerContent side={side}>
+      <MriDrawerHeader>
+        <MriDrawerTitle>Edit profile</MriDrawerTitle>
+        <MriDrawerDescription>
+          Make changes to your profile here. Click save when you're done.
+        </MriDrawerDescription>
+      </MriDrawerHeader>
+      <div className="p-4 py-8 text-center text-muted-foreground">
+        Drawer content area
+      </div>
+      <MriDrawerFooter>
+        <MriButton type="submit">Save changes</MriButton>
+        <MriDrawerClose asChild>
+          <MriButton variant="outline">Cancel</MriButton>
+        </MriDrawerClose>
+      </MriDrawerFooter>
+    </MriDrawerContent>
+  </MriDrawer>
+)
+
 export const Default: Story = {
-  render: () => (
-    <MriDrawer>
-      <MriDrawerTrigger asChild>
-        <MriButton variant="outline">Open Drawer</MriButton>
-      </MriDrawerTrigger>
-      <MriDrawerContent>
-        <MriDrawerHeader>
-          <MriDrawerTitle>Edit profile</MriDrawerTitle>
-          <MriDrawerDescription>
-            Make changes to your profile here. Click save when you're done.
-          </MriDrawerDescription>
-        </MriDrawerHeader>
-        <div className="p-4 py-8 text-center text-muted-foreground">
-            Drawer content area
-        </div>
-        <MriDrawerFooter>
-          <MriButton type="submit">Save changes</MriButton>
-          <MriDrawerClose asChild>
-            <MriButton variant="outline">Cancel</MriButton>
-          </MriDrawerClose>
-        </MriDrawerFooter>
-      </MriDrawerContent>
-    </MriDrawer>
-  ),
+  render: () => <DrawerDemo />,
+}
+
+export const FromRight: Story = {
+  render: () => <DrawerDemo side="right" />,
+}
+
+export const FromLeft: Story = {
+  render: () => <DrawerDemo side="left" />,
+}
+
+export const FromTop: Story = {
+  render: () => <DrawerDemo side="top" />,
 }
