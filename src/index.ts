@@ -11,6 +11,8 @@ export * from './components/atoms/MriStatusBadge'
 export * from './components/atoms/mri-badge-variants'
 export * from './components/atoms/mri-button-variants'
 export * from './components/atoms/MriSpinner'
+export * from './components/atoms/MriSwitch'
+export * from './components/atoms/MriTextarea'
 
 // Molecules
 export * from './components/molecules/MriAccordion'
