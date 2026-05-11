@@ -1,3 +1,10 @@
+# [4.5.0](https://github.com/mri-Qbox-Brasil/mri-ui-kit/compare/v4.4.0...v4.5.0) (2026-05-11)
+
+
+### Features
+
+* MriExpandableSearch + MriIconToggleButton ([37e1d4e](https://github.com/mri-Qbox-Brasil/mri-ui-kit/commit/37e1d4ec6195ed4dea98a49aeeebf3b9ecf9c82f))
+
 # [4.4.0](https://github.com/mri-Qbox-Brasil/mri-ui-kit/compare/v4.3.0...v4.4.0) (2026-05-11)
 
 
