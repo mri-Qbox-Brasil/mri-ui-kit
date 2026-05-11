@@ -1,3 +1,10 @@
+# [4.6.0](https://github.com/mri-Qbox-Brasil/mri-ui-kit/compare/v4.5.0...v4.6.0) (2026-05-11)
+
+
+### Features
+
+* MriSegmentedTabs + MriDrawer side prop ([92ea6dc](https://github.com/mri-Qbox-Brasil/mri-ui-kit/commit/92ea6dcb424ab169e33f07cd8a3b6f124937466b))
+
 # [4.5.0](https://github.com/mri-Qbox-Brasil/mri-ui-kit/compare/v4.4.0...v4.5.0) (2026-05-11)
 
 
