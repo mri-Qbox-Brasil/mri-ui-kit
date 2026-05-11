@@ -1,3 +1,11 @@
+## [4.6.2](https://github.com/mri-Qbox-Brasil/mri-ui-kit/compare/v4.6.1...v4.6.2) (2026-05-11)
+
+
+### Bug Fixes
+
+* export MriDrawer + remove duplicate MriTopbar export ([67f2d3a](https://github.com/mri-Qbox-Brasil/mri-ui-kit/commit/67f2d3a6a779b39276a57fcf5c0c20d370bb0a84))
+* export MriTable from index ([285391e](https://github.com/mri-Qbox-Brasil/mri-ui-kit/commit/285391ecc7b33abefdd8d689d28002ac9c14707f))
+
 ## [4.6.1](https://github.com/mri-Qbox-Brasil/mri-ui-kit/compare/v4.6.0...v4.6.1) (2026-05-11)
 
 
