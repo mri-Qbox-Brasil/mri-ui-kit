@@ -20,7 +20,7 @@ export default {
                     DEFAULT: 'hsl(var(--accent))',
                     foreground: 'hsl(var(--accent-foreground))'
                 },
-                border_primary: '#373A40',
+                border_primary: 'hsl(var(--border))',
                 hover_secondary: '#5c5f66',
                 background: 'hsl(var(--background))',
                 foreground: 'hsl(var(--foreground))',
