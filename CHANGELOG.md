@@ -1,3 +1,10 @@
+## [4.6.3](https://github.com/mri-Qbox-Brasil/mri-ui-kit/compare/v4.6.2...v4.6.3) (2026-05-26)
+
+
+### Bug Fixes
+
+* border_primary usa CSS variable hsl(var(--border)) em vez de cor hardcoded ([da1a4d9](https://github.com/mri-Qbox-Brasil/mri-ui-kit/commit/da1a4d9f80c73ecfd44673b00c32aeffc24e1955))
+
 ## [4.6.2](https://github.com/mri-Qbox-Brasil/mri-ui-kit/compare/v4.6.1...v4.6.2) (2026-05-11)
 
 
