@@ -1,3 +1,10 @@
+## [4.6.4](https://github.com/mri-Qbox-Brasil/mri-ui-kit/compare/v4.6.3...v4.6.4) (2026-05-28)
+
+
+### Bug Fixes
+
+* MriEconomyCard oculta botoes +/- quando onAdd/onRemove nao sao fornecidos ([243fa9f](https://github.com/mri-Qbox-Brasil/mri-ui-kit/commit/243fa9fe51babd6fe13a701bd56a1292fbc8d457))
+
 ## [4.6.3](https://github.com/mri-Qbox-Brasil/mri-ui-kit/compare/v4.6.2...v4.6.3) (2026-05-26)
 
 
