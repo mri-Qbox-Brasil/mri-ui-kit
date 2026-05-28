@@ -35,26 +35,32 @@ export function MriEconomyCard({
         </div>
       </div>
       <div className="flex flex-col items-end gap-1">
-        <div className="flex items-center gap-1">
-          <MriButton
-            size="icon"
-            variant="ghost"
-            className="h-7 w-7 rounded bg-muted hover:bg-muted/80"
-            onClick={onAdd}
-            disabled={disableAdd}
-          >
-            <Plus className="w-3.5 h-3.5" />
-          </MriButton>
-          <MriButton
-            size="icon"
-            variant="ghost"
-            className="h-7 w-7 rounded bg-muted hover:bg-muted/80"
-            onClick={onRemove}
-            disabled={disableRemove}
-          >
-            <Minus className="w-3.5 h-3.5" />
-          </MriButton>
-        </div>
+        {(onAdd !== undefined || onRemove !== undefined) && (
+          <div className="flex items-center gap-1">
+            {onAdd !== undefined && (
+              <MriButton
+                size="icon"
+                variant="ghost"
+                className="h-7 w-7 rounded bg-muted hover:bg-muted/80"
+                onClick={onAdd}
+                disabled={disableAdd}
+              >
+                <Plus className="w-3.5 h-3.5" />
+              </MriButton>
+            )}
+            {onRemove !== undefined && (
+              <MriButton
+                size="icon"
+                variant="ghost"
+                className="h-7 w-7 rounded bg-muted hover:bg-muted/80"
+                onClick={onRemove}
+                disabled={disableRemove}
+              >
+                <Minus className="w-3.5 h-3.5" />
+              </MriButton>
+            )}
+          </div>
+        )}
         <MriButton
           size="icon"
           variant="ghost"

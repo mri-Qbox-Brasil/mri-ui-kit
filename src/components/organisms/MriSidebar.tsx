@@ -73,7 +73,7 @@ export function MriSidebar({
   }
 
   return (
-    <div className={cn("h-full flex flex-col items-center py-4 border-r border-border transition-all duration-300 bg-card", collapsed ? "w-16 px-2" : "w-60 px-3", className)}>
+    <div className={cn("h-full flex flex-col items-center py-4 border-border transition-all duration-300 bg-card", collapsed ? "w-16 px-2" : "w-60 px-3", className)}>
       <div className="flex-1 flex flex-col gap-1 w-full overflow-y-auto pr-1 no-scrollbar">
         {items.map((item, index) => (
             <NavButton key={index} item={item} />
