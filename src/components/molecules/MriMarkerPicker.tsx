@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react"
+import { useEffect, useMemo, useState } from "react"
 import { Search } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { MriInput } from "@/components/atoms/MriInput"
@@ -8,6 +8,12 @@ import {
   type MarkerType,
   DEFAULT_MARKER_TYPES,
 } from "./MriMarkerPicker.constants"
+import {
+  type FivemRefsIndex,
+  DEFAULT_FIVEM_REFS_URL,
+} from "./MriBlipPicker.constants"
+
+const DEFAULT_CDN_BASE = "https://assets.mriqbox.com.br/"
 
 // ────────────────────────────────────────────────────────────
 // Props
@@ -18,10 +24,17 @@ export interface MriMarkerPickerProps {
   color: MarkerColor
   scale: MarkerScale
   onChange: (val: { type: number; color: MarkerColor; scale: MarkerScale }) => void
-  /** Lista customizada de marker types. Default: 44 oficiais. */
+  /** Lista customizada de marker types. Quando passada, evita fetch do índice.
+   *  Quando omitida, o componente busca `markers` em `indexUrl` e mescla com
+   *  os defaults (descrições + previews via `file`). */
   markerTypes?: MarkerType[]
-  /** URL opcional para previews dos markers. Se fornecido, mostra `{url}{idPadded2}.webp` */
-  previewsBaseUrl?: string
+  /** URL base do CDN para previews. O `file` do manifest é concatenado direto.
+   *  Default: `https://assets.mriqbox.com.br/`. */
+  cdnBase?: string
+  /** URL do índice JSON. Default: o oficial em assets.mriqbox.com.br. */
+  indexUrl?: string
+  /** Inclui itens com `available: false` na lista. Default: false. */
+  showUnavailable?: boolean
   /** Modo de scale. 'uniform' usa 1 input que aplica em x/y/z. 'xyz' permite editar separado. Default 'uniform'. */
   scaleMode?: "uniform" | "xyz"
   /** Classe wrapper externa */
@@ -37,11 +50,51 @@ export function MriMarkerPicker({
   color,
   scale,
   onChange,
-  markerTypes = DEFAULT_MARKER_TYPES,
-  previewsBaseUrl,
+  markerTypes: providedMarkerTypes,
+  cdnBase = DEFAULT_CDN_BASE,
+  indexUrl = DEFAULT_FIVEM_REFS_URL,
+  showUnavailable = false,
   scaleMode = "uniform",
   className,
 }: MriMarkerPickerProps) {
+  const normalizedBase = cdnBase.endsWith("/") ? cdnBase : `${cdnBase}/`
+
+  // Busca do índice (que contém blips e markers no mesmo JSON). Quando o
+  // consumer fornece `markerTypes`, o fetch é skipado.
+  const [fetchedMarkers, setFetchedMarkers] = useState<MarkerType[] | null>(null)
+
+  useEffect(() => {
+    if (providedMarkerTypes) return
+    let cancelled = false
+    fetch(indexUrl)
+      .then(r => r.ok ? r.json() : Promise.reject(new Error(`HTTP ${r.status}`)))
+      .then((data: unknown) => {
+        if (cancelled) return
+        const idx = data as Partial<FivemRefsIndex>
+        if (idx && Array.isArray(idx.markers)) {
+          // Mescla com defaults (que têm descrições em PT-BR)
+          const merged: MarkerType[] = idx.markers.map(m => {
+            const def = DEFAULT_MARKER_TYPES.find(d => d.id === m.id)
+            return {
+              id: m.id,
+              name: def?.name ?? m.name,
+              description: def?.description,
+              file: m.file,
+              available: m.available,
+            }
+          })
+          setFetchedMarkers(merged)
+        }
+      })
+      .catch(() => { /* silencioso — fallback usa DEFAULT_MARKER_TYPES */ })
+    return () => { cancelled = true }
+  }, [providedMarkerTypes, indexUrl])
+
+  const markerTypes = useMemo<MarkerType[]>(() => {
+    const src = providedMarkerTypes ?? fetchedMarkers ?? DEFAULT_MARKER_TYPES
+    return showUnavailable ? src : src.filter(m => m.available !== false)
+  }, [providedMarkerTypes, fetchedMarkers, showUnavailable])
+
   const [search, setSearch] = useState("")
 
   const filtered = useMemo(() => {
@@ -125,11 +178,11 @@ export function MriMarkerPicker({
         <div className="rounded border border-border bg-background/30 p-3">
           <p className="text-[10px] uppercase tracking-wider text-muted-foreground mb-2">Preview</p>
           <div className="flex items-center gap-3">
-            {previewsBaseUrl ? (
+            {selected?.file ? (
               <div className="flex items-center justify-center w-24 h-24 rounded bg-background border border-border">
                 <img
-                  src={`${previewsBaseUrl}${String(type).padStart(2, "0")}.webp`}
-                  alt={selected?.name}
+                  src={`${normalizedBase}${selected.file}`}
+                  alt={selected.name}
                   className="object-contain"
                   style={{
                     width: `${Math.min(scale.x * 32, 96)}px`,

@@ -9,6 +9,12 @@ export interface MarkerType {
   id: number
   name: string
   description?: string
+  /** Path do asset no CDN (já inclui prefixo de pasta e extensão).
+   *  Ex: "markers/00_MarkerTypeUpsideDownCone.png". Quando ausente, o
+   *  preview cai num fallback ou exibe placeholder. */
+  file?: string
+  /** Se false, o item é omitido da lista por padrão. */
+  available?: boolean
 }
 
 export interface MarkerColor {

@@ -5,17 +5,22 @@ import { MriInput } from "@/components/atoms/MriInput"
 import {
   type BlipColor,
   type BlipManifestEntry,
+  type FivemRefsIndex,
   DEFAULT_BLIP_COLORS,
+  DEFAULT_FIVEM_REFS_URL,
 } from "./MriBlipPicker.constants"
 
-const DEFAULT_ASSETS_BASE_URL = "https://assets.mriqbox.com.br/blips/"
+const DEFAULT_CDN_BASE = "https://assets.mriqbox.com.br/"
 
 function padId(id: number): string {
   return String(id).padStart(3, "0")
 }
 
-function spriteUrl(baseUrl: string, entry: BlipManifestEntry): string {
-  return `${baseUrl}${padId(entry.id)}_${entry.name}.webp`
+function spriteUrl(cdnBase: string, entry: BlipManifestEntry): string {
+  // Prefere o path explícito (manifest oficial); cai no fallback se o
+  // consumer passou manifest reduzido (ex: storybook).
+  const path = entry.file ?? `blips/${padId(entry.id)}_${entry.name}.webp`
+  return `${cdnBase}${path}`
 }
 
 // ────────────────────────────────────────────────────────────
@@ -28,10 +33,15 @@ export interface MriBlipPickerProps {
   scale?: number
   enabled?: boolean
   onChange: (val: { sprite: number; color: number; scale: number; enabled?: boolean }) => void
-  /** URL base dos assets. Default: `https://assets.mriqbox.com.br/blips/` */
-  assetsBaseUrl?: string
-  /** Lista de sprites disponíveis. Se omitido, busca `{assetsBaseUrl}manifest.json`. */
+  /** URL base do CDN onde os arquivos estão hospedados. O `file` do manifest é
+   *  concatenado direto: `${cdnBase}${entry.file}`. Default: `https://assets.mriqbox.com.br/`. */
+  cdnBase?: string
+  /** URL do índice JSON (formato `FivemRefsIndex`). Se omitido, usa o oficial. */
+  indexUrl?: string
+  /** Lista de sprites pré-fornecida. Se passada, NÃO faz fetch do índice. */
   manifest?: BlipManifestEntry[]
+  /** Inclui itens com `available: false` na lista. Default: false. */
+  showUnavailable?: boolean
   /** Paleta de cores. Default: as 86 oficiais. */
   colors?: BlipColor[]
   /** Limites do slider de scale. Default: [0.5, 1.5] */
@@ -54,49 +64,48 @@ export function MriBlipPicker({
   scale = 1,
   enabled,
   onChange,
-  assetsBaseUrl = DEFAULT_ASSETS_BASE_URL,
+  cdnBase = DEFAULT_CDN_BASE,
+  indexUrl = DEFAULT_FIVEM_REFS_URL,
   manifest: providedManifest,
+  showUnavailable = false,
   colors = DEFAULT_BLIP_COLORS,
   scaleRange = [0.5, 1.5],
   showScale = true,
   showEnable = false,
   className,
 }: MriBlipPickerProps) {
-  const baseUrl = assetsBaseUrl.endsWith("/") ? assetsBaseUrl : `${assetsBaseUrl}/`
+  const normalizedBase = cdnBase.endsWith("/") ? cdnBase : `${cdnBase}/`
 
-  // Fetch manifest se não fornecido — sem reset síncrono dentro do effect.
-  // Quando providedManifest existe, o effect apenas curto-circuita; o derived
-  // `manifest` abaixo já dá precedência ao provided.
+  // Fetch do índice se manifest não foi pré-fornecido. setState fica em
+  // callbacks async (then/catch) pra não violar react-hooks/set-state-in-effect.
   const [fetchedManifest, setFetchedManifest] = useState<BlipManifestEntry[] | null>(null)
   const [manifestError, setManifestError] = useState<string | null>(null)
 
   useEffect(() => {
     if (providedManifest) return
     let cancelled = false
-    // setState fica DENTRO de callbacks async (then/catch) — a regra
-    // react-hooks/set-state-in-effect só veta chamadas síncronas no corpo
-    // do effect, que causariam render cascateado.
-    fetch(`${baseUrl}manifest.json`)
+    fetch(indexUrl)
       .then(r => r.ok ? r.json() : Promise.reject(new Error(`HTTP ${r.status}`)))
       .then((data: unknown) => {
         if (cancelled) return
-        if (Array.isArray(data)) {
-          setFetchedManifest(data as BlipManifestEntry[])
+        const idx = data as Partial<FivemRefsIndex>
+        if (idx && Array.isArray(idx.blips)) {
+          setFetchedManifest(idx.blips)
           setManifestError(null)
         } else {
-          setManifestError("Manifest inválido")
+          setManifestError("Manifest sem campo 'blips'")
         }
       })
       .catch(err => {
         if (!cancelled) setManifestError(String(err.message ?? err))
       })
     return () => { cancelled = true }
-  }, [providedManifest, baseUrl])
+  }, [providedManifest, indexUrl])
 
-  const manifest = useMemo<BlipManifestEntry[]>(
-    () => providedManifest ?? fetchedManifest ?? [],
-    [providedManifest, fetchedManifest]
-  )
+  const manifest = useMemo<BlipManifestEntry[]>(() => {
+    const src = providedManifest ?? fetchedManifest ?? []
+    return showUnavailable ? src : src.filter(b => b.available !== false)
+  }, [providedManifest, fetchedManifest, showUnavailable])
 
   const [search, setSearch] = useState("")
 
@@ -170,7 +179,7 @@ export function MriBlipPicker({
                   )}
                 >
                   <SpriteImage
-                    src={spriteUrl(baseUrl, b)}
+                    src={spriteUrl(normalizedBase, b)}
                     tint={b.id === sprite ? selectedColor.hex : undefined}
                     className="w-5 h-5 flex-shrink-0"
                   />
@@ -207,7 +216,7 @@ export function MriBlipPicker({
             <div className="flex items-center justify-center w-24 h-24 rounded bg-background border border-border">
               {selectedEntry ? (
                 <SpriteImage
-                  src={spriteUrl(baseUrl, selectedEntry)}
+                  src={spriteUrl(normalizedBase, selectedEntry)}
                   tint={selectedColor.hex}
                   style={{
                     width: `${Math.min(scale * 64, 96)}px`,

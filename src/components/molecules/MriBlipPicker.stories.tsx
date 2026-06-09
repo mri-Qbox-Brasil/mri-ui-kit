@@ -13,30 +13,24 @@ const meta: Meta<typeof MriBlipPicker> = {
     scale:  { control: { type: 'number', min: 0.5, max: 3, step: 0.05 } },
     showScale:  { control: 'boolean' },
     showEnable: { control: 'boolean' },
-    assetsBaseUrl: { control: 'text' },
+    showUnavailable: { control: 'boolean' },
+    cdnBase:  { control: 'text' },
+    indexUrl: { control: 'text' },
   },
 }
 
 export default meta
 type Story = StoryObj<typeof meta>
 
-// Manifest de exemplo para o Storybook (sem depender da CDN real)
+// Manifest de exemplo para o Storybook (sem depender da CDN real).
+// `file` aponta para o path real no CDN — se a CDN tiver os assets, mostra
+// thumbnail; senão, renderiza placeholder "?".
 const SAMPLE_MANIFEST: BlipManifestEntry[] = [
-  { id:   1, name: 'higher_radar' },
-  { id:  60, name: 'pointofinterest' },
-  { id: 162, name: 'standardlift' },
-  { id: 225, name: 'shopgunclub' },
-  { id: 227, name: 'shopvehicle' },
-  { id: 280, name: 'jewelryheist' },
-  { id: 318, name: 'shopelclothes' },
-  { id: 357, name: 'mp_arrow' },
-  { id: 408, name: 'office' },
-  { id: 488, name: 'showering' },
-  { id: 526, name: 'castle' },
-  { id: 568, name: 'bag' },
-  { id: 615, name: 'electricshock' },
-  { id: 778, name: 'parachute' },
-  { id: 815, name: 'lapsplitterneutral' },
+  { id:   1, name: 'radar_level',       file: 'blips/001_radar_level.png',       available: true },
+  { id:  60, name: 'radar_lift_arm',    file: 'blips/060_radar_lift_arm.png',    available: true },
+  { id: 162, name: 'radar_lifeinvader', file: 'blips/162_radar_lifeinvader.png', available: true },
+  { id: 225, name: 'radar_strangers_mysteries', file: 'blips/225_radar_strangers_mysteries.png', available: true },
+  { id: 227, name: 'radar_property_general',    file: 'blips/227_radar_property_general.png',    available: true },
 ]
 
 const Wrapper = (args: Record<string, unknown>) => {
@@ -110,15 +104,14 @@ export const WithoutScale: Story = {
 }
 
 /**
- * Sem prop `manifest` — o componente faz fetch de `{assetsBaseUrl}manifest.json`.
- * No Storybook (sem CDN), exibirá mensagem de erro e permitirá editar ID manualmente.
+ * Sem prop `manifest` — o componente faz fetch de `indexUrl` (default oficial).
+ * Lê o array `blips` do índice e popula a lista automaticamente.
  */
 export const FetchFromCDN: Story = {
   args: {
     sprite: 1,
     color: 0,
     scale: 0.9,
-    assetsBaseUrl: 'https://assets.mriqbox.com.br/blips/',
   },
   render: (args) => <Wrapper {...args} />,
 }

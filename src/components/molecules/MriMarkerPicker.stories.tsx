@@ -13,7 +13,9 @@ const meta: Meta<typeof MriMarkerPicker> = {
       control: 'select',
       options: ['uniform', 'xyz'],
     },
-    previewsBaseUrl: { control: 'text' },
+    cdnBase:  { control: 'text' },
+    indexUrl: { control: 'text' },
+    showUnavailable: { control: 'boolean' },
   },
 }
 

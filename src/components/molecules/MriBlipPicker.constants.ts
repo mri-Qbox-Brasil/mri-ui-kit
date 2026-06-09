@@ -19,7 +19,39 @@ export interface BlipManifestEntry {
   id: number
   /** Nome sem extensão e sem o prefixo numérico. Ex: "radar_higher" */
   name: string
+  /**
+   * Path do asset no CDN (já inclui prefixo de pasta e extensão).
+   * Ex: "blips/000_radar_higher.gif". Quando fornecido, é usado direto para
+   * compor a URL final como `${cdnBase}${file}`. Quando ausente, o componente
+   * cai num fallback (`blips/{idPadded3}_{name}.webp`).
+   */
+  file?: string
+  /** Se false, o item é omitido da lista visível por padrão. */
+  available?: boolean
 }
+
+/**
+ * Schema do índice publicado em
+ *   https://assets.mriqbox.com.br/fivem_refs_index.json
+ *
+ * Gerado a partir do citizenfx/fivem-docs. Combina blips e markers num único
+ * arquivo. O componente faz fetch quando `manifest`/`markerTypes` não é
+ * passado explicitamente.
+ */
+export interface FivemRefsIndex {
+  generated_at: string
+  source: string
+  image_base?: string
+  stats?: {
+    blips?:   { total: number; available: number; missing: number }
+    markers?: { total: number; available: number; missing: number }
+  }
+  pages?: string[]
+  blips:   BlipManifestEntry[]
+  markers: { id: number; name: string; file?: string; available?: boolean }[]
+}
+
+export const DEFAULT_FIVEM_REFS_URL = "https://assets.mriqbox.com.br/fivem_refs_index.json"
 
 export const DEFAULT_BLIP_COLORS: BlipColor[] = [
   { id: 0,  name: "White",            hex: "#FEFEFE" },
