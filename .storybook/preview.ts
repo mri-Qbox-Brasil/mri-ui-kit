@@ -65,7 +65,7 @@ const preview: Preview = {
     // toggle do toolbar (`globals.theme`). Sem isso, o tema do Docs ficaria
     // estatico e nao reagiria ao Light/Dark.
     docs: {
-      container: ({ children, context }: any) => {
+      container: ({ children, context }: React.ComponentProps<typeof DocsContainer>) => {
         const theme = context?.store?.userGlobals?.globals?.theme
           ?? context?.globals?.theme
           ?? 'dark';

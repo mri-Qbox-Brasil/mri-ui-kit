@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react'
 import { useState } from 'react'
-import { MriMarkerPicker, type MarkerColor, type MarkerScale } from './MriMarkerPicker'
+import { MriMarkerPicker } from './MriMarkerPicker'
+import { type MarkerColor, type MarkerScale } from './MriMarkerPicker.constants'
 
 const meta: Meta<typeof MriMarkerPicker> = {
   title: 'Molecules/MriMarkerPicker',

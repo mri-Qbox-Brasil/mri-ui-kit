@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react'
 import { useState } from 'react'
-import { MriBlipPicker, type BlipManifestEntry, DEFAULT_BLIP_COLORS } from './MriBlipPicker'
+import { MriBlipPicker } from './MriBlipPicker'
+import { type BlipManifestEntry, DEFAULT_BLIP_COLORS } from './MriBlipPicker.constants'
 
 const meta: Meta<typeof MriBlipPicker> = {
   title: 'Molecules/MriBlipPicker',
