@@ -41,6 +41,8 @@ export * from './components/molecules/MriSearchInput'
 export * from './components/molecules/MriSectionHeader'
 export * from './components/molecules/MriDatePicker'
 export * from './components/molecules/MriColorPicker'
+export * from './components/molecules/MriBlipPicker'
+export * from './components/molecules/MriMarkerPicker'
 export * from './components/molecules/MriPlayerVitals'
 export * from './components/molecules/MriVitalAdjustModal'
 
