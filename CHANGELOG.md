@@ -1,3 +1,10 @@
+# [4.8.0](https://github.com/mri-Qbox-Brasil/mri-ui-kit/compare/v4.7.1...v4.8.0) (2026-06-09)
+
+
+### Features
+
+* BlipPicker/MarkerPicker consomem índice oficial fivem_refs_index.json ([7256ef6](https://github.com/mri-Qbox-Brasil/mri-ui-kit/commit/7256ef6da8ad87a88a063f4dcde6f1256887e076))
+
 ## [4.7.1](https://github.com/mri-Qbox-Brasil/mri-ui-kit/compare/v4.7.0...v4.7.1) (2026-06-09)
 
 
