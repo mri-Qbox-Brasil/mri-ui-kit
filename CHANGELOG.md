@@ -1,3 +1,10 @@
+## [4.7.1](https://github.com/mri-Qbox-Brasil/mri-ui-kit/compare/v4.7.0...v4.7.1) (2026-06-09)
+
+
+### Bug Fixes
+
+* lint errors no MriBlipPicker e preview.ts ([350f368](https://github.com/mri-Qbox-Brasil/mri-ui-kit/commit/350f3686d91c21aa960b34957f79dc1ee39ded0e))
+
 # [4.7.0](https://github.com/mri-Qbox-Brasil/mri-ui-kit/compare/v4.6.4...v4.7.0) (2026-06-09)
 
 
