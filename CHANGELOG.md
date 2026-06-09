@@ -1,3 +1,10 @@
+# [4.7.0](https://github.com/mri-Qbox-Brasil/mri-ui-kit/compare/v4.6.4...v4.7.0) (2026-06-09)
+
+
+### Features
+
+* MriBlipPicker e MriMarkerPicker ([78bf9ba](https://github.com/mri-Qbox-Brasil/mri-ui-kit/commit/78bf9baa6619dd41373394cdb5845a371e78d335))
+
 ## [4.6.4](https://github.com/mri-Qbox-Brasil/mri-ui-kit/compare/v4.6.3...v4.6.4) (2026-05-28)
 
 
