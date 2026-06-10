@@ -1,3 +1,10 @@
+# [4.9.0](https://github.com/mri-Qbox-Brasil/mri-ui-kit/compare/v4.8.0...v4.9.0) (2026-06-10)
+
+
+### Features
+
+* BlipPicker/MarkerPicker ganham modo compact + multiply nos markers ([0dbeb75](https://github.com/mri-Qbox-Brasil/mri-ui-kit/commit/0dbeb75a83549b92ad44a271a9b102f7fa1104f2)), closes [#111C2D](https://github.com/mri-Qbox-Brasil/mri-ui-kit/issues/111C2D) [#D7DADF](https://github.com/mri-Qbox-Brasil/mri-ui-kit/issues/D7DADF)
+
 # [4.8.0](https://github.com/mri-Qbox-Brasil/mri-ui-kit/compare/v4.7.1...v4.8.0) (2026-06-09)
 
 
