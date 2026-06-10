@@ -13,6 +13,7 @@ const meta: Meta<typeof MriMarkerPicker> = {
       control: 'select',
       options: ['uniform', 'xyz'],
     },
+    compact:  { control: 'boolean' },
     cdnBase:  { control: 'text' },
     indexUrl: { control: 'text' },
     showUnavailable: { control: 'boolean' },
@@ -95,6 +96,21 @@ export const NumberMarker: Story = {
     color: { r: 255, g: 100, b: 100, a: 230 },
     scale: { x: 1, y: 1, z: 1 },
     scaleMode: 'uniform',
+  },
+  render: (args) => <Wrapper {...args} />,
+}
+
+/**
+ * Modo compacto com fetch automático do índice oficial — trigger mostra
+ * o preview do marker selecionado tingido com a cor (mix-blend-mode multiply).
+ */
+export const Compact: Story = {
+  args: {
+    type: 1,
+    color: { r: 255, g: 200, b: 0, a: 200 },
+    scale: { x: 1.5, y: 1.5, z: 1.5 },
+    scaleMode: 'uniform',
+    compact: true,
   },
   render: (args) => <Wrapper {...args} />,
 }

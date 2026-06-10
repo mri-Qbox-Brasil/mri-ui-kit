@@ -14,6 +14,7 @@ const meta: Meta<typeof MriBlipPicker> = {
     showScale:  { control: 'boolean' },
     showEnable: { control: 'boolean' },
     showUnavailable: { control: 'boolean' },
+    compact:  { control: 'boolean' },
     cdnBase:  { control: 'text' },
     indexUrl: { control: 'text' },
   },
@@ -124,6 +125,35 @@ export const CustomPalette: Story = {
     manifest: SAMPLE_MANIFEST,
     // Paleta reduzida (só as 16 primeiras cores)
     colors: DEFAULT_BLIP_COLORS.slice(0, 16),
+  },
+  render: (args) => <Wrapper {...args} />,
+}
+
+/**
+ * Modo compacto: renderiza trigger pequeno com preview do item selecionado;
+ * clique abre a UI completa em popover flutuante.
+ */
+export const Compact: Story = {
+  args: {
+    sprite: 227,
+    color: 5,
+    scale: 0.8,
+    compact: true,
+    showScale: true,
+    manifest: SAMPLE_MANIFEST,
+  },
+  render: (args) => <Wrapper {...args} />,
+}
+
+export const CompactWithEnable: Story = {
+  args: {
+    sprite: 60,
+    color: 2,
+    scale: 1,
+    compact: true,
+    showEnable: true,
+    enabled: true,
+    manifest: SAMPLE_MANIFEST,
   },
   render: (args) => <Wrapper {...args} />,
 }
