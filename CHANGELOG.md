@@ -1,3 +1,10 @@
+# [4.10.0](https://github.com/mri-Qbox-Brasil/mri-ui-kit/compare/v4.9.0...v4.10.0) (2026-06-19)
+
+
+### Features
+
+* MriStatCard + glow prop no MriCard ([d427fd4](https://github.com/mri-Qbox-Brasil/mri-ui-kit/commit/d427fd4b326ea753fd12045e8322690af5dc34cc))
+
 # [4.9.0](https://github.com/mri-Qbox-Brasil/mri-ui-kit/compare/v4.8.0...v4.9.0) (2026-06-10)
 
 
