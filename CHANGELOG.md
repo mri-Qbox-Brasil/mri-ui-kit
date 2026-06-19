@@ -1,3 +1,10 @@
+## [4.10.1](https://github.com/mri-Qbox-Brasil/mri-ui-kit/compare/v4.10.0...v4.10.1) (2026-06-19)
+
+
+### Bug Fixes
+
+* permite digitar hex/rgb/hsl personalizado no MriColorPicker ([f9c1fb4](https://github.com/mri-Qbox-Brasil/mri-ui-kit/commit/f9c1fb47909df3834261a7f5d58e0df6883ce573))
+
 # [4.10.0](https://github.com/mri-Qbox-Brasil/mri-ui-kit/compare/v4.9.0...v4.10.0) (2026-06-19)
 
 
