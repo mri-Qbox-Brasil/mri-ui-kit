@@ -50,6 +50,16 @@ export const MriColorPicker = ({ color, onChange, active, format = 'hsl-string' 
         }
     }, [color, hex])
 
+    const emitChange = (newC: ReturnType<typeof colord>) => {
+        if (format === 'hex') {
+            onChange(newC.toHex())
+        } else {
+            const hsl = newC.toHsl()
+            const hslString = `${Math.round(hsl.h)} ${Math.round(hsl.s)}% ${Math.round(hsl.l)}%`
+            onChange(hslString)
+        }
+    }
+
     const handleChange = (newHex: string) => {
         setHex(newHex)
         const newC = colord(newHex)
@@ -60,13 +70,7 @@ export const MriColorPicker = ({ color, onChange, active, format = 'hsl-string' 
         })
 
         // Real-time update
-        if (format === 'hex') {
-            onChange(newHex)
-        } else {
-            const hsl = newC.toHsl()
-            const hslString = `${Math.round(hsl.h)} ${Math.round(hsl.s)}% ${Math.round(hsl.l)}%`
-            onChange(hslString)
-        }
+        emitChange(newC)
     }
 
 
@@ -98,6 +102,7 @@ export const MriColorPicker = ({ color, onChange, active, format = 'hsl-string' 
 
         if (newColor && newColor.isValid()) {
             setHex(newColor.toHex())
+            emitChange(newColor)
         }
     }
 
