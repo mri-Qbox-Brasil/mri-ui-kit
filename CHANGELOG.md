@@ -1,3 +1,10 @@
+# [4.11.0](https://github.com/mri-Qbox-Brasil/mri-ui-kit/compare/v4.10.1...v4.11.0) (2026-06-23)
+
+
+### Features
+
+* adiciona HUD shapes (gauges/rings/bars SVG) ao kit ([9a0b133](https://github.com/mri-Qbox-Brasil/mri-ui-kit/commit/9a0b1336726e4cee937876ecfc8044e148a6f371))
+
 ## [4.10.1](https://github.com/mri-Qbox-Brasil/mri-ui-kit/compare/v4.10.0...v4.10.1) (2026-06-19)
 
 
