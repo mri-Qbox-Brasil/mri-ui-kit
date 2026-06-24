@@ -1,3 +1,10 @@
+# [4.12.0](https://github.com/mri-Qbox-Brasil/mri-ui-kit/compare/v4.11.0...v4.12.0) (2026-06-24)
+
+
+### Features
+
+* MriBadgeShape aceita barHeight para ajustar a espessura da barra ([4d0001b](https://github.com/mri-Qbox-Brasil/mri-ui-kit/commit/4d0001b107a9491fb1d171cc1dd8ec18b4d4856f))
+
 # [4.11.0](https://github.com/mri-Qbox-Brasil/mri-ui-kit/compare/v4.10.1...v4.11.0) (2026-06-23)
 
 
