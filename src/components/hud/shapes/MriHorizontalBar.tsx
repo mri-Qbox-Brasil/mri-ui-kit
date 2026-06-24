@@ -53,7 +53,7 @@ export const MriHorizontalBar = React.forwardRef<HTMLDivElement, MriHorizontalBa
               y1="50%"
               x2="100%"
               y2="50%"
-              strokeWidth={width}
+              strokeWidth={height - 8}
               style={{ filter: makeFilter(outlineDropShadowAmount, outlineColor, outlineContrast) }}
             />
             <line
@@ -65,7 +65,7 @@ export const MriHorizontalBar = React.forwardRef<HTMLDivElement, MriHorizontalBa
               fill="transparent"
               strokeDasharray={width}
               strokeDashoffset={strokeDashoffset}
-              strokeWidth={width}
+              strokeWidth={height - 8}
               style={{
                 transition: "stroke-dashoffset 0.6s cubic-bezier(0.215, 0.61, 0.355, 1)",
                 filter: makeFilter(progressDropShadowAmount, progressColor, progressContrast),
