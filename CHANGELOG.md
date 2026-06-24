@@ -1,3 +1,10 @@
+# [4.13.0](https://github.com/mri-Qbox-Brasil/mri-ui-kit/compare/v4.12.0...v4.13.0) (2026-06-24)
+
+
+### Features
+
+* defaults afinados das HUD shapes + fix horizontal-bar ([de1fa05](https://github.com/mri-Qbox-Brasil/mri-ui-kit/commit/de1fa055838c29ddcd3c801a0b74eb4075453e1a))
+
 # [4.12.0](https://github.com/mri-Qbox-Brasil/mri-ui-kit/compare/v4.11.0...v4.12.0) (2026-06-24)
 
 
