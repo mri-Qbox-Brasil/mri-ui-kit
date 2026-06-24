@@ -2,7 +2,10 @@ import * as React from "react"
 import type { MriShapeProps } from "./shape-types"
 import { makeFilter } from "./shape-utils"
 
-export type MriBadgeShapeProps = MriShapeProps
+export type MriBadgeShapeProps = MriShapeProps & {
+  /** Arredondamento do card (fundo) do badge, em px. Default: height*0.16. */
+  cardRadius?: number
+}
 
 /**
  * Shape "badge" da HUD: icone no topo + barra horizontal arredondada de
@@ -20,7 +23,7 @@ export const MriBadgeShape = React.forwardRef<HTMLDivElement, MriBadgeShapeProps
       iconColor = "currentColor",
       iconContrast = 100,
       iconDropShadowAmount = 0,
-      iconScaling = 0.45,
+      iconScaling = 0.28,
       innerColor = "#212121",
       outlineColor = "currentColor",
       outlineContrast = 100,
@@ -32,8 +35,9 @@ export const MriBadgeShape = React.forwardRef<HTMLDivElement, MriBadgeShapeProps
       translateX = 0,
       translateY = 0,
       xAxisRound = 5,
-      yAxisRound = 20,
+      yAxisRound = 5,
       barHeight,
+      cardRadius,
     },
     ref
   ) => {
@@ -46,7 +50,7 @@ export const MriBadgeShape = React.forwardRef<HTMLDivElement, MriBadgeShapeProps
     // Espessura da barra de progresso: `barHeight` (px) se informado, senao
     // proporcional a height. Permite ajustar a barra do badge sem alterar o
     // tamanho do icone/envelope.
-    const barH = barHeight ?? height * 0.22
+    const barH = barHeight ?? height * 0.078
     const barW = width - 2 * pad
     const progressWidth = (progressValue / 100) * barW
     const barRx = Math.min(xAxisRound, barH / 2)
@@ -61,7 +65,7 @@ export const MriBadgeShape = React.forwardRef<HTMLDivElement, MriBadgeShapeProps
         style={{
           width,
           padding: pad,
-          borderRadius: height * 0.16,
+          borderRadius: cardRadius ?? height * 0.056,
           backgroundColor: innerColor,
           display: "flex",
           flexDirection: "column",
