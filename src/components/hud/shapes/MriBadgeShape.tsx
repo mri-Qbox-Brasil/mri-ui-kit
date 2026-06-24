@@ -33,6 +33,7 @@ export const MriBadgeShape = React.forwardRef<HTMLDivElement, MriBadgeShapeProps
       translateY = 0,
       xAxisRound = 5,
       yAxisRound = 20,
+      barHeight,
     },
     ref
   ) => {
@@ -42,7 +43,10 @@ export const MriBadgeShape = React.forwardRef<HTMLDivElement, MriBadgeShapeProps
     const pad = height * 0.07
     const iconSize = height * iconScaling
     const gap = height * 0.09
-    const barH = height * 0.22
+    // Espessura da barra de progresso: `barHeight` (px) se informado, senao
+    // proporcional a height. Permite ajustar a barra do badge sem alterar o
+    // tamanho do icone/envelope.
+    const barH = barHeight ?? height * 0.22
     const barW = width - 2 * pad
     const progressWidth = (progressValue / 100) * barW
     const barRx = Math.min(xAxisRound, barH / 2)
