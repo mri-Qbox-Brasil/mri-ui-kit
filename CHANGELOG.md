@@ -1,3 +1,10 @@
+# [4.14.0](https://github.com/mri-Qbox-Brasil/mri-ui-kit/compare/v4.13.0...v4.14.0) (2026-06-24)
+
+
+### Features
+
+* MriBadgeShape com cardRadius + defaults proporcionais calibrados ([2bf6a9c](https://github.com/mri-Qbox-Brasil/mri-ui-kit/commit/2bf6a9ca6ce6b2a34176a82c042b33c566542ce6))
+
 # [4.13.0](https://github.com/mri-Qbox-Brasil/mri-ui-kit/compare/v4.12.0...v4.13.0) (2026-06-24)
 
 
