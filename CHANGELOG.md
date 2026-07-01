@@ -1,3 +1,15 @@
+# [4.15.0](https://github.com/mri-Qbox-Brasil/mri-ui-kit/compare/v4.14.0...v4.15.0) (2026-07-01)
+
+
+### Bug Fixes
+
+* **MriColorPicker:** render popover above app chrome (z-[100]) ([5cf86bf](https://github.com/mri-Qbox-Brasil/mri-ui-kit/commit/5cf86bfa911b3317b966182b54cb63499ce7dcdf))
+
+
+### Features
+
+* add MriSettingToggle, MriSettingField and MriNumberInput ([acb8a79](https://github.com/mri-Qbox-Brasil/mri-ui-kit/commit/acb8a791107d225ca0792b651b3cc5122b739ba3))
+
 # [4.14.0](https://github.com/mri-Qbox-Brasil/mri-ui-kit/compare/v4.13.0...v4.14.0) (2026-06-24)
 
 
