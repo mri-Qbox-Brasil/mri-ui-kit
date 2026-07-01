@@ -124,7 +124,7 @@ export const MriColorPicker = ({ color, onChange, active, format = 'hsl-string' 
                 </button>
             </Popover.Trigger>
             <Popover.Portal>
-                <Popover.Content sideOffset={5} className="z-50 w-64 rounded-xl border bg-popover p-3 text-popover-foreground shadow-md outline-none animate-in fade-in-0 zoom-in-95 data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=closed]:zoom-out-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2">
+                <Popover.Content sideOffset={5} className="z-[100] w-64 rounded-xl border bg-popover p-3 text-popover-foreground shadow-md outline-none animate-in fade-in-0 zoom-in-95 data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=closed]:zoom-out-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2">
                     <div className="space-y-3">
                         <div
                             style={{ touchAction: 'none' }}
