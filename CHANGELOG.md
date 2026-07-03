@@ -1,3 +1,10 @@
+## [4.15.1](https://github.com/mri-Qbox-Brasil/mri-ui-kit/compare/v4.15.0...v4.15.1) (2026-07-03)
+
+
+### Bug Fixes
+
+* **ci:** remove redundant publish workflow that double-published to npm ([fabf7e7](https://github.com/mri-Qbox-Brasil/mri-ui-kit/commit/fabf7e7cb4ca25ac1dcdab1dc322763d8b8333eb)), closes [#39](https://github.com/mri-Qbox-Brasil/mri-ui-kit/issues/39)
+
 # [4.15.0](https://github.com/mri-Qbox-Brasil/mri-ui-kit/compare/v4.14.0...v4.15.0) (2026-07-01)
 
 
