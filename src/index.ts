@@ -16,8 +16,11 @@ export * from './components/atoms/MriSwitch'
 export * from './components/atoms/MriTextarea'
 export * from './components/atoms/MriIconToggleButton'
 export * from './components/atoms/MriNumberInput'
+export * from './components/atoms/MriKbd'
+export * from './components/atoms/MriMouse'
 
 // Molecules
+export * from './components/molecules/MriKeyHint'
 export * from './components/molecules/MriAccordion'
 export * from './components/molecules/MriButtonGroup'
 export * from './components/molecules/MriCard'
