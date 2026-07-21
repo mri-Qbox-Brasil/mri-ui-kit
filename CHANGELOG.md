@@ -1,3 +1,10 @@
+# [4.16.0](https://github.com/mri-Qbox-Brasil/mri-ui-kit/compare/v4.15.1...v4.16.0) (2026-07-21)
+
+
+### Features
+
+* adiciona MriKbd, MriMouse e MriKeyHint (primitivas de legenda de binds) ([4bad973](https://github.com/mri-Qbox-Brasil/mri-ui-kit/commit/4bad97327bc04504889daac57bd9f398f56cbe8f))
+
 ## [4.15.1](https://github.com/mri-Qbox-Brasil/mri-ui-kit/compare/v4.15.0...v4.15.1) (2026-07-03)
 
 
