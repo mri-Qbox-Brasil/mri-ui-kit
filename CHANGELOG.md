@@ -1,3 +1,10 @@
+# [4.17.0](https://github.com/mri-Qbox-Brasil/mri-ui-kit/compare/v4.16.0...v4.17.0) (2026-07-22)
+
+
+### Features
+
+* add applyUiConfig for inheriting ox_lib server style ([56258dc](https://github.com/mri-Qbox-Brasil/mri-ui-kit/commit/56258dc81ac82d59637891b6b9bee9883d19329f))
+
 # [4.16.0](https://github.com/mri-Qbox-Brasil/mri-ui-kit/compare/v4.15.1...v4.16.0) (2026-07-21)
 
 
