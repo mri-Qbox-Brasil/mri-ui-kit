@@ -95,3 +95,7 @@ export * from './components/hud/shapes/MriArtificialHorizon'
 export * from './components/hud/shapes/MriClinometer'
 
 export * from './lib/utils'
+
+// Estilo visual do servidor (painel /uiconfig do ox_lib) → CSS vars.
+// Sem accent/background/tema — esses são donos do host (mri_Qadmin).
+export * from './lib/applyUiConfig'
