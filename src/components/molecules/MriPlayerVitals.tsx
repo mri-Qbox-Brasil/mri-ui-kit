@@ -71,7 +71,8 @@ const VitalBar = ({ val, color, hex, icon: Icon, label, onClick, onIconClick, di
             <Icon size={14} className="shrink-0 transition-all duration-500 group-hover/vbar:scale-110" style={{ color: hex }} />
             <div className="absolute inset-0 blur-[4px] opacity-0 group-hover/vbar:opacity-40 transition-opacity" style={{ backgroundColor: hex }} />
         </div>
-        <div className="flex-1 h-2 bg-white/5 rounded-full overflow-hidden shrink-0 border border-white/5 relative">
+        {/* Trilho de progresso segue o --radius (ver MriPageHeader). */}
+        <div className="flex-1 h-2 bg-white/5 rounded-sm overflow-hidden shrink-0 border border-white/5 relative">
             <div
                 className={cn("h-full transition-all duration-1000 ease-out relative z-10", color)}
                 style={{ width: `${val}%` }}
@@ -182,7 +183,7 @@ export function MriPlayerVitals({ vitals, size = 'compact', onAction, onIconClic
                                 <span className="font-mono text-xs group-hover/vital:scale-110 transition-transform">{val}%</span>
                             </div>
 
-                            <div className="h-2.5 w-full bg-black/40 rounded-full overflow-hidden border border-white/5 relative">
+                            <div className="h-2.5 w-full bg-black/40 rounded-sm overflow-hidden border border-white/5 relative">
                                 <div
                                     className={cn("h-full transition-all duration-1000 ease-out relative z-10", v.color)}
                                     style={{ width: `${val}%` }}

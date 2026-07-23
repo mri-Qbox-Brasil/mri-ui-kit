@@ -18,8 +18,12 @@ export function MriPageHeader({ title, icon: Icon, count, countLabel, children, 
                 <Icon className="w-6 h-6 text-primary" />
                 <h1 className="text-xl font-bold tracking-tight text-foreground">{title}</h1>
             </div>
+            {/* Badge de contagem: rounded-md e nao rounded-full porque e uma
+                pilula de texto e tem que seguir o --radius do /uiconfig —
+                rounded-full e 9999px fixo e ficava imune ao slider. Circulos
+                de verdade (avatar, dot, spinner) continuam full. */}
             {count !== undefined && (
-                <div className="bg-primary/20 text-primary text-xs font-bold px-2 py-0.5 rounded-full">
+                <div className="bg-primary/20 text-primary text-xs font-bold px-2 py-0.5 rounded-md">
                     {count} {(countLabel || 'Records').toUpperCase()}
                 </div>
             )}
