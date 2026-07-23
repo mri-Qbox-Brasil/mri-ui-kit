@@ -1,3 +1,10 @@
+## [4.17.1](https://github.com/mri-Qbox-Brasil/mri-ui-kit/compare/v4.17.0...v4.17.1) (2026-07-23)
+
+
+### Bug Fixes
+
+* **theme:** badge e trilhos seguem o --radius em vez de rounded-full ([4220d3e](https://github.com/mri-Qbox-Brasil/mri-ui-kit/commit/4220d3ec450caeea1c91725910091be503065dc9))
+
 # [4.17.0](https://github.com/mri-Qbox-Brasil/mri-ui-kit/compare/v4.16.0...v4.17.0) (2026-07-22)
 
 
