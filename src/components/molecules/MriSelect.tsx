@@ -16,6 +16,8 @@ import {
 export interface MriSelectOption {
   label: string
   value: string | number
+  /** Desabilita a opção (não selecionável, aparece esmaecida). */
+  disabled?: boolean
   [key: string]: unknown
 }
 
@@ -31,6 +33,9 @@ type MriSelectBase = {
   portal?: boolean
   size?: "default" | "sm"
   createLabelPrefix?: string
+  /** Mostra o campo de busca no dropdown. Default `true` (combobox pesquisável);
+   *  passe `false` para uma lista curta sem busca. */
+  searchable?: boolean
 }
 
 type MriSelectSingleProps = MriSelectBase & {
@@ -66,6 +71,7 @@ function MriSelectSingle({
   clearable = false,
   creatable = false,
   createLabelPrefix = "Create",
+  searchable = true,
 }: MriSelectSingleProps) {
   const [open, setOpen] = useState(false)
   const [searchValue, setSearchValue] = useState("")
@@ -111,12 +117,14 @@ function MriSelectSingle({
       </MriPopoverTrigger>
       <MriPopoverContent portal={portal} className="w-[--radix-popover-trigger-width] p-0 border-border bg-popover z-[100]">
         <MriCommand className="bg-transparent text-popover-foreground">
-          <MriCommandInput
-            placeholder={searchPlaceholder}
-            className="h-9"
-            value={searchValue}
-            onValueChange={setSearchValue}
-          />
+          {searchable && (
+            <MriCommandInput
+              placeholder={searchPlaceholder}
+              className="h-9"
+              value={searchValue}
+              onValueChange={setSearchValue}
+            />
+          )}
           <MriCommandEmpty>
             {showCreateOption ? (
               <div
@@ -139,6 +147,7 @@ function MriSelectSingle({
                 <MriCommandItem
                   key={opt.value}
                   value={`${String(opt.label)} ${String(opt.value)}`}
+                  disabled={opt.disabled}
                   onSelect={() => {
                     const newValue = String(opt.value)
                     if (clearable && String(value) === newValue) {
@@ -149,7 +158,10 @@ function MriSelectSingle({
                     setOpen(false)
                     setSearchValue("")
                   }}
-                  className="aria-selected:bg-accent aria-selected:text-accent-foreground rounded-md cursor-pointer"
+                  className={cn(
+                    "aria-selected:bg-accent aria-selected:text-accent-foreground rounded-md",
+                    opt.disabled ? "opacity-50 cursor-not-allowed" : "cursor-pointer"
+                  )}
                 >
                   <Check
                     className={cn(
@@ -191,6 +203,7 @@ function MriSelectMultiple({
   error,
   portal = true,
   maxVisibleValues = 3,
+  searchable = true,
 }: MriSelectMultipleProps) {
   const [open, setOpen] = useState(false)
 
@@ -261,7 +274,9 @@ function MriSelectMultiple({
       </MriPopoverTrigger>
       <MriPopoverContent portal={portal} className="w-[--radix-popover-trigger-width] p-0 border-border bg-popover z-[100] shadow-2xl overflow-hidden rounded-xl">
         <MriCommand className="bg-transparent text-popover-foreground">
-          <MriCommandInput placeholder={searchPlaceholder} className="h-10 border-none focus:ring-0 bg-transparent" />
+          {searchable && (
+            <MriCommandInput placeholder={searchPlaceholder} className="h-10 border-none focus:ring-0 bg-transparent" />
+          )}
           <MriCommandEmpty className="py-6 text-sm text-center text-muted-foreground">{emptyMessage}</MriCommandEmpty>
           <MriCommandList
             className="max-h-64 overflow-auto p-1.5 space-y-0.5 custom-scrollbar"
@@ -272,8 +287,12 @@ function MriSelectMultiple({
                 <MriCommandItem
                   key={opt.value}
                   value={opt.label}
+                  disabled={opt.disabled}
                   onSelect={() => handleToggle(opt.value)}
-                  className="aria-selected:bg-primary/10 aria-selected:text-primary rounded-lg cursor-pointer flex items-center justify-between py-2.5 px-3 transition-all active:scale-[0.98]"
+                  className={cn(
+                    "aria-selected:bg-primary/10 aria-selected:text-primary rounded-lg flex items-center justify-between py-2.5 px-3 transition-all active:scale-[0.98]",
+                    opt.disabled ? "opacity-50 cursor-not-allowed" : "cursor-pointer"
+                  )}
                 >
                   <div className="flex items-center gap-2">
                     <div className={cn(
