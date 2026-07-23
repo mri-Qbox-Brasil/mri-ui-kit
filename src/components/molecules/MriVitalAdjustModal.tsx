@@ -178,7 +178,8 @@ export function MriVitalAdjustModal({
                     -webkit-appearance: none;
                     width: 100%;
                     height: 6px;
-                    border-radius: 10px;
+                    /* Trilho segue o --radius do /uiconfig (rounded-sm). */
+                    border-radius: calc(var(--radius) - 4px);
                     outline: none;
                     border: 1px solid var(--border);
                     transition: all 0.3s ease;
@@ -190,8 +191,10 @@ export function MriVitalAdjustModal({
                     height: 20px;
                     background: var(--vital-color);
                     cursor: pointer;
-                    border-radius: 6px;
-                    border: 3px solid #09090b;
+                    /* Thumb segue o --radius (rounded-md); no radius 0 vira quadrado. */
+                    border-radius: calc(var(--radius) - 2px);
+                    /* Anel segue o tema (bg do painel) em vez de preto fixo. */
+                    border: 3px solid hsl(var(--background));
                     box-shadow: 0 0 15px var(--vital-color-60);
                     transition: all 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
                 }
@@ -204,8 +207,8 @@ export function MriVitalAdjustModal({
                     height: 20px;
                     background: var(--vital-color);
                     cursor: pointer;
-                    border-radius: 6px;
-                    border: 3px solid #09090b;
+                    border-radius: calc(var(--radius) - 2px);
+                    border: 3px solid hsl(var(--background));
                     box-shadow: 0 0 15px var(--vital-color-60);
                 }
             `}</style>
