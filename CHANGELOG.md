@@ -1,3 +1,15 @@
+# [4.18.0](https://github.com/mri-Qbox-Brasil/mri-ui-kit/compare/v4.17.1...v4.18.0) (2026-07-23)
+
+
+### Bug Fixes
+
+* **MriVitalAdjustModal:** slider segue --radius e tema ([942141e](https://github.com/mri-Qbox-Brasil/mri-ui-kit/commit/942141e7762a2fcdd727bda5d02bc6f516a20e5e)), closes [#09090b](https://github.com/mri-Qbox-Brasil/mri-ui-kit/issues/09090b)
+
+
+### Features
+
+* **MriSelect:** add searchable prop and disabled options ([7ec099b](https://github.com/mri-Qbox-Brasil/mri-ui-kit/commit/7ec099ba9da8e75f4fc1b29e43c228139f9282e1))
+
 ## [4.17.1](https://github.com/mri-Qbox-Brasil/mri-ui-kit/compare/v4.17.0...v4.17.1) (2026-07-23)
 
 
