@@ -1,3 +1,10 @@
+# [4.19.0](https://github.com/mri-Qbox-Brasil/mri-ui-kit/compare/v4.18.1...v4.19.0) (2026-07-24)
+
+
+### Features
+
+* **MriSwitch:** switchStyle configuravel (square/round/follow) ([d7ffe77](https://github.com/mri-Qbox-Brasil/mri-ui-kit/commit/d7ffe772c6fc80108bdf57c150a3610fdbfc4c2c))
+
 ## [4.18.1](https://github.com/mri-Qbox-Brasil/mri-ui-kit/compare/v4.18.0...v4.18.1) (2026-07-24)
 
 
