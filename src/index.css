@@ -27,6 +27,10 @@
         --input: 240 5.9% 90%;
         --ring: 160 100% 45%;
         --radius: 0.5rem;
+        /* Shape dos toggles on/off — default segue o --radius (rounded-md/sm).
+           O applyUiConfig sobrescreve pra square (0px) / round (9999px). */
+        --ui-switch-track-radius: calc(var(--radius) - 2px);
+        --ui-switch-knob-radius: calc(var(--radius) - 4px);
     }
 
     .dark {

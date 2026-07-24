@@ -30,6 +30,9 @@ export interface MriUiConfig {
   errorColor?: string
   /** Estilo de progresso ('default' | 'bar' | 'circle') → `--ui-progress-style`. */
   progressStyle?: string
+  /** Shape dos toggles on/off: 'square' | 'round' | 'follow' (segue o --radius).
+   *  → CSS vars `--ui-switch-track-radius` / `--ui-switch-knob-radius`. */
+  switchStyle?: 'square' | 'round' | 'follow'
   /** Dimensões (px) dos widgets ox_lib → CSS vars `--ui-*` correspondentes. */
   notifyWidth?: number
   progressBarWidth?: number
@@ -72,6 +75,20 @@ export function applyUiConfig(cfg: MriUiConfig | null | undefined): void {
   if (isValidHex(cfg.errorColor)) root.style.setProperty('--ui-error', cfg.errorColor)
 
   if (cfg.progressStyle) root.style.setProperty('--ui-progress-style', cfg.progressStyle)
+
+  // Shape dos toggles on/off (MriSwitch + toggles inline). Default 'follow'
+  // segue o --radius; 'square' zera; 'round' vira pill. Vars consumidas com
+  // rounded-[var(--ui-switch-*-radius)].
+  if (cfg.switchStyle === 'square') {
+    root.style.setProperty('--ui-switch-track-radius', '0px')
+    root.style.setProperty('--ui-switch-knob-radius', '0px')
+  } else if (cfg.switchStyle === 'round') {
+    root.style.setProperty('--ui-switch-track-radius', '9999px')
+    root.style.setProperty('--ui-switch-knob-radius', '9999px')
+  } else if (cfg.switchStyle === 'follow') {
+    root.style.setProperty('--ui-switch-track-radius', 'calc(var(--radius) - 2px)')
+    root.style.setProperty('--ui-switch-knob-radius', 'calc(var(--radius) - 4px)')
+  }
 
   const px = (name: string, v: number | undefined) => {
     if (typeof v === 'number' && v > 0) root.style.setProperty(name, `${v}px`)
