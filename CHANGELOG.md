@@ -1,3 +1,10 @@
+# [4.20.0](https://github.com/mri-Qbox-Brasil/mri-ui-kit/compare/v4.19.0...v4.20.0) (2026-07-24)
+
+
+### Features
+
+* **MriSwitch:** size lg, sombra no knob e indicador I/O opcional ([04191a1](https://github.com/mri-Qbox-Brasil/mri-ui-kit/commit/04191a170368745ef0bfde45eaf8c722a5c0bf25))
+
 # [4.19.0](https://github.com/mri-Qbox-Brasil/mri-ui-kit/compare/v4.18.1...v4.19.0) (2026-07-24)
 
 
