@@ -51,11 +51,13 @@ export const MriSwitch = React.forwardRef<HTMLInputElement, MriSwitchProps>(
                 />
                 <div
                     className={cn(
-                        'rounded-full border border-border bg-muted transition-colors',
+                        // Trilho e knob seguem o --radius do /uiconfig (rounded-md/sm)
+                        // em vez de rounded-full, pra ficarem quadrados no radius 0.
+                        'rounded-md border border-border bg-muted transition-colors',
                         'peer-checked:bg-primary peer-focus-visible:ring-2 peer-focus-visible:ring-ring peer-focus-visible:ring-offset-2 ring-offset-background',
                         // Knob (after pseudo-element)
                         'after:content-[""] after:absolute after:top-[2px] after:left-[2px]',
-                        'after:bg-white after:rounded-full after:transition-transform',
+                        'after:bg-white after:rounded-sm after:transition-transform',
                         'peer-checked:after:translate-x-full',
                         sizeClasses
                     )}
