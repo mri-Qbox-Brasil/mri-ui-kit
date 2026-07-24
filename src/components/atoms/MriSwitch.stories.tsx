@@ -11,11 +11,19 @@ const meta: Meta<typeof MriSwitch> = {
 
 export default meta
 
-const Controlled = ({ size, disabled }: { size?: 'sm' | 'default'; disabled?: boolean }) => {
+const Controlled = ({
+    size,
+    disabled,
+    showState,
+}: {
+    size?: 'sm' | 'default' | 'lg'
+    disabled?: boolean
+    showState?: boolean
+}) => {
     const [on, setOn] = useState(false)
     return (
         <label className="flex items-center gap-3 text-sm">
-            <MriSwitch checked={on} onCheckedChange={setOn} size={size} disabled={disabled} />
+            <MriSwitch checked={on} onCheckedChange={setOn} size={size} disabled={disabled} showState={showState} />
             <span className="text-foreground">{on ? 'Ligado' : 'Desligado'}</span>
         </label>
     )
@@ -27,6 +35,26 @@ export const Default: StoryObj<typeof MriSwitch> = {
 
 export const Small: StoryObj<typeof MriSwitch> = {
     render: () => <Controlled size="sm" />,
+}
+
+export const Sizes: StoryObj<typeof MriSwitch> = {
+    render: () => (
+        <div className="flex items-center gap-4">
+            <Controlled size="sm" />
+            <Controlled size="default" />
+            <Controlled size="lg" />
+        </div>
+    ),
+}
+
+// Indicador textual I/O (ligado/desligado) dentro do knob.
+export const WithStateLabel: StoryObj<typeof MriSwitch> = {
+    render: () => (
+        <div className="flex items-center gap-4">
+            <Controlled size="default" showState />
+            <Controlled size="lg" showState />
+        </div>
+    ),
 }
 
 export const Disabled: StoryObj<typeof MriSwitch> = {
