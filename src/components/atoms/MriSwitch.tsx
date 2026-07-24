@@ -15,13 +15,14 @@ export interface MriSwitchProps {
     id?: string
 }
 
-// Dimensoes por tamanho: trilho, knob e a fonte do indicador I/O. O knob viaja
-// `translate-x-full` (= a propria largura), que da exatamente o vao do trilho
-// em todos os tamanhos (trilho - knob - 2*2px de padding).
+// Geometria por tamanho, calibrada pra gap uniforme de 2px em volta do knob
+// (borda do trilho = 1px). knob = altura_interna - 4px; travel = largura_interna
+// - knob - 4px. Sem isso, um knob quadrado (radius 0) fica visivelmente fora de
+// centro (ex.: 16px num interno de 18px sobra 2px em cima e 0 embaixo).
 const SIZES = {
-    sm: { track: 'w-7 h-4', knob: 'h-3 w-3', text: 'text-[7px]' },
-    default: { track: 'w-9 h-5', knob: 'h-4 w-4', text: 'text-[8px]' },
-    lg: { track: 'w-11 h-6', knob: 'h-5 w-5', text: 'text-[10px]' },
+    sm: { track: 'w-7 h-4', knob: 'h-[10px] w-[10px]', travel: 'translate-x-[12px]', text: 'text-[7px]' },
+    default: { track: 'w-9 h-5', knob: 'h-[14px] w-[14px]', travel: 'translate-x-[16px]', text: 'text-[9px]' },
+    lg: { track: 'w-11 h-6', knob: 'h-[18px] w-[18px]', travel: 'translate-x-[20px]', text: 'text-[11px]' },
 } as const
 
 /**
@@ -71,7 +72,7 @@ export const MriSwitch = React.forwardRef<HTMLInputElement, MriSwitchProps>(
                             'absolute top-[2px] left-[2px] flex items-center justify-center',
                             'rounded-[var(--ui-switch-knob-radius)] bg-white shadow-sm transition-transform',
                             'font-bold leading-none text-black/55 select-none',
-                            checked ? 'translate-x-full' : 'translate-x-0',
+                            checked ? s.travel : 'translate-x-0',
                             s.knob,
                             s.text
                         )}
