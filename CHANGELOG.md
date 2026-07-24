@@ -1,3 +1,10 @@
+## [4.18.1](https://github.com/mri-Qbox-Brasil/mri-ui-kit/compare/v4.18.0...v4.18.1) (2026-07-24)
+
+
+### Bug Fixes
+
+* **MriSwitch:** trilho e knob seguem --radius em vez de rounded-full ([1f20594](https://github.com/mri-Qbox-Brasil/mri-ui-kit/commit/1f2059495021fdd9eab2f0db6fb9196796c9a273))
+
 # [4.18.0](https://github.com/mri-Qbox-Brasil/mri-ui-kit/compare/v4.17.1...v4.18.0) (2026-07-23)
 
 
