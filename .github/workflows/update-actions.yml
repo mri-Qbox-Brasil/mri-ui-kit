@@ -2,21 +2,19 @@ name: Update Actions Versions
 
 on:
   schedule:
-    - cron: '0 0 1 * *'  # Roda no primeiro dia de cada mês
-  workflow_dispatch:     # Permite rodar manualmente
+    - cron: '0 0 1 * *'
+  workflow_dispatch:
 
 jobs:
-  update-actions:
-    runs-on: ubuntu-latest
-
-    steps:
-      - uses: actions/checkout@v7
-        with:
-          fetch-depth: 0
-          token: ${{ secrets.GH_TOKEN }}
-
-      - name: Run update script
-        run: chmod +x scripts/update-actions.sh && ./scripts/update-actions.sh
-        env:
-          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
-          PR_TEAM: ${{ vars.PR_TEAM }}
+  update:
+    # Espelha o `permissions` do callable: declarar este bloco zera todo escopo
+    # omitido, e pedir menos do que o callable exige mata o run no startup.
+    permissions:
+      contents: write
+      pull-requests: write
+      id-token: write # OIDC do Infisical
+    uses: mri-Qbox-Brasil/workflows/.github/workflows/callable-update-actions.yml@main
+    secrets:
+      GH_TOKEN: ${{ secrets.GH_TOKEN }}
+    with:
+      pr-team: ${{ vars.PR_TEAM }}
