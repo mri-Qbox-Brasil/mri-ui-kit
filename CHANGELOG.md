@@ -1,3 +1,10 @@
+# [4.22.0](https://github.com/mri-Qbox-Brasil/mri-ui-kit/compare/v4.21.0...v4.22.0) (2026-09-09)
+
+
+### Features
+
+* **icons:** MriPageHeader e MriSectionHeader aceitam qualquer icone ([40dfe91](https://github.com/mri-Qbox-Brasil/mri-ui-kit/commit/40dfe91b45aadbc319c4b30fed37e8b1f46d4fbc))
+
 # [4.21.0](https://github.com/mri-Qbox-Brasil/mri-ui-kit/compare/v4.20.1...v4.21.0) (2026-09-09)
 
 
