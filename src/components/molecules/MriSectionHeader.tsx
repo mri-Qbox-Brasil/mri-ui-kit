@@ -1,9 +1,9 @@
 import type { ReactNode } from 'react'
-import { LucideIcon } from 'lucide-react'
+import { renderMriIcon, type MriIconProp } from '../../lib/icon'
 import { cn } from '../../lib/utils'
 
 export interface MriSectionHeaderProps {
-  icon: LucideIcon
+  icon: MriIconProp
   title: string
   /**
    * Hierarquia visual:
@@ -43,7 +43,7 @@ const VARIANTS = {
  * ```
  */
 export function MriSectionHeader({
-  icon: Icon,
+  icon,
   title,
   variant = 'label',
   description,
@@ -52,20 +52,22 @@ export function MriSectionHeader({
 }: MriSectionHeaderProps) {
   const v = VARIANTS[variant]
   const hasDescription = description != null && description !== ''
-  const heading = (
-    <h3 className={cn(v.heading, 'flex items-center gap-2')}>
-      <Icon className={cn(v.icon, 'shrink-0')} /> {title}
-    </h3>
-  )
+  const iconEl = renderMriIcon(icon, cn(v.icon, 'shrink-0'))
 
   // Caminho simples: mesmo elemento raiz (e mesma margem) da versao anterior.
   if (!hasDescription && !children) {
     return (
       <h3 className={cn(v.heading, 'mb-3 flex items-center gap-2', className)}>
-        <Icon className={cn(v.icon, 'shrink-0')} /> {title}
+        {iconEl} {title}
       </h3>
     )
   }
+
+  const heading = (
+    <h3 className={cn(v.heading, 'flex items-center gap-2')}>
+      {iconEl} {title}
+    </h3>
+  )
 
   return (
     <div className={cn('mb-3 flex items-start justify-between gap-4', className)}>

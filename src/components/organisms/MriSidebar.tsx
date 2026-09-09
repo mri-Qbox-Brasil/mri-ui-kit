@@ -4,18 +4,15 @@ import {
     ChevronLeft,
     ChevronRight,
 } from 'lucide-react'
+import { renderMriIcon, type MriIconProp } from '@/lib/icon'
 import { cn } from '@/lib/utils'
-import { ElementType, ReactElement, ReactNode, isValidElement } from 'react'
+import { ReactNode } from 'react'
 
 export interface MriSidebarItem {
     label: string
     route?: string
-    /**
-     * Componente de icone (lucide, etc) OU um elemento ja pronto — util pra
-     * icon fonts, onde o icone e markup e nao componente:
-     * `icon={<span className="material-symbols-outlined">home</span>}`.
-     */
-    icon?: ElementType | ReactElement
+    /** Ver MriIconProp: componente de icone ou elemento pronto (icon fonts). */
+    icon?: MriIconProp
     onClick?: () => void
     divider?: boolean
     /** Transforma o item num rotulo de grupo. Some no modo colapsado (vira divider). */
@@ -66,15 +63,7 @@ export function MriSidebar({
       const isActive = item.route && activeRoute === item.route
       const iconClass = cn("h-5 w-5 shrink-0", isActive && "text-primary drop-shadow-[0_0_8px_rgba(0,227,150,0.5)]")
 
-      let icon: ReactNode = null
-      if (isValidElement(item.icon)) {
-          // Elemento pronto (icon font): so acrescenta as classes de estado.
-          const el = item.icon as ReactElement<{ className?: string }>
-          icon = <span className={iconClass}>{el}</span>
-      } else if (item.icon) {
-          const Icon = item.icon as ElementType
-          icon = <Icon className={iconClass} />
-      }
+      const icon = renderMriIcon(item.icon, iconClass)
 
       return (
         <MriSimpleTooltip content={collapsed ? item.label : undefined} side="right">

@@ -103,6 +103,7 @@ export * from './components/hud/shapes/MriAnalogGauge'
 export * from './components/hud/shapes/MriArtificialHorizon'
 export * from './components/hud/shapes/MriClinometer'
 
+export * from './lib/icon'
 export * from './lib/utils'
 
 // Estilo visual do servidor (painel /uiconfig do ox_lib) → CSS vars.

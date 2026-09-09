@@ -1,10 +1,10 @@
 import * as React from 'react'
-import { LucideIcon } from 'lucide-react'
+import { renderMriIcon, type MriIconProp } from '@/lib/icon'
 import { cn } from '@/lib/utils'
 
 export interface MriPageHeaderProps extends React.HTMLAttributes<HTMLDivElement> {
   title: string
-  icon: LucideIcon
+  icon: MriIconProp
   /** Linha de apoio abaixo do titulo. Sem ela o header mantem o layout de uma
    *  linha so (icone e titulo centrados verticalmente). */
   description?: React.ReactNode
@@ -13,7 +13,7 @@ export interface MriPageHeaderProps extends React.HTMLAttributes<HTMLDivElement>
   children?: React.ReactNode
 }
 
-export function MriPageHeader({ title, icon: Icon, description, count, countLabel, children, className, ...props }: MriPageHeaderProps) {
+export function MriPageHeader({ title, icon, description, count, countLabel, children, className, ...props }: MriPageHeaderProps) {
   const hasDescription = description != null && description !== ''
 
   return (
@@ -22,7 +22,7 @@ export function MriPageHeader({ title, icon: Icon, description, count, countLabe
             {/* Com descricao o icone sobe pro topo da coluna e ganha um leve
                 offset pra alinhar com a linha de base do <h1>. */}
             <div className={cn("flex gap-3", hasDescription ? "items-start" : "items-center")}>
-                <Icon className={cn("w-6 h-6 text-primary shrink-0", hasDescription && "mt-0.5")} />
+                {renderMriIcon(icon, cn("w-6 h-6 text-primary shrink-0", hasDescription && "mt-0.5"))}
                 <div className="min-w-0">
                     <h1 className="text-xl font-bold tracking-tight text-foreground">{title}</h1>
                     {hasDescription && (

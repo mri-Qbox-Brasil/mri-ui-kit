@@ -2,6 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { MriPageHeader } from './MriPageHeader';
 import { LayoutDashboard } from 'lucide-react';
 import { MriButton } from '@/components/atoms/MriButton';
+import { MriTeleportIcon } from '@/components/atoms/MriIcons';
 
 const meta: Meta<typeof MriPageHeader> = {
   title: 'Organisms/MriPageHeader',
@@ -51,4 +52,18 @@ export const WithDescription: Story = {
         </>
     )
   },
+}
+
+// Mesma flexibilidade de icone do MriSectionHeader e do MriSidebar.
+export const IconSources: Story = {
+  render: () => (
+    <div className="space-y-4">
+      <MriPageHeader icon={LayoutDashboard} title="Lucide" />
+      <MriPageHeader icon={MriTeleportIcon} title="SVG do kit (MriIcons)" />
+      <MriPageHeader
+        icon={<span className="material-symbols-outlined text-[24px] leading-none">gavel</span>}
+        title="Icon font (elemento pronto)"
+      />
+    </div>
+  ),
 }

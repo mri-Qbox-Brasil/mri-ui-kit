@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { MriSectionHeader } from './MriSectionHeader';
 import { Settings, Info, Users } from 'lucide-react';
+import { MriTeleportIcon } from '@/components/atoms/MriIcons';
 
 const meta: Meta<typeof MriSectionHeader> = {
   title: 'Molecules/MriSectionHeader',
@@ -66,6 +67,22 @@ export const WithDescriptionAndActions: Story = {
       >
         <span className="text-xs font-mono text-muted-foreground">32/64</span>
       </MriSectionHeader>
+    </div>
+  ),
+};
+
+// `icon` aceita MriIconProp: componente lucide, um SVG do proprio kit, ou um
+// elemento pronto pra icon fonts (Material Symbols e cia.).
+export const IconSources: Story = {
+  render: () => (
+    <div className="w-[420px] space-y-6">
+      <MriSectionHeader icon={Users} title="Lucide" variant="title" />
+      <MriSectionHeader icon={MriTeleportIcon} title="SVG do kit (MriIcons)" variant="title" />
+      <MriSectionHeader
+        icon={<span className="material-symbols-outlined text-[20px] leading-none">gavel</span>}
+        title="Icon font (elemento pronto)"
+        variant="title"
+      />
     </div>
   ),
 };
