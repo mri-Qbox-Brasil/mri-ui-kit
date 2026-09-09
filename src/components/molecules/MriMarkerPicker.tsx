@@ -2,6 +2,8 @@ import { useEffect, useMemo, useState } from "react"
 import { Search, ChevronDown } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { MriInput } from "@/components/atoms/MriInput"
+import { MriSlider } from "@/components/atoms/MriSlider"
+import { MriMarkerPreview } from "@/components/molecules/MriMarkerPreview"
 import { MriPopover, MriPopoverTrigger, MriPopoverContent } from "@/components/molecules/MriPopover"
 import {
   type MarkerColor,
@@ -90,7 +92,7 @@ function MriMarkerPickerCompact(props: MriMarkerPickerProps) {
             className
           )}
         >
-          <MarkerPreview
+          <MriMarkerPreview
             file={selected?.file}
             base={normalizedBase}
             color={color}
@@ -221,7 +223,7 @@ function MarkerPickerBody({
                 )}
                 title={m.description}
               >
-                <MarkerPreview
+                <MriMarkerPreview
                   file={m.file}
                   base={normalizedBase}
                   color={color}
@@ -243,7 +245,7 @@ function MarkerPickerBody({
         <div className="rounded border border-border bg-background/30 p-3">
           <p className="text-[10px] uppercase tracking-wider text-muted-foreground mb-2">Preview</p>
           <div className="flex items-center gap-3">
-            <MarkerPreview
+            <MriMarkerPreview
               file={selected?.file}
               base={normalizedBase}
               color={color}
@@ -287,13 +289,15 @@ function MarkerPickerBody({
             {(["r", "g", "b", "a"] as const).map(ch => (
               <div key={ch} className="flex items-center gap-2">
                 <label className="text-[10px] font-mono text-muted-foreground w-3 uppercase">{ch}</label>
-                <input
-                  type="range"
+                <MriSlider
                   min={0}
                   max={255}
                   value={color[ch]}
-                  onChange={e => updateColor(ch, parseInt(e.target.value))}
-                  className="flex-1 accent-primary"
+                  onChange={v => updateColor(ch, v)}
+                  size="sm"
+                  glow={false}
+                  className="flex-1"
+                  aria-label={`Canal ${ch.toUpperCase()}`}
                 />
                 <MriInput
                   type="number"
@@ -326,14 +330,16 @@ function MarkerPickerBody({
           </div>
           {scaleMode === "uniform" ? (
             <div className="flex items-center gap-2">
-              <input
-                type="range"
+              <MriSlider
                 min={0.1}
                 max={5}
                 step={0.05}
                 value={scale.x}
-                onChange={e => updateScale("x", parseFloat(e.target.value))}
-                className="flex-1 accent-primary"
+                onChange={v => updateScale("x", v)}
+                size="sm"
+                glow={false}
+                className="flex-1"
+                aria-label="Scale"
               />
               <MriInput
                 type="number"
@@ -369,68 +375,6 @@ function MarkerPickerBody({
   )
 }
 
-// ────────────────────────────────────────────────────────────
-// MarkerPreview — usado em 3 lugares: trigger compacto, item da lista, preview grande.
-//
-// Aplica `mix-blend-mode: multiply` sobre fundo colorido sólido pra replicar
-// o que DrawMarker faz no jogo: textura branca-acinzentada multiplicada pela
-// cor RGBA. Onde o PNG é claro (marker), a cor aparece; onde é escuro (fundo
-// do PNG), permanece escuro. Alpha controla a opacidade da camada inteira.
-// ────────────────────────────────────────────────────────────
-
-interface MarkerPreviewProps {
-  file: string | undefined
-  base: string
-  color: MarkerColor
-  className?: string
-  imageStyle?: React.CSSProperties
-  fallbackText?: string
-}
-
-function MarkerPreview({ file, base, color, className, imageStyle, fallbackText }: MarkerPreviewProps) {
-  const colorCss = `rgba(${color.r}, ${color.g}, ${color.b}, ${(color.a / 255).toFixed(2)})`
-
-  if (!file) {
-    return (
-      <div
-        className={cn("flex items-center justify-center border border-border", className)}
-        style={{ backgroundColor: colorCss }}
-      >
-        {fallbackText && (
-          <span className="text-[8px] font-mono text-white mix-blend-difference">
-            {fallbackText}
-          </span>
-        )}
-      </div>
-    )
-  }
-
-  return (
-    <div
-      className={cn("relative flex items-center justify-center border border-border overflow-hidden", className)}
-      style={{ backgroundColor: "#000", isolation: "isolate" }}
-    >
-      <div
-        className="absolute inset-0"
-        style={{
-          backgroundColor: `rgb(${color.r}, ${color.g}, ${color.b})`,
-          opacity: color.a / 255,
-        }}
-      />
-      <img
-        src={`${base}${file}`}
-        alt=""
-        className="relative object-contain w-full h-full"
-        style={{
-          ...imageStyle,
-          mixBlendMode: "multiply",
-          opacity: color.a / 255,
-        }}
-        onError={e => { (e.target as HTMLImageElement).style.display = "none" }}
-      />
-    </div>
-  )
-}
 
 // ────────────────────────────────────────────────────────────
 // Hook compartilhado: faz fetch do índice e mescla com defaults

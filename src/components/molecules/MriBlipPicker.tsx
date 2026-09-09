@@ -2,6 +2,10 @@ import { useEffect, useMemo, useState } from "react"
 import { Search, Sparkles, ChevronDown } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { MriInput } from "@/components/atoms/MriInput"
+import { MriSlider } from "@/components/atoms/MriSlider"
+import { MriCheckbox } from "@/components/atoms/MriCheckbox"
+import { MriBlipSprite } from "@/components/atoms/MriBlipSprite"
+import { MriColorSwatchGrid } from "@/components/molecules/MriColorSwatchGrid"
 import { MriPopover, MriPopoverTrigger, MriPopoverContent } from "@/components/molecules/MriPopover"
 import {
   type BlipColor,
@@ -107,7 +111,7 @@ function MriBlipPickerCompact(props: MriBlipPickerProps) {
           )}
         >
           {triggerEntry ? (
-            <SpriteImage
+            <MriBlipSprite
               src={spriteUrl(normalizedBase, triggerEntry)}
               tint={selectedColor.hex}
               className="w-6 h-6 flex-shrink-0"
@@ -281,7 +285,7 @@ function BlipPickerBody({
                       : "hover:bg-accent"
                   )}
                 >
-                  <SpriteImage
+                  <MriBlipSprite
                     src={spriteUrl(normalizedBase, b)}
                     tint={b.id === sprite ? selectedColor.hex : undefined}
                     className="w-5 h-5 flex-shrink-0"
@@ -318,7 +322,7 @@ function BlipPickerBody({
           <div className="flex items-center gap-3">
             <div className="flex items-center justify-center w-24 h-24 rounded bg-background border border-border">
               {selectedEntry ? (
-                <SpriteImage
+                <MriBlipSprite
                   src={spriteUrl(normalizedBase, selectedEntry)}
                   tint={selectedColor.hex}
                   style={{
@@ -365,29 +369,11 @@ function BlipPickerBody({
           <p className="text-[10px] uppercase tracking-wider text-muted-foreground mb-1.5">
             Cor (Color ID) — {colors.length} cores
           </p>
-          <div className="grid grid-cols-12 gap-1">
-            {colors.map(c => {
-              const active = c.id === color
-              return (
-                <button
-                  key={c.id}
-                  onClick={() => update({ color: c.id })}
-                  title={`${c.id} — ${c.name}`}
-                  className={cn(
-                    "h-6 rounded border transition-all hover:scale-110 relative",
-                    active ? "border-primary ring-2 ring-primary/40 scale-110" : "border-border/60 opacity-80 hover:opacity-100"
-                  )}
-                  style={{ backgroundColor: c.hex }}
-                >
-                  {active && (
-                    <span className="absolute inset-0 flex items-center justify-center text-[8px] font-mono text-white mix-blend-difference">
-                      {c.id}
-                    </span>
-                  )}
-                </button>
-              )
-            })}
-          </div>
+          <MriColorSwatchGrid
+            swatches={colors}
+            value={color}
+            onChange={id => update({ color: id as number })}
+          />
         </div>
 
         {/* Scale slider */}
@@ -397,33 +383,28 @@ function BlipPickerBody({
               <p className="text-[10px] uppercase tracking-wider text-muted-foreground">Scale</p>
               <span className="text-[10px] font-mono">{scale.toFixed(2)}</span>
             </div>
-            <input
-              type="range"
+            <MriSlider
               min={scaleRange[0]}
               max={scaleRange[1]}
               step={0.05}
               value={scale}
-              onChange={e => update({ scale: parseFloat(e.target.value) })}
-              className="w-full accent-primary"
+              onChange={v => update({ scale: v })}
+              size="sm"
+              glow={false}
+              ticks={2}
+              formatTick={v => `${v.toFixed(1)}x`}
+              aria-label="Scale"
             />
-            <div className="flex justify-between text-[9px] text-muted-foreground mt-0.5">
-              <span>{scaleRange[0].toFixed(1)}x</span>
-              <span>{scaleRange[1].toFixed(1)}x</span>
-            </div>
           </div>
         )}
 
         {/* Enable toggle */}
         {showEnable && (
-          <label className="flex items-center gap-2 text-xs cursor-pointer">
-            <input
-              type="checkbox"
-              checked={enabled === true}
-              onChange={e => update({ enabled: e.target.checked })}
-              className="accent-primary"
-            />
-            Blip habilitado no mapa
-          </label>
+          <MriCheckbox
+            checked={enabled === true}
+            onCheckedChange={v => update({ enabled: v })}
+            label="Blip habilitado no mapa"
+          />
         )}
       </div>
     </div>
@@ -458,76 +439,4 @@ function useTriggerEntry(
 
   const list = providedManifest ?? fetched ?? []
   return list.find(b => b.id === sprite)
-}
-
-// ────────────────────────────────────────────────────────────
-// SpriteImage — usa CSS mask para tingir o PNG/WEBP na cor escolhida.
-// Fallback para <img> se não houver tint.
-// ────────────────────────────────────────────────────────────
-
-interface SpriteImageProps {
-  src: string
-  tint?: string
-  className?: string
-  style?: React.CSSProperties
-}
-
-function SpriteImage({ src, tint, className, style }: SpriteImageProps) {
-  const [errored, setErrored] = useState(false)
-  const [lastSrc, setLastSrc] = useState(src)
-
-  // Padrão "Adjusting state on prop change" do React docs — preferido sobre
-  // setState em useEffect porque evita render cascateado.
-  if (src !== lastSrc) {
-    setLastSrc(src)
-    setErrored(false)
-  }
-
-  useEffect(() => {
-    const img = new Image()
-    img.onerror = () => setErrored(true)
-    img.src = src
-  }, [src])
-
-  if (errored) {
-    return (
-      <div
-        className={cn("flex items-center justify-center text-[8px] text-muted-foreground/60 font-mono bg-muted/30 rounded", className)}
-        style={style}
-        title={`Não foi possível carregar: ${src}`}
-      >
-        ?
-      </div>
-    )
-  }
-
-  if (tint) {
-    return (
-      <div
-        className={className}
-        style={{
-          ...style,
-          backgroundColor: tint,
-          WebkitMaskImage: `url(${src})`,
-          maskImage: `url(${src})`,
-          WebkitMaskSize: "contain",
-          maskSize: "contain",
-          WebkitMaskRepeat: "no-repeat",
-          maskRepeat: "no-repeat",
-          WebkitMaskPosition: "center",
-          maskPosition: "center",
-        }}
-      />
-    )
-  }
-
-  return (
-    <img
-      src={src}
-      alt=""
-      className={cn("object-contain", className)}
-      style={style}
-      onError={() => setErrored(true)}
-    />
-  )
 }

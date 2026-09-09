@@ -35,3 +35,20 @@ export const WithActions: Story = {
      )
   }
 }
+
+// Subtitulo: o header vira duas linhas e o icone sobe pro topo da coluna.
+export const WithDescription: Story = {
+  args: {
+    title: 'Resource Manager',
+    icon: LayoutDashboard,
+    description: 'Inicie, pare e recarregue os resources do servidor sem sair do painel.',
+    count: 42,
+    countLabel: 'Resources',
+    children: (
+        <>
+           <MriButton variant="outline" size="sm">Refresh</MriButton>
+           <MriButton size="sm">Add New</MriButton>
+        </>
+    )
+  },
+}
