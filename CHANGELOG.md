@@ -1,3 +1,10 @@
+# [4.21.0](https://github.com/mri-Qbox-Brasil/mri-ui-kit/compare/v4.20.1...v4.21.0) (2026-09-09)
+
+
+### Features
+
+* **components:** extrai MriSlider, MriProgressBar, MriCheckbox, MriTooltip e afins ([ed3f5ec](https://github.com/mri-Qbox-Brasil/mri-ui-kit/commit/ed3f5ece7240a886b4d172e371a99d022338e378)), closes [#f59e0b](https://github.com/mri-Qbox-Brasil/mri-ui-kit/issues/f59e0b)
+
 ## [4.20.1](https://github.com/mri-Qbox-Brasil/mri-ui-kit/compare/v4.20.0...v4.20.1) (2026-07-24)
 
 
