@@ -35,8 +35,9 @@ jobs:
       - name: Build
         run: pnpm run build
 
+      # Versiona, gera o CHANGELOG, commita e cria a release no GitHub.
+      # NAO publica no npm — isso e do publish.yml, que roda logo em seguida.
       - name: Release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
         run: pnpm exec semantic-release

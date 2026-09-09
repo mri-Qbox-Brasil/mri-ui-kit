@@ -13,7 +13,15 @@ module.exports = {
         [
             "@semantic-release/npm",
             {
-                "npmPublish": true,
+                // O publish saiu daqui e virou o workflow publish.yml, que usa
+                // trusted publishing (OIDC) — o npm amarra a permissao ao NOME
+                // do arquivo de workflow, entao ele tem que ser dedicado.
+                //
+                // Com npmPublish=false o plugin NAO verifica credencial nenhuma
+                // (ver verifyConditions no index.js do plugin), mas continua
+                // fazendo o que precisamos aqui: bumpar a versao no package.json
+                // pro @semantic-release/git commitar.
+                "npmPublish": false,
                 "pkgRoot": "."
             }
         ],
