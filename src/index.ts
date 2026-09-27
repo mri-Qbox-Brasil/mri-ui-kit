@@ -107,5 +107,7 @@ export * from './lib/icon'
 export * from './lib/utils'
 
 // Estilo visual do servidor (painel /uiconfig do ox_lib) → CSS vars.
-// Sem accent/background/tema — esses são donos do host (mri_Qadmin).
 export * from './lib/applyUiConfig'
+
+// Accent e fundo da suíte (convars mri:color / mri:backgroundColor) → CSS vars.
+export * from './lib/suiteColors'

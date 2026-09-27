@@ -77,39 +77,42 @@ export default {
 }
 ```
 
-## Mudando a cor de destaque em runtime
+## Cores da suíte em runtime (accent e fundo)
 
-`--primary` aceita HSL space-separated (`H S% L%`), não hex direto. O helper
-`applyAccentColor(hex)` converte e seta todas as vars derivadas:
+`--primary` e os tokens de superfície aceitam HSL space-separated (`H S% L%`), não hex direto.
+O ui-kit exporta os helpers em `src/lib/suiteColors.ts`:
 
 ```ts
-function applyAccentColor(hex: string) {
-  const m = hex.match(/^#([0-9a-f]{2})([0-9a-f]{2})([0-9a-f]{2})$/i);
-  if (!m) return;
-  const r = parseInt(m[1], 16) / 255;
-  const g = parseInt(m[2], 16) / 255;
-  const b = parseInt(m[3], 16) / 255;
-  const max = Math.max(r, g, b);
-  const min = Math.min(r, g, b);
-  const l = (max + min) / 2;
-  let h = 0, s = 0;
-  if (max !== min) {
-    const d = max - min;
-    s = l > 0.5 ? d / (2 - max - min) : d / (max + min);
-    if (max === r) h = ((g - b) / d + (g < b ? 6 : 0));
-    else if (max === g) h = ((b - r) / d + 2);
-    else h = ((r - g) / d + 4);
-    h *= 60;
-  }
-  const token = `${Math.round(h)} ${Math.round(s * 100)}% ${Math.round(l * 100)}%`;
-  const fg = l < 0.5 ? '210 40% 98%' : '240 10% 4%';
-  const root = document.documentElement;
-  root.style.setProperty('--primary', token);
-  root.style.setProperty('--ring', token);
-  root.style.setProperty('--primary-foreground', fg);
-  root.style.setProperty('--primary-rgb', `${parseInt(m[1], 16)}, ${parseInt(m[2], 16)}, ${parseInt(m[3], 16)}`);
-}
+import {
+  setSuiteAccent, setAccentOverride, getEffectiveAccent,
+  setSuiteBackground, setBackgroundOverride, getEffectiveBackground,
+  DEFAULT_ACCENT, DEFAULT_BACKGROUND,
+} from '@mriqbox/ui-kit';
+
+setSuiteAccent(cfg.accentColor);          // convar mri:color
+setSuiteBackground(cfg.backgroundColor);  // convar mri:backgroundColor, '' = padrão
+setAccentOverride(uiConfig.accentColor);  // override do /uiconfig, vazio = segue a convar
+setBackgroundOverride(uiConfig.backgroundColor);
 ```
+
+Precedência: override do `/uiconfig` > convar global > padrão. `getEffectiveAccent()` e
+`getEffectiveBackground()` devolvem sempre o hex em uso (útil pra mostrar num color picker).
+
+**O fundo é sempre derivado de um hex.** Vazio significa `DEFAULT_BACKGROUND` (`#09090B`),
+e a derivação a partir dele reproduz exatamente a paleta dark oficial:
+
+| Token | Regra | Resultado do padrão |
+|---|---|---|
+| `--background` | o hex | `240 10% 4%` |
+| `--card`, `--popover` | luz +2% | `240 10% 6%` |
+| `--secondary`, `--muted`, `--border`, `--input` | saturação -5%, luz +11% | `240 5% 15%` |
+| `--foreground` e derivados | por contraste | `0 0% 98%` |
+
+Assim escolher `#09090B` no picker e "restaurar padrão" dão o mesmo visual. Para o modo light,
+`clearBackgroundColor()` remove os tokens inline e devolve o controle ao CSS.
+
+Baixo nível, sem precedência: `applyAccentColor(hex)`, `applyBackgroundColor(hex)`, `hexToHsl`,
+`hslToHex`, `isHexColor`.
 
 > **Por que HSL e não hex?** Tailwind shadcn compõe alphas como
 > `hsl(var(--primary) / 0.5)`. Se a var fosse hex, isso quebraria — o navegador
@@ -272,8 +275,8 @@ Qchat, `updateAccentColor` no resto). A migração padroniza.
   </thead>
   <tbody>
     <tr className="border-b border-border/40">
-      <td className="p-2"><code>applyAccentColor</code> exportado do ui-kit</td>
-      <td className="p-2">⏳ Planejado</td>
+      <td className="p-2"><code>applyAccentColor</code> e fundo derivado exportados do ui-kit (<code>suiteColors</code>)</td>
+      <td className="p-2">✅ Feito</td>
     </tr>
     <tr className="border-b border-border/40">
       <td className="p-2"><code>useNuiEvent</code> exportado do ui-kit</td>
