@@ -1,3 +1,10 @@
+# [4.23.0](https://github.com/mri-Qbox-Brasil/mri-ui-kit/compare/v4.22.0...v4.23.0) (2026-09-27)
+
+
+### Features
+
+* cores da suíte (accent e fundo derivado) no ui-kit ([1f2b87b](https://github.com/mri-Qbox-Brasil/mri-ui-kit/commit/1f2b87b57199a9814482d2860a908e651188438b)), closes [#09090B](https://github.com/mri-Qbox-Brasil/mri-ui-kit/issues/09090B)
+
 # [4.22.0](https://github.com/mri-Qbox-Brasil/mri-ui-kit/compare/v4.21.0...v4.22.0) (2026-09-09)
 
 
