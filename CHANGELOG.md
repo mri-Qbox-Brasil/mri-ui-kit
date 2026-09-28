@@ -1,3 +1,10 @@
+# [4.26.0](https://github.com/mri-Qbox-Brasil/mri-ui-kit/compare/v4.25.0...v4.26.0) (2026-09-28)
+
+
+### Features
+
+* **MriTabletFrame:** superfície principal do tema glass (mri-surface) ([7c090d2](https://github.com/mri-Qbox-Brasil/mri-ui-kit/commit/7c090d2734311fa10292f63dc39cc8f7314129df))
+
 # [4.25.0](https://github.com/mri-Qbox-Brasil/mri-ui-kit/compare/v4.24.0...v4.25.0) (2026-09-28)
 
 
