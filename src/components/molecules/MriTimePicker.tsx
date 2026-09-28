@@ -94,6 +94,7 @@ export function MriTimePicker({ value, onChange, disabled, hourLabel = "Hora", m
             <MriPopoverTrigger asChild>
                 <div className="w-full space-y-1">
                     <MriButton
+                        type="button"
                         variant="outline"
                         size={size}
                         className={cn(
@@ -124,6 +125,7 @@ export function MriTimePicker({ value, onChange, disabled, hourLabel = "Hora", m
                             <div className="p-2 space-y-1">
                                 {hoursOptions.map(({ value: h, disabled: isDisabled }) => (
                                     <MriButton
+                                        type="button"
                                         key={h}
                                         variant="ghost"
                                         size="sm"
@@ -148,6 +150,7 @@ export function MriTimePicker({ value, onChange, disabled, hourLabel = "Hora", m
                             <div className="p-2 space-y-1">
                                 {minutesOptions.map(({ value: m, disabled: isDisabled }) => (
                                     <MriButton
+                                        type="button"
                                         key={m}
                                         variant="ghost"
                                         size="sm"

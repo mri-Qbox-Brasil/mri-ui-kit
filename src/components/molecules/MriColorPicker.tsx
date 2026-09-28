@@ -110,6 +110,7 @@ export const MriColorPicker = ({ color, onChange, active, format = 'hsl-string' 
         <Popover.Root>
             <Popover.Trigger asChild>
                 <button
+                    type="button"
                     className={cn(
                         "w-10 h-10 rounded-full flex items-center justify-center transition-transform hover:scale-110 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-background focus:ring-ring relative overflow-hidden",
                         active ? "ring-2 ring-offset-2 ring-offset-background ring-ring" : "border border-dashed border-muted-foreground/50 hover:border-solid hover:border-primary"
@@ -137,6 +138,7 @@ export const MriColorPicker = ({ color, onChange, active, format = 'hsl-string' 
                             <div className="flex bg-muted/50 p-1 rounded-lg">
                                 {(['hex', 'rgb', 'hsl'] as const).map((m) => (
                                     <button
+                                        type="button"
                                         key={m}
                                         onClick={() => setMode(m)}
                                         className={cn(

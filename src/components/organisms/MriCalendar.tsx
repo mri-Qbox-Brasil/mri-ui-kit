@@ -60,6 +60,7 @@ function MriCalendar({
 
           return (
             <MriButton
+              type="button"
               key={m}
               variant="ghost"
               size="sm"
@@ -103,6 +104,7 @@ function MriCalendar({
 
             return (
               <MriButton
+                type="button"
                 key={y}
                 variant="ghost"
                 size="sm"
@@ -128,6 +130,7 @@ function MriCalendar({
   const customComponents = {
     CaptionLabel: () => (
       <MriButton
+        type="button"
         variant="ghost"
         size="sm"
         className="h-7 font-medium px-2 py-0 hover:bg-accent hover:text-accent-foreground"
@@ -154,6 +157,7 @@ function MriCalendar({
            <customComponents.CaptionLabel />
            <div className="flex gap-1">
              <MriButton
+               type="button"
                variant="outline"
                className="h-7 w-7 p-0"
                disabled={props.fromDate && internalMonth.getFullYear() <= props.fromDate.getFullYear()}
@@ -162,6 +166,7 @@ function MriCalendar({
                <ChevronLeft className="h-4 w-4" />
              </MriButton>
              <MriButton
+               type="button"
                variant="outline"
                className="h-7 w-7 p-0"
                disabled={props.toDate && internalMonth.getFullYear() >= props.toDate.getFullYear()}
@@ -183,6 +188,7 @@ function MriCalendar({
            <customComponents.CaptionLabel />
            <div className="flex gap-1">
              <MriButton
+               type="button"
                variant="outline"
                className="h-7 w-7 p-0"
                onClick={() => handleMonthChange(addYears(internalMonth, -12))}
@@ -190,6 +196,7 @@ function MriCalendar({
                <ChevronLeft className="h-4 w-4" />
              </MriButton>
              <MriButton
+               type="button"
                variant="outline"
                className="h-7 w-7 p-0"
                onClick={() => handleMonthChange(addYears(internalMonth, 12))}

@@ -276,6 +276,7 @@ function BlipPickerBody({
             ) : (
               filtered.slice(0, 200).map(b => (
                 <button
+                  type="button"
                   key={b.id}
                   onClick={() => update({ sprite: b.id })}
                   className={cn(

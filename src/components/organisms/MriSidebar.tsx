@@ -68,6 +68,7 @@ export function MriSidebar({
       return (
         <MriSimpleTooltip content={collapsed ? item.label : undefined} side="right">
           <MriButton
+            type="button"
             variant="ghost"
             className={cn(
                 "w-full justify-start gap-3 relative transition-all duration-200 border",
@@ -114,6 +115,7 @@ export function MriSidebar({
 
         {onToggleCollapse && (
             <button
+            type="button"
             onClick={onToggleCollapse}
             className={cn(
                 "flex items-center justify-center p-2 rounded-lg hover:bg-muted transition-colors text-muted-foreground hover:text-foreground w-full mt-2",

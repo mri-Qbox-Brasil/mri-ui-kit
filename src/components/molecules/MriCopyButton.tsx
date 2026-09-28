@@ -23,6 +23,7 @@ export function MriCopyButton({
 
   return (
     <MriButton
+      type="button"
       size="sm"
       variant={variant}
       className={cn("p-0 text-muted-foreground hover:text-foreground", className)}

@@ -58,6 +58,7 @@ export const MriActionModal = ({
           <p className="font-bold text-lg text-foreground">{title}</p>
         </div>
         <button
+          type="button"
           onClick={onClose}
           className="text-muted-foreground hover:text-foreground transition-colors"
         >
@@ -68,11 +69,12 @@ export const MriActionModal = ({
       <div className="space-y-4">{children}</div>
 
       <div className="mt-6 flex gap-3">
-        <MriButton onClick={onClose} variant="ghost" className="flex-1">
+        <MriButton type="button" onClick={onClose} variant="ghost" className="flex-1">
           {cancelLabel}
         </MriButton>
         {onConfirm && (
           <MriButton
+            type="button"
             className={cn(
               "flex-1",
               variant === "destructive" &&

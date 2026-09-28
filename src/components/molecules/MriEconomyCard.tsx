@@ -39,6 +39,7 @@ export function MriEconomyCard({
           <div className="flex items-center gap-1">
             {onAdd !== undefined && (
               <MriButton
+                type="button"
                 size="icon"
                 variant="ghost"
                 className="h-7 w-7 rounded bg-muted hover:bg-muted/80"
@@ -50,6 +51,7 @@ export function MriEconomyCard({
             )}
             {onRemove !== undefined && (
               <MriButton
+                type="button"
                 size="icon"
                 variant="ghost"
                 className="h-7 w-7 rounded bg-muted hover:bg-muted/80"
@@ -62,6 +64,7 @@ export function MriEconomyCard({
           </div>
         )}
         <MriButton
+          type="button"
           size="icon"
           variant="ghost"
           className="h-7 w-7 rounded bg-muted hover:bg-muted/80"

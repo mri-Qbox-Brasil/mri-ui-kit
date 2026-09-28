@@ -9,7 +9,7 @@ export default function MriButtonGroup({ buttons, disabled = false }: { buttons:
       {buttons.map((b, i) => {
         const isDisabled = disabled || b.disabled
         return (
-          <MriButton key={i} onClick={isDisabled ? undefined : b.onClick} className="flex items-center gap-2" variant="secondary" disabled={isDisabled}>
+          <MriButton type="button" key={i} onClick={isDisabled ? undefined : b.onClick} className="flex items-center gap-2" variant="secondary" disabled={isDisabled}>
             {b.icon}
             <span>{b.label}</span>
           </MriButton>

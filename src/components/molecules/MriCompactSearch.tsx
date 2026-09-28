@@ -56,6 +56,7 @@ export function MriCompactSearch({
       <MriPopoverTrigger asChild>
         <div className="flex flex-col gap-1 items-center">
           <MriButton
+            type="button"
             variant="ghost"
             size={size === "sm" ? "sm" : "icon"}
             disabled={disabled}

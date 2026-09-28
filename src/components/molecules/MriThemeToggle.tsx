@@ -41,6 +41,7 @@ export const MriThemeToggle = ({ themeLabel = "Tema", themeIconLabel = "Alterar 
         const isActive = theme === item.value;
         return (
           <MriButton
+            type="button"
             key={item.value}
             variant="ghost"
             size="icon"

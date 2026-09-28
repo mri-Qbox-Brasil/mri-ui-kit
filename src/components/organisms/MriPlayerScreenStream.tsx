@@ -317,7 +317,7 @@ export function MriPlayerScreenStream({
                         <h4 className="text-sm font-black uppercase tracking-widest">{getLabel('error_title', 'Connection Failed')}</h4>
                         <p className="text-xs text-red-400/60 font-medium max-w-[200px] mx-auto leading-relaxed">{error}</p>
                     </div>
-                    <MriButton variant="ghost" size="sm" className="mt-2 text-[10px] uppercase font-bold border border-white/5" onClick={() => window.location.reload()}>
+                    <MriButton type="button" variant="ghost" size="sm" className="mt-2 text-[10px] uppercase font-bold border border-white/5" onClick={() => window.location.reload()}>
                         {getLabel('retry', 'Retry')}
                     </MriButton>
                 </div>

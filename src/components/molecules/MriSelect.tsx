@@ -88,6 +88,7 @@ function MriSelectSingle({
       <MriPopoverTrigger asChild>
         <div className="w-full space-y-1">
           <MriButton
+            type="button"
             variant="outline"
             role="combobox"
             disabled={disabled || isLoading}
@@ -222,6 +223,7 @@ function MriSelectMultiple({
       <MriPopoverTrigger asChild>
         <div className="w-full space-y-1">
           <MriButton
+            type="button"
             variant="outline"
             role="combobox"
             disabled={disabled || isLoading}
@@ -244,6 +246,7 @@ function MriSelectMultiple({
                     >
                       <span className="truncate max-w-[100px]">{opt.label}</span>
                       <button
+                        type="button"
                         className="ml-1 ring-offset-background rounded-full outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2"
                         onKeyDown={(e) => { if (e.key === "Enter") handleToggle(opt.value) }}
                         onMouseDown={(e) => { e.preventDefault(); e.stopPropagation() }}

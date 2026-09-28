@@ -40,6 +40,7 @@ export function MriTopbar({
 
       return (
         <MriButton
+          type="button"
           variant="ghost"
           className={cn(
               "h-10 justify-start gap-2 relative transition-all duration-200 border px-3",

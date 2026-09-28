@@ -213,6 +213,7 @@ function MarkerPickerBody({
           ) : (
             filtered.map(m => (
               <button
+                type="button"
                 key={m.id}
                 onClick={() => update({ type: m.id })}
                 className={cn(
@@ -317,6 +318,7 @@ function MarkerPickerBody({
           <div className="flex items-center justify-between mb-1.5">
             <p className="text-[10px] uppercase tracking-wider text-muted-foreground">Scale</p>
             <button
+              type="button"
               onClick={() => {
                 if (scaleMode === "uniform") {
                   // Quando muda para xyz, preserva valor uniforme

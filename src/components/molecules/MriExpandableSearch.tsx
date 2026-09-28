@@ -105,6 +105,7 @@ export const MriExpandableSearch: React.FC<MriExpandableSearchProps> = ({
 
                 {isExpanded && value && (
                     <button
+                        type="button"
                         onClick={handleClear}
                         className="p-1 rounded-md hover:bg-background/80 text-muted-foreground hover:text-foreground transition-colors"
                         title="Clear"

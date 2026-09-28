@@ -28,6 +28,7 @@ export function MriDatePicker({ value, onChange, placeholder = "Selecione", disa
             <MriPopoverTrigger asChild>
                 <div className="w-full space-y-1">
                     <MriButton
+                        type="button"
                         variant="outline"
                         size={size}
                         className={cn(

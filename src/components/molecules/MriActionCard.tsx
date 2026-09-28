@@ -201,6 +201,7 @@ export const MriActionCard = ({
                   >
                     <MriPopoverTrigger asChild>
                       <MriButton
+                        type="button"
                         variant="outline"
                         role="combobox"
                         disabled={item.disabled}
@@ -249,6 +250,7 @@ export const MriActionCard = ({
             } else if (item.option === "button") {
               return (
                 <MriButton
+                  type="button"
                   key={idx}
                   variant="secondary"
                   disabled={item.disabled}

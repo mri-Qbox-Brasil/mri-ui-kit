@@ -130,6 +130,7 @@ export function MriVitalAdjustModal({
             {/* Footer */}
             <div className="p-6 pt-2 flex gap-4 bg-muted/30">
                 <MriButton
+                    type="button"
                     variant="ghost"
                     className="flex-1 h-12 gap-2 text-muted-foreground border border-transparent hover:border-border/50 transition-all uppercase text-xs"
                     onClick={onClose}
@@ -137,6 +138,7 @@ export function MriVitalAdjustModal({
                     <X size={16} /> {displayCancel}
                 </MriButton>
                 <MriButton
+                    type="button"
                     variant="default"
                     disabled={disabled}
                     className={cn(
