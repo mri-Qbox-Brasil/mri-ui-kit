@@ -1,3 +1,10 @@
+## [4.27.1](https://github.com/mri-Qbox-Brasil/mri-ui-kit/compare/v4.27.0...v4.27.1) (2026-09-28)
+
+
+### Bug Fixes
+
+* botoes internos com type="button" para nao enviar formularios ([a42c8fc](https://github.com/mri-Qbox-Brasil/mri-ui-kit/commit/a42c8fcdeeeb235644d09a93c8d48d89bda31b45))
+
 # [4.27.0](https://github.com/mri-Qbox-Brasil/mri-ui-kit/compare/v4.26.0...v4.27.0) (2026-09-28)
 
 
