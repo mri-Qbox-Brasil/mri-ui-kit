@@ -27,7 +27,7 @@ export function MriEconomyCard({
   const [visible, setVisible] = useState(defaultVisible)
 
   return (
-    <div className="bg-card border border-border p-4 rounded-lg flex items-center justify-between">
+    <div className="mri-surface-card bg-card border border-border p-4 rounded-lg flex items-center justify-between">
       <div>
         <div className="text-xs text-muted-foreground font-bold uppercase">{label}</div>
         <div className={cn("text-xl font-bold font-mono", amountColorClass)}>

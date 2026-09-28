@@ -87,7 +87,7 @@ export const MriActionCard = ({
   return (
     <div
       className={cn(
-        "group relative bg-card border border-border rounded-xl transition-all overflow-hidden",
+        "mri-surface-card group relative bg-card border border-border rounded-xl transition-all overflow-hidden",
         isExpandable
           ? isOpen
             ? "border-primary/50 ring-1 ring-primary/20"

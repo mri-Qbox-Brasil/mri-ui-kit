@@ -16,7 +16,7 @@ const MriCard = React.forwardRef<HTMLDivElement, MriCardProps>(
     <div
       ref={ref}
       className={cn(
-        "rounded-xl border bg-card text-card-foreground shadow",
+        "mri-surface-card rounded-xl border bg-card text-card-foreground shadow",
         glow && "relative overflow-hidden group transition-all",
         className
       )}

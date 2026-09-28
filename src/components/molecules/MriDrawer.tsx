@@ -72,7 +72,7 @@ const MriDrawerContent = React.forwardRef<
     <DialogPrimitive.Content
       ref={ref}
       className={cn(
-        "z-50 flex flex-col border-border bg-card shadow-2xl transition-transform duration-300",
+        "mri-surface z-50 flex flex-col border-border bg-card shadow-2xl transition-transform duration-300",
         "data-[state=open]:animate-in data-[state=closed]:animate-out",
         SIDE_CLASSES[side],
         className

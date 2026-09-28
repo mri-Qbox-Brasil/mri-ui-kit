@@ -22,11 +22,13 @@
             "require": "./dist/index.umd.js",
             "types": "./dist/index.d.ts"
         },
-        "./dist/style.css": "./dist/style.css"
+        "./dist/style.css": "./dist/style.css",
+        "./tailwind-preset": "./tailwind-preset.cjs"
     },
     "files": [
         "dist",
-        "bin"
+        "bin",
+        "tailwind-preset.cjs"
     ],
     "bin": {
         "mri-ui": "./bin/cli.js"
