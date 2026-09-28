@@ -1,3 +1,10 @@
+# [4.27.0](https://github.com/mri-Qbox-Brasil/mri-ui-kit/compare/v4.26.0...v4.27.0) (2026-09-28)
+
+
+### Features
+
+* opacidade única para qualquer tema ([425a909](https://github.com/mri-Qbox-Brasil/mri-ui-kit/commit/425a9091d1a662dca8cd43c1f91928aa395ff7f6))
+
 # [4.26.0](https://github.com/mri-Qbox-Brasil/mri-ui-kit/compare/v4.25.0...v4.26.0) (2026-09-28)
 
 
