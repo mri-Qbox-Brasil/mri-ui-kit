@@ -1,3 +1,10 @@
+# [4.28.0](https://github.com/mri-Qbox-Brasil/mri-ui-kit/compare/v4.27.2...v4.28.0) (2026-09-28)
+
+
+### Features
+
+* THEMING.md, guia de adaptação de resource ao tema da suíte ([06632aa](https://github.com/mri-Qbox-Brasil/mri-ui-kit/commit/06632aa13ed5fc813210c36c909c8741d8cc8d17))
+
 ## [4.27.2](https://github.com/mri-Qbox-Brasil/mri-ui-kit/compare/v4.27.1...v4.27.2) (2026-09-28)
 
 
