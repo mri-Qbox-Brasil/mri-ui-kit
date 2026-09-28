@@ -1,3 +1,10 @@
+## [4.27.2](https://github.com/mri-Qbox-Brasil/mri-ui-kit/compare/v4.27.1...v4.27.2) (2026-09-28)
+
+
+### Bug Fixes
+
+* atualiza floating-ui para posicionar popovers no CEF do FiveM ([7600d65](https://github.com/mri-Qbox-Brasil/mri-ui-kit/commit/7600d6568d944c4eed2ecd935e2c6f0222eb1942))
+
 ## [4.27.1](https://github.com/mri-Qbox-Brasil/mri-ui-kit/compare/v4.27.0...v4.27.1) (2026-09-28)
 
 
