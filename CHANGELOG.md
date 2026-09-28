@@ -1,3 +1,10 @@
+# [4.25.0](https://github.com/mri-Qbox-Brasil/mri-ui-kit/compare/v4.24.0...v4.25.0) (2026-09-28)
+
+
+### Features
+
+* themes.css standalone com o tema glass ([dc98952](https://github.com/mri-Qbox-Brasil/mri-ui-kit/commit/dc98952a78fede6fd0a18778068c034473f815e5))
+
 # [4.24.0](https://github.com/mri-Qbox-Brasil/mri-ui-kit/compare/v4.23.0...v4.24.0) (2026-09-28)
 
 
