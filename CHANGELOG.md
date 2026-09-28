@@ -1,3 +1,10 @@
+# [4.24.0](https://github.com/mri-Qbox-Brasil/mri-ui-kit/compare/v4.23.0...v4.24.0) (2026-09-28)
+
+
+### Features
+
+* tema glass e preset Tailwind da suíte ([9db2811](https://github.com/mri-Qbox-Brasil/mri-ui-kit/commit/9db2811fa0b919b23bff9ee9c8a8471f4c427723))
+
 # [4.23.0](https://github.com/mri-Qbox-Brasil/mri-ui-kit/compare/v4.22.0...v4.23.0) (2026-09-27)
 
 
