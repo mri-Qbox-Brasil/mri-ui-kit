@@ -117,7 +117,8 @@ Baixo nível, sem precedência: `applyAccentColor(hex)`, `applyBackgroundColor(h
 ## Tema glass (e temas futuros)
 
 O tema vem do atributo `data-theme` no `<html>` (o `applyUiConfig` do ox_lib seta a partir do `/uiconfig`).
-O ui-kit entrega o glass pronto no `dist/style.css`:
+O ui-kit entrega o glass pronto em `@mriqbox/ui-kit/themes.css` (CSS puro, sem Tailwind), que também já vai
+dentro do `dist/style.css`. Resource com CSS próprio (SCSS, loadscreen) importa só o `themes.css`:
 
 - **Transparência:** sob `[data-theme="glass"]`, `--ui-surface-alpha` vira a opacidade do slider e
   `--ui-surface-alpha-card` vira 76% dela. Os tokens `bg-background` e `bg-card` do preset já multiplicam
