@@ -21,6 +21,11 @@ npx @mriqbox/ui-kit add mri-button
 ```
 
 ## Configuração
+
+> Para um resource seguir o tema da suíte (cores, fonte, glass, opacidade e o
+> `/uiconfig` do ox_lib), siga o [THEMING.md](./THEMING.md). Ele vai no pacote:
+> `node_modules/@mriqbox/ui-kit/THEMING.md`.
+
 ### Para Uso NPM
 1. Importe o CSS global no arquivo de entrada (ex: `main.tsx`):
    ```tsx

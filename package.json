@@ -24,13 +24,15 @@
         },
         "./dist/style.css": "./dist/style.css",
         "./tailwind-preset": "./tailwind-preset.cjs",
-        "./themes.css": "./themes.css"
+        "./themes.css": "./themes.css",
+        "./THEMING.md": "./THEMING.md"
     },
     "files": [
         "dist",
         "bin",
         "tailwind-preset.cjs",
-        "themes.css"
+        "themes.css",
+        "THEMING.md"
     ],
     "bin": {
         "mri-ui": "./bin/cli.js"
