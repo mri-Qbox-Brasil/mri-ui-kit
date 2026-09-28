@@ -120,9 +120,9 @@ O tema vem do atributo `data-theme` no `<html>` (o `applyUiConfig` do ox_lib set
 O ui-kit entrega o glass pronto em `@mriqbox/ui-kit/themes.css` (CSS puro, sem Tailwind), que também já vai
 dentro do `dist/style.css`. Resource com CSS próprio (SCSS, loadscreen) importa só o `themes.css`:
 
-- **Transparência:** sob `[data-theme="glass"]`, `--ui-surface-alpha` vira a opacidade do slider e
-  `--ui-surface-alpha-card` vira 76% dela. Os tokens `bg-background` e `bg-card` do preset já multiplicam
-  por esses valores; fora do glass eles valem 1.
+- **Opacidade:** `--ui-opacity` (slider "Opacidade" do `/uiconfig`, via `applyUiConfig({ opacity })`) é a
+  opacidade real de painéis e cards em qualquer tema, exceto `.light`. Os tokens `bg-background` e `bg-card` do
+  preset já multiplicam por ela (`--ui-surface-alpha`/`--ui-surface-alpha-card`). Padrão 1, opaco.
 - **Borda:** `--ui-border-hsl`/`--ui-border-alpha` viram o filete branco a 12%. `border-border` do preset lê daí.
 - **Reflexo:** superfícies marcadas com `mri-surface` (janela/painel principal) e `mri-surface-card` (cards)
   ganham o gradiente diagonal e o brilho interno. `MriCard`, `MriModal`, `MriDrawer`, `MriActionCard` e

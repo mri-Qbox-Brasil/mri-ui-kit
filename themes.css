@@ -5,14 +5,17 @@
  */
 
 :root {
+    --ui-opacity: 1;
     --ui-surface-alpha: 1;
     --ui-surface-alpha-card: 1;
-    --ui-glass-opacity: 0.65;
+}
+
+:root:not(.light) {
+    --ui-surface-alpha: var(--ui-opacity, 1);
+    --ui-surface-alpha-card: var(--ui-opacity, 1);
 }
 
 :root[data-theme='glass']:not(.light) {
-    --ui-surface-alpha: var(--ui-glass-opacity, 0.65);
-    --ui-surface-alpha-card: calc(var(--ui-glass-opacity, 0.65) * 0.76);
     --ui-border-hsl: 0 0% 100%;
     --ui-border-alpha: 0.12;
 }

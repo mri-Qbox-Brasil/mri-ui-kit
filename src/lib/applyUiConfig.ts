@@ -7,7 +7,7 @@
  * por outro caminho (applyAccentColor / ThemeContext). Portanto este helper
  * **não** toca em `--primary*`/`--ring` (accent) nem em `--background`/`--card`/…
  * (background) nem no modo de tema. Herda só o restante do painel: radius,
- * fonte, cores de status, opacidade glass e dimensões.
+ * fonte, cores de status, opacidade e dimensões.
  *
  * Uso típico (host ou plugin guest): ao receber o config do Lua/bridge,
  * `applyUiConfig(cfg)`. Todos os campos são opcionais — ausentes caem no
@@ -18,7 +18,9 @@
 export interface MriUiConfig {
   /** Border radius em px → `--radius`. */
   radius?: number
-  /** Opacidade do tema glass (0..1) → `--ui-glass-opacity`. */
+  /** Opacidade real dos painéis e cards em qualquer tema (0..1) → `--ui-opacity`. */
+  opacity?: number
+  /** @deprecated ignorado; use `opacity`. */
   glassOpacity?: number
   /** Nome da fonte → `--ui-font-family` (com fallback Saira). */
   fontFamily?: string
@@ -66,8 +68,8 @@ export function applyUiConfig(cfg: MriUiConfig | null | undefined): void {
     )
   }
 
-  if (typeof cfg.glassOpacity === 'number') {
-    root.style.setProperty('--ui-glass-opacity', String(cfg.glassOpacity))
+  if (typeof cfg.opacity === 'number') {
+    root.style.setProperty('--ui-opacity', String(cfg.opacity))
   }
 
   if (isValidHex(cfg.successColor)) root.style.setProperty('--ui-success', cfg.successColor)
