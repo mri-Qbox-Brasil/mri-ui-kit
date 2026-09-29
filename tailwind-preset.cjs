@@ -57,10 +57,19 @@ module.exports = {
                     '5': 'hsl(var(--chart-5))',
                 },
             },
+            // Toda a escala segue o --radius do /uiconfig. Sem DEFAULT e xl/2xl/3xl
+            // o Tailwind usa os fixos (.25rem/.75rem/1rem/1.5rem) e `rounded`,
+            // `rounded-t-*`, `rounded-xl`... ignoram o slider. xl/2xl/3xl são
+            // multiplicativos pra radius 0 zerar de verdade; nos 8px padrão dá
+            // exatamente os valores do Tailwind. `full` fica nativo (círculos).
             borderRadius: {
-                lg: 'var(--radius)',
-                md: 'calc(var(--radius) - 2px)',
+                DEFAULT: 'calc(var(--radius) - 4px)',
                 sm: 'calc(var(--radius) - 4px)',
+                md: 'calc(var(--radius) - 2px)',
+                lg: 'var(--radius)',
+                xl: 'calc(var(--radius) * 1.5)',
+                '2xl': 'calc(var(--radius) * 2)',
+                '3xl': 'calc(var(--radius) * 3)',
             },
             fontFamily: {
                 sans: ['var(--ui-font-family, "Saira")', 'ui-sans-serif', 'system-ui', '-apple-system', 'sans-serif'],

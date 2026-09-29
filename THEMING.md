@@ -88,6 +88,10 @@ Proibido: `#hex`, `rgba(...)`, `bg-zinc-*`, `bg-neutral-*`, `text-white`,
 `bg-black/..` para superfícies, texto ou borda. Transparência para cor de tema usa
 `hsl(var(--x) / alpha)`.
 
+Arredondamento só pela escala do preset (`rounded`, `rounded-sm` até `rounded-3xl`,
+todos seguindo o `--radius`) ou `rounded-full`. Nada de `rounded-[12px]` nem
+`border-radius` fixo no CSS: não muda com o slider do `/uiconfig`.
+
 ## 4. Glass: marque as superfícies
 
 | Classe | Onde |
