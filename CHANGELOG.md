@@ -1,3 +1,10 @@
+# [4.29.0](https://github.com/mri-Qbox-Brasil/mri-ui-kit/compare/v4.28.2...v4.29.0) (2026-09-29)
+
+
+### Features
+
+* **theme:** cores de status do /uiconfig como tokens (success, warning, error) ([94c85d1](https://github.com/mri-Qbox-Brasil/mri-ui-kit/commit/94c85d17d73bcabd63f373c8affe879401f9d09d))
+
 ## [4.28.2](https://github.com/mri-Qbox-Brasil/mri-ui-kit/compare/v4.28.1...v4.28.2) (2026-09-29)
 
 
