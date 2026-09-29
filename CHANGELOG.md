@@ -1,3 +1,10 @@
+# [4.30.0](https://github.com/mri-Qbox-Brasil/mri-ui-kit/compare/v4.29.0...v4.30.0) (2026-09-29)
+
+
+### Features
+
+* **preset:** escala de radius inteira segue o --radius (DEFAULT, xl, 2xl, 3xl) ([138bc80](https://github.com/mri-Qbox-Brasil/mri-ui-kit/commit/138bc80f120716aea155e2c8702a8e20e66b6afe))
+
 # [4.29.0](https://github.com/mri-Qbox-Brasil/mri-ui-kit/compare/v4.28.2...v4.29.0) (2026-09-29)
 
 
