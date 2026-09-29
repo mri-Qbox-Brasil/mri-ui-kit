@@ -1,3 +1,10 @@
+## [4.28.1](https://github.com/mri-Qbox-Brasil/mri-ui-kit/compare/v4.28.0...v4.28.1) (2026-09-29)
+
+
+### Bug Fixes
+
+* **docs:** THEMING.md sem dependência do ox_lib e checagem do Lua ([3500c7c](https://github.com/mri-Qbox-Brasil/mri-ui-kit/commit/3500c7cc065fe93ef874b91f3d490402bac071b6))
+
 # [4.28.0](https://github.com/mri-Qbox-Brasil/mri-ui-kit/compare/v4.27.2...v4.28.0) (2026-09-28)
 
 
