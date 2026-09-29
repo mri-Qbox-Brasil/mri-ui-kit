@@ -1,3 +1,10 @@
+## [4.28.2](https://github.com/mri-Qbox-Brasil/mri-ui-kit/compare/v4.28.1...v4.28.2) (2026-09-29)
+
+
+### Bug Fixes
+
+* **fonts:** kit carrega as fontes do seletor do /uiconfig e o body segue --ui-font-family; nunca hospedar fonte no resource ([6a71c9d](https://github.com/mri-Qbox-Brasil/mri-ui-kit/commit/6a71c9de887c722078ba02d3c311902812c1c7a0))
+
 ## [4.28.1](https://github.com/mri-Qbox-Brasil/mri-ui-kit/compare/v4.28.0...v4.28.1) (2026-09-29)
 
 
