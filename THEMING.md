@@ -65,7 +65,8 @@ Não importe o `dist/style.css` nesse caso: ele traz o reset do Tailwind. O
 
 Tailwind: `bg-background`, `bg-card`, `bg-popover`, `bg-secondary`, `bg-muted`,
 `text-foreground`, `text-muted-foreground`, `border-border`, `bg-primary`,
-`text-primary`, `ring-ring`.
+`text-primary`, `ring-ring`. Status (cores do `/uiconfig`): `text-success`,
+`bg-warning/10`, `border-error/30` e afins.
 
 CSS próprio:
 
@@ -78,7 +79,9 @@ $text:  hsl(var(--foreground));
 $accent: hsl(var(--primary));
 ```
 
-Status: `var(--ui-success)`, `var(--ui-warning)`, `var(--ui-error)`. Radius:
+Status: `var(--ui-success)`, `var(--ui-warning)`, `var(--ui-error)`; com
+transparência, `rgb(var(--ui-error-rgb) / 0.1)` (o CEF 103 não tem `color-mix`).
+O `themes.css` traz os valores padrão; não declare `--ui-*` no resource. Radius:
 `var(--radius)`. Fonte: `var(--ui-font-family, 'Saira', ui-sans-serif, sans-serif)`.
 
 Proibido: `#hex`, `rgba(...)`, `bg-zinc-*`, `bg-neutral-*`, `text-white`,

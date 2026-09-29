@@ -13,6 +13,17 @@
     --ui-opacity: 1;
     --ui-surface-alpha: 1;
     --ui-surface-alpha-card: 1;
+
+    /* Cores de status do /uiconfig. O hex serve pra var(--ui-*) direto; o
+       -rgb (canais separados por espaço) serve pra transparência,
+       rgb(var(--ui-error-rgb) / 0.1), já que o CEF 103 não tem color-mix.
+       applyUiConfig sobrescreve os dois juntos. */
+    --ui-success: #10b981;
+    --ui-success-rgb: 16 185 129;
+    --ui-warning: #eab308;
+    --ui-warning-rgb: 234 179 8;
+    --ui-error: #ef4444;
+    --ui-error-rgb: 239 68 68;
 }
 
 :root:not(.light) {

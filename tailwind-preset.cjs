@@ -45,6 +45,10 @@ module.exports = {
                 border: 'hsl(var(--ui-border-hsl, var(--border)) / calc(var(--ui-border-alpha, 1) * <alpha-value>))',
                 input: 'hsl(var(--input) / <alpha-value>)',
                 ring: 'hsl(var(--ring) / <alpha-value>)',
+                // Cores de status do /uiconfig (successColor/warningColor/errorColor).
+                success: 'rgb(var(--ui-success-rgb) / <alpha-value>)',
+                warning: 'rgb(var(--ui-warning-rgb) / <alpha-value>)',
+                error: 'rgb(var(--ui-error-rgb) / <alpha-value>)',
                 chart: {
                     '1': 'hsl(var(--chart-1))',
                     '2': 'hsl(var(--chart-2))',

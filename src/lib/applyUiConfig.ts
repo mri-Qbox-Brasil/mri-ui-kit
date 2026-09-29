@@ -24,11 +24,11 @@ export interface MriUiConfig {
   glassOpacity?: number
   /** Nome da fonte → `--ui-font-family` (com fallback Saira). */
   fontFamily?: string
-  /** Cor semântica de sucesso (hex) → `--ui-success`. */
+  /** Cor semântica de sucesso (hex) → `--ui-success` e `--ui-success-rgb`. */
   successColor?: string
-  /** Cor semântica de aviso (hex) → `--ui-warning`. */
+  /** Cor semântica de aviso (hex) → `--ui-warning` e `--ui-warning-rgb`. */
   warningColor?: string
-  /** Cor semântica de erro (hex) → `--ui-error`. */
+  /** Cor semântica de erro (hex) → `--ui-error` e `--ui-error-rgb`. */
   errorColor?: string
   /** Estilo de progresso ('default' | 'bar' | 'circle') → `--ui-progress-style`. */
   progressStyle?: string
@@ -72,9 +72,18 @@ export function applyUiConfig(cfg: MriUiConfig | null | undefined): void {
     root.style.setProperty('--ui-opacity', String(cfg.opacity))
   }
 
-  if (isValidHex(cfg.successColor)) root.style.setProperty('--ui-success', cfg.successColor)
-  if (isValidHex(cfg.warningColor)) root.style.setProperty('--ui-warning', cfg.warningColor)
-  if (isValidHex(cfg.errorColor)) root.style.setProperty('--ui-error', cfg.errorColor)
+  // Hex em --ui-* e os canais em --ui-*-rgb (pra transparência, ver themes.css).
+  const status = (name: string, hex: string | undefined) => {
+    if (!isValidHex(hex)) return
+    root.style.setProperty(name, hex)
+    root.style.setProperty(
+      `${name}-rgb`,
+      `${parseInt(hex.slice(1, 3), 16)} ${parseInt(hex.slice(3, 5), 16)} ${parseInt(hex.slice(5, 7), 16)}`,
+    )
+  }
+  status('--ui-success', cfg.successColor)
+  status('--ui-warning', cfg.warningColor)
+  status('--ui-error', cfg.errorColor)
 
   if (cfg.progressStyle) root.style.setProperty('--ui-progress-style', cfg.progressStyle)
 
