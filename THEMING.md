@@ -58,8 +58,8 @@ o preset já traz `background`, `card` e `border` cientes da opacidade e do glas
 import '@mriqbox/ui-kit/themes.css';
 ```
 
-Não importe o `dist/style.css` nesse caso: ele traz o reset do Tailwind e um
-`@import` do Google Fonts, que trava a renderização no CEF.
+Não importe o `dist/style.css` nesse caso: ele traz o reset do Tailwind. O
+`themes.css` já carrega as fontes (seção 7).
 
 ## 3. Só tokens, nunca cor fixa
 
@@ -203,10 +203,15 @@ Payload sempre dentro de `data` quando o `useNuiEvent` do resource lê `event.da
 
 ## 7. Fonte
 
-Saira é a fonte padrão. Não use `@import` do Google Fonts (trava o CEF):
-auto-hospede os `.woff2` (latin e latin-ext) com `@font-face` e libere
-`web/build/assets/*.woff2` no `files` do `fxmanifest.lua`. Fonte escolhida no
-`/uiconfig` que não existir no cliente cai na Saira.
+O resource não carrega fonte: o CSS do kit (`themes.css`, incluído no
+`dist/style.css`) já traz pelo Google Fonts as famílias do seletor do `/uiconfig`
+(Saira, Inter, Roboto, Poppins, Montserrat). O resource só usa
+`var(--ui-font-family, 'Saira', ui-sans-serif, sans-serif)`, e a fonte escolhida
+no `/uiconfig` troca em toda a suíte ao mesmo tempo.
+
+Nunca hospede fonte no resource (`.woff2`, `@font-face`, fonte no `files` do
+`fxmanifest.lua`): ela só existe naquele resource e ele deixa de trocar junto.
+Família nova no seletor do ox_lib entra também no `@import` do `themes.css`.
 
 ## 8. Validação
 
