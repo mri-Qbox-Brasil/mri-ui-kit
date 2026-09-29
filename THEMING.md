@@ -157,12 +157,14 @@ end)
 
 ## 6. `/uiconfig` do ox_lib
 
-Lua (client):
+Lua (client), sem dependência do ox_lib: pergunta pelo export `getUiConfig` só se
+ele estiver rodando, e ouve o net event que o ox_lib já manda pra todo mundo.
 
 ```lua
 RegisterNUICallback('getUiConfig', function(_, cb)
-    local cfg = lib.callback.await('ox_lib:getUiConfig', false)
-    cb(type(cfg) == 'table' and cfg or false)
+    if GetResourceState('ox_lib') ~= 'started' then return cb(false) end
+    local ok, cfg = pcall(function() return exports.ox_lib:getUiConfig() end)
+    cb(ok and type(cfg) == 'table' and cfg or false)
 end)
 RegisterNetEvent('ox_lib:uiConfigChanged', function(cfg)
     if type(cfg) ~= 'table' then return end
@@ -172,6 +174,11 @@ end)
 
 Callback separado do `getConfig`: se o ox_lib não responder, as cores continuam
 chegando. Nunca `cb(nil)`.
+
+Não carregue `@ox_lib/init.lua` só pra isso: ele exige `lua54 'yes'` no
+`fxmanifest.lua` e aborta sem ele ("Lua 5.4 must be enabled"), erro que só
+aparece no jogo, nunca no navegador. Resource que já usa o `lib` (os `ox_*`)
+pode usar `lib.callback.await('ox_lib:getUiConfig', false)`.
 
 NUI:
 
@@ -203,7 +210,8 @@ auto-hospede os `.woff2` (latin e latin-ext) com `@font-face` e libere
 
 ## 8. Validação
 
-1. Typecheck e build passando.
+1. Typecheck e build passando. Lua sem erro de sintaxe e, depois do `ensure`, nenhum
+   erro do resource no console do servidor (o navegador não roda o Lua).
 2. Prints (ou teste in-game) em: dark padrão; glass com opacidade 0.7; uma cor de
    fundo custom (ex. roxo); accent diferente; radius 0.
 3. Abrir o resource ao lado do ox_lib (menu/notify) e do inventário: os três têm
