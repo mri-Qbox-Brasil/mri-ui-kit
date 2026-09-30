@@ -1,3 +1,10 @@
+## [4.31.1](https://github.com/mri-Qbox-Brasil/mri-ui-kit/compare/v4.31.0...v4.31.1) (2026-09-30)
+
+
+### Bug Fixes
+
+* **switch:** knob ligado contrasta com accent claro ([8a4425c](https://github.com/mri-Qbox-Brasil/mri-ui-kit/commit/8a4425c23290fdc74423075d5723087795c1a7f2))
+
 # [4.31.0](https://github.com/mri-Qbox-Brasil/mri-ui-kit/compare/v4.30.1...v4.31.0) (2026-09-30)
 
 
