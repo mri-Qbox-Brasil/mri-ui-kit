@@ -88,6 +88,12 @@ Proibido: `#hex`, `rgba(...)`, `bg-zinc-*`, `bg-neutral-*`, `text-white`,
 `bg-black/..` para superfícies, texto ou borda. Transparência para cor de tema usa
 `hsl(var(--x) / alpha)`.
 
+Conteúdo sobre `bg-primary` usa `text-primary-foreground`, que o kit escurece quando
+o accent é claro. Toggle é o `MriSwitch` (ou `MriSettingToggle`): o knob ligado segue
+`--ui-switch-knob-on`, escuro com accent branco/claro. Toggle próprio com knob `bg-white`
+fixo sobre `bg-primary` vira um bloco branco com accent branco; troque pelo `MriSwitch`
+ou pinte o knob com `hsl(var(--ui-switch-knob-on))`.
+
 Arredondamento só pela escala do preset (`rounded`, `rounded-sm` até `rounded-3xl`,
 todos seguindo o `--radius`) ou `rounded-full`. Nada de `rounded-[12px]` nem
 `border-radius` fixo no CSS: não muda com o slider do `/uiconfig`.
