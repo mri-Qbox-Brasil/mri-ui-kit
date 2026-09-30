@@ -1,3 +1,10 @@
+## [4.30.1](https://github.com/mri-Qbox-Brasil/mri-ui-kit/compare/v4.30.0...v4.30.1) (2026-09-30)
+
+
+### Bug Fixes
+
+* **build:** dependências externas e ESM por módulo para tree-shaking ([47986c7](https://github.com/mri-Qbox-Brasil/mri-ui-kit/commit/47986c794c2a731fe8b53e4d85852c4f884e536a))
+
 # [4.30.0](https://github.com/mri-Qbox-Brasil/mri-ui-kit/compare/v4.29.0...v4.30.0) (2026-09-29)
 
 
