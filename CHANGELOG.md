@@ -1,3 +1,10 @@
+# [4.31.0](https://github.com/mri-Qbox-Brasil/mri-ui-kit/compare/v4.30.1...v4.31.0) (2026-09-30)
+
+
+### Features
+
+* qualquer fonte do Google Fonts pelo /uiconfig, sem rebuild ([71c6fab](https://github.com/mri-Qbox-Brasil/mri-ui-kit/commit/71c6fab1b46299e0b72b864eeaa5001dce0e36b0))
+
 ## [4.30.1](https://github.com/mri-Qbox-Brasil/mri-ui-kit/compare/v4.30.0...v4.30.1) (2026-09-30)
 
 
