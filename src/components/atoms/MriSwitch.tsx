@@ -70,9 +70,9 @@ export const MriSwitch = React.forwardRef<HTMLInputElement, MriSwitchProps>(
                     <span
                         className={cn(
                             'absolute top-[2px] left-[2px] flex items-center justify-center',
-                            'rounded-[var(--ui-switch-knob-radius)] bg-white shadow-sm transition-transform',
-                            'font-bold leading-none text-black/55 select-none',
-                            checked ? s.travel : 'translate-x-0',
+                            'rounded-[var(--ui-switch-knob-radius)] shadow-sm transition-transform',
+                            'font-bold leading-none select-none',
+                            checked ? `${s.travel} bg-[hsl(var(--ui-switch-knob-on))] text-primary` : 'translate-x-0 bg-white text-black/55',
                             s.knob,
                             s.text
                         )}

@@ -65,14 +65,18 @@ export function hslToHex(h: number, s: number, l: number): string {
   return `#${channel(0)}${channel(8)}${channel(4)}`.toUpperCase()
 }
 
-function isDark(hex: string): boolean {
+function luma(hex: string): number {
   const r = parseInt(hex.slice(1, 3), 16)
   const g = parseInt(hex.slice(3, 5), 16)
   const b = parseInt(hex.slice(5, 7), 16)
-  return (r * 299 + g * 587 + b * 114) / 1000 / 255 < 0.5
+  return (r * 299 + g * 587 + b * 114) / 1000 / 255
 }
 
-/** Escreve `--primary`, `--primary-foreground`, `--ring` e `--primary-rgb`; hex inválido usa o DEFAULT_ACCENT. */
+function isDark(hex: string): boolean {
+  return luma(hex) < 0.5
+}
+
+/** Escreve `--primary`, `--primary-foreground`, `--ring`, `--primary-rgb` e `--ui-switch-knob-on`; hex inválido usa o DEFAULT_ACCENT. */
 export function applyAccentColor(hex: string): void {
   if (typeof document === 'undefined') return
   const color = isHexColor(hex) ? hex : DEFAULT_ACCENT
@@ -83,6 +87,7 @@ export function applyAccentColor(hex: string): void {
   root.style.setProperty('--primary', token)
   root.style.setProperty('--ring', token)
   root.style.setProperty('--primary-foreground', isDark(color) ? '210 40% 98%' : '240 10% 4%')
+  root.style.setProperty('--ui-switch-knob-on', luma(color) > 0.75 ? '240 10% 4%' : '0 0% 100%')
   root.style.setProperty(
     '--primary-rgb',
     `${parseInt(color.slice(1, 3), 16)}, ${parseInt(color.slice(3, 5), 16)}, ${parseInt(color.slice(5, 7), 16)}`,
