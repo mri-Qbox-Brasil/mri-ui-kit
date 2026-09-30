@@ -99,6 +99,11 @@ todos seguindo o `--radius`) ou `rounded-full`. Nada de `rounded-[12px]` nem
 | `mri-surface` | janela/painel principal, modal, tooltip, menu flutuante |
 | `mri-surface-card` | blocos de conteúdo: cards, seções, slots |
 
+Uma superfície por área: cada `bg-background`/`bg-card` empilhado multiplica a
+opacidade (três camadas a 0.7 dão ~97% opaco e o glass some). O `MriDashboardLayout`
+não pinta fundo; a superfície é o `MriTabletFrame` ou, num plugin do Qadmin, o host.
+Não ponha `bg-background` em wrappers entre eles.
+
 Não marque inputs, linhas de lista/tabela, badges, chips, toggles. Os componentes
 `MriCard`, `MriModal`/`MriDialog`, `MriDrawer`, `MriActionCard`, `MriEconomyCard` e
 `MriTabletFrame` já vêm marcados.
@@ -210,15 +215,15 @@ Payload sempre dentro de `data` quando o `useNuiEvent` do resource lê `event.da
 
 ## 7. Fonte
 
-O resource não carrega fonte: o CSS do kit (`themes.css`, incluído no
-`dist/style.css`) já traz pelo Google Fonts as famílias do seletor do `/uiconfig`
-(Saira, Inter, Roboto, Poppins, Montserrat). O resource só usa
-`var(--ui-font-family, 'Saira', ui-sans-serif, sans-serif)`, e a fonte escolhida
-no `/uiconfig` troca em toda a suíte ao mesmo tempo.
+O resource não carrega fonte. O `themes.css` do kit pré-carrega Saira, Inter,
+Roboto, Poppins e Montserrat, e qualquer outra família do Google Fonts escolhida
+no `/uiconfig` é baixada na hora pelo `applyUiConfig` (`loadGoogleFont`), sem
+rebuild. O resource só usa `var(--ui-font-family, 'Saira', ui-sans-serif,
+sans-serif)`, e a fonte troca em toda a suíte ao mesmo tempo. Resource com
+`applyUiConfig` próprio (não o do kit) chama `loadGoogleFont(cfg.fontFamily)`.
 
 Nunca hospede fonte no resource (`.woff2`, `@font-face`, fonte no `files` do
 `fxmanifest.lua`): ela só existe naquele resource e ele deixa de trocar junto.
-Família nova no seletor do ox_lib entra também no `@import` do `themes.css`.
 
 ## 8. Validação
 

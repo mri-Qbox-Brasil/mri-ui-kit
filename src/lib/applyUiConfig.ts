@@ -49,6 +49,31 @@ function isValidHex(value: unknown): value is string {
   return typeof value === 'string' && HEX_RE.test(value)
 }
 
+const FONT_NAME_RE = /^[A-Za-z0-9][A-Za-z0-9 -]{0,63}$/
+const requestedFonts = new Set<string>()
+
+/**
+ * Carrega uma família do Google Fonts em runtime (uma vez por página): pede os
+ * pesos 300..700 e, se a família não tiver algum, cai só no peso normal.
+ */
+export function loadGoogleFont(family: string): void {
+  if (typeof document === 'undefined') return
+  const name = family.trim()
+  if (!FONT_NAME_RE.test(name) || requestedFonts.has(name)) return
+  requestedFonts.add(name)
+
+  const base = `https://fonts.googleapis.com/css2?family=${name.replace(/ /g, '+')}`
+  const link = document.createElement('link')
+  link.rel = 'stylesheet'
+  link.dataset.mriFont = name
+  link.href = `${base}:wght@300;400;500;600;700&display=swap`
+  link.onerror = () => {
+    link.onerror = null
+    link.href = `${base}&display=swap`
+  }
+  document.head.appendChild(link)
+}
+
 /**
  * Escreve as CSS vars herdadas em `document.documentElement`.
  * No-op seguro quando `cfg` é nulo/indefinido ou fora de um DOM.
@@ -62,6 +87,7 @@ export function applyUiConfig(cfg: MriUiConfig | null | undefined): void {
   }
 
   if (cfg.fontFamily) {
+    loadGoogleFont(cfg.fontFamily)
     root.style.setProperty(
       '--ui-font-family',
       `"${cfg.fontFamily}", "Saira", ui-sans-serif, sans-serif`,

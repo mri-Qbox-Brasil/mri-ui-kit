@@ -3,8 +3,9 @@
  * Tailwind, serve pra resource com CSS próprio. O dist/style.css já inclui.
  * O tema vem do data-theme no <html> (applyUiConfig do ox_lib).
  *
- * Fontes: as mesmas famílias do seletor do /uiconfig do ox_lib, pelo Google
- * Fonts. A escolhida chega em --ui-font-family em todo resource da suíte.
+ * Fontes: estas vêm pré-carregadas; qualquer outra família do Google Fonts
+ * escolhida no /uiconfig é carregada em runtime pelo applyUiConfig
+ * (loadGoogleFont). A escolhida chega em --ui-font-family em todo resource.
  */
 
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300..700&family=Montserrat:wght@300..700&family=Poppins:wght@300;400;500;600;700&family=Roboto:wght@300..700&family=Saira:ital,wght@0,100..900;1,100..900&display=swap');
