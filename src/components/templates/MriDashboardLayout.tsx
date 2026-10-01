@@ -46,7 +46,7 @@ export function MriDashboardLayout({
             {topbarPlacement === 'aside' && topbar}
             {header}
             {subnav && <div className="shrink-0">{subnav}</div>}
-            <main className={cn('flex-1 overflow-y-auto bg-background text-foreground', mainClassName)}>
+            <main className={cn('flex-1 overflow-y-auto text-foreground', mainClassName)}>
                 {children}
             </main>
             {footer && (
@@ -65,8 +65,10 @@ export function MriDashboardLayout({
         </div>
     )
 
+    // No background: the surface is the frame or the host; stacked bg-background kills the glass.
     return (
-        <div className={cn('h-screen w-full flex flex-col bg-background text-foreground overflow-hidden', className)}>
+        // Inside MriTabletFrame fill the frame, not the viewport (h-screen would cut the scroll).
+        <div className={cn('h-screen [.mri-tablet-frame_&]:h-full w-full flex flex-col text-foreground overflow-hidden', className)}>
             {topbarPlacement === 'below' && topbar}
             {body}
         </div>
