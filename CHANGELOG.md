@@ -1,3 +1,10 @@
+## [4.31.2](https://github.com/mri-Qbox-Brasil/mri-ui-kit/compare/v4.31.1...v4.31.2) (2026-10-01)
+
+
+### Bug Fixes
+
+* **layout:** MriDashboardLayout sem fundo proprio e com a altura do MriTabletFrame ([290e4e1](https://github.com/mri-Qbox-Brasil/mri-ui-kit/commit/290e4e1faead4286c577f84bf01220a6c4c276ff))
+
 ## [4.31.1](https://github.com/mri-Qbox-Brasil/mri-ui-kit/compare/v4.31.0...v4.31.1) (2026-09-30)
 
 
