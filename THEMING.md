@@ -244,7 +244,7 @@ export function applySuiteUiConfig(cfg: SuiteUiConfig | null | undefined) {
   applyUiConfig(cfg);
   setAccentOverride(cfg.accentColor);
   setBackgroundOverride(cfg.backgroundColor);
-  document.documentElement.setAttribute('data-theme', cfg.theme === 'glass' ? 'glass' : 'dark');
+  document.documentElement.setAttribute('data-theme', cfg.theme === 'glass' || cfg.theme === 'liquid' ? cfg.theme : 'dark');
 }
 
 fetchNui<SuiteUiConfig>('getUiConfig').then(applySuiteUiConfig);
