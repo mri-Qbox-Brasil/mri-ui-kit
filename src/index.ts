@@ -111,3 +111,6 @@ export * from './lib/applyUiConfig'
 
 // Accent e fundo da suíte (convars mri:color / mri:backgroundColor) → CSS vars.
 export * from './lib/suiteColors'
+
+// Blur do jogo atrás de elementos data-glass (liquid glass na NUI).
+export * from './lib/gameGlass'

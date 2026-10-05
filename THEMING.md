@@ -125,6 +125,21 @@ Armadilhas já vividas:
 - `box-shadow` do elemento marcado é substituído no glass (soma só as sombras do
   Tailwind via `--tw-shadow`).
 
+### Blur do jogo atrás da superfície (`startGameGlass`)
+
+Pra ver o jogo desfocado atrás do vidro, chame `startGameGlass()` uma vez no boot da NUI
+e marque o elemento com `data-glass` (fosco) ou `data-glass="liquid"` (borda em bisel que
+refrata o fundo, separação de cor e brilho). O jogo entra como textura WebGL pelo hook da
+cfx e é desenhado num canvas atrás da UI, no formato do elemento.
+
+- `html`, `body` e root transparentes; o root acima do canvas (`position: relative;
+  z-index: 1`).
+- A cor e a opacidade da superfície viram a tinta por cima do blur: mantenha baixas.
+- Fora do jogo só liga com `fallbackImage` (dev). Story: `Lib/GameGlass`.
+- Ajuste fino por elemento: `data-glass-bezel`, `data-glass-refraction` (px),
+  `data-glass-dispersion`, `data-glass-specular` (0..1). Saída: `data-glass-backdrop`
+  (`bright`/`dark`) pra trocar a cor do texto.
+
 ## 5. Accent e fundo (convars)
 
 ```ts
