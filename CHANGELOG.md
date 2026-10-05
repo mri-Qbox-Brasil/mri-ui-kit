@@ -1,3 +1,10 @@
+# [4.34.0](https://github.com/mri-Qbox-Brasil/mri-ui-kit/compare/v4.33.1...v4.34.0) (2026-10-05)
+
+
+### Features
+
+* **gameGlass:** núcleo do vidro vem do pacote público mri-fivem-liquid-glass ([3b3cc42](https://github.com/mri-Qbox-Brasil/mri-ui-kit/commit/3b3cc42118ea4ee6d2f8a9c8f541ef831a9bf9f8))
+
 ## [4.33.1](https://github.com/mri-Qbox-Brasil/mri-ui-kit/compare/v4.33.0...v4.33.1) (2026-10-05)
 
 
