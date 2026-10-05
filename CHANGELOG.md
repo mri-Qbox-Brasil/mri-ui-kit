@@ -1,3 +1,10 @@
+# [4.33.0](https://github.com/mri-Qbox-Brasil/mri-ui-kit/compare/v4.32.0...v4.33.0) (2026-10-05)
+
+
+### Features
+
+* **theme:** tema liquid da suite com startSuiteGlass ([de05c46](https://github.com/mri-Qbox-Brasil/mri-ui-kit/commit/de05c46d15247464948e7f6a55254a67d5fb41a1))
+
 # [4.32.0](https://github.com/mri-Qbox-Brasil/mri-ui-kit/compare/v4.31.3...v4.32.0) (2026-10-05)
 
 
