@@ -16,6 +16,7 @@ const globals = {
   react: 'React',
   'react-dom': 'ReactDOM',
   'react/jsx-runtime': 'jsxRuntime',
+  'mri-fivem-liquid-glass': 'MriLiquidGlass',
 }
 
 export default defineConfig({

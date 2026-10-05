@@ -130,7 +130,9 @@ Armadilhas já vividas:
 Pra ver o jogo desfocado atrás do vidro, chame `startGameGlass()` uma vez no boot da NUI
 e marque o elemento com `data-glass` (fosco) ou `data-glass="liquid"` (borda em bisel que
 refrata o fundo, separação de cor e brilho). O jogo entra como textura WebGL pelo hook da
-cfx e é desenhado num canvas atrás da UI, no formato do elemento.
+cfx e é desenhado num canvas atrás da UI, no formato do elemento. O núcleo vem do pacote
+público [`mri-fivem-liquid-glass`](https://github.com/mur4i/mri-fivem-liquid-glass), que o
+kit reexporta (log no jogo com o prefixo `[liquid-glass]`).
 
 - `html`, `body` e root transparentes; o root acima do canvas (`position: relative;
   z-index: 1`).
