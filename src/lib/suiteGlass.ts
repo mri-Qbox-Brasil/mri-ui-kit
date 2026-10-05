@@ -1,7 +1,11 @@
 import { startGameGlass, type GameGlassHandle, type GameGlassOptions } from './gameGlass'
 
-/** Superfícies da suíte no tema liquid, mais quem marcar data-glass à mão. */
-const SUITE_SELECTOR = ":root[data-theme='liquid'] .mri-surface, [data-glass]"
+/**
+ * Top-level suite surfaces in the liquid theme, plus anything marked data-glass by hand.
+ * A surface inside another one is skipped: the glass only clips to the first overflow
+ * parent, so a nested tile scrolled out of a list would be drawn outside the panel.
+ */
+const SUITE_SELECTOR = ":root[data-theme='liquid'] .mri-surface:not(.mri-surface .mri-surface), [data-glass]"
 
 /**
  * startSuiteGlass — liga o vidro do jogo conforme o tema da suíte (data-theme no <html>).

@@ -152,6 +152,7 @@ startSuiteGlass();
 ```
 
 - Liga e desliga sozinho quando o tema muda; nos outros temas só vale o `data-glass` marcado à mão.
+- Só a superfície de topo ganha o vidro: `.mri-surface` dentro de outra (ícone, tile) fica de fora.
 - A tinta do painel é a opacidade do `/uiconfig` vezes 0.4 (vezes 0.6 nos cards); inputs e
   linhas dentro dele voltam à opacidade normal.
 - Mesmo cuidado do `startGameGlass`: root acima do canvas, `html` e `body` transparentes.
