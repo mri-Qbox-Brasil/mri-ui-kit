@@ -114,3 +114,4 @@ export * from './lib/suiteColors'
 
 // Blur do jogo atrás de elementos data-glass (liquid glass na NUI).
 export * from './lib/gameGlass'
+export * from './lib/suiteGlass'

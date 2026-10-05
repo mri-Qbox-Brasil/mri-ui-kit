@@ -59,3 +59,39 @@
         var(--tw-ring-shadow, 0 0 #0000),
         var(--tw-shadow, 0 0 #0000);
 }
+
+/*
+ * Vidro líquido: o jogo desfocado atrás das superfícies (startSuiteGlass liga o
+ * startGameGlass nas .mri-surface deste tema). A tinta do painel fica baixa pro
+ * jogo aparecer; dentro dele, inputs e linhas voltam à opacidade normal.
+ */
+:root[data-theme='liquid']:not(.light) {
+    --ui-border-hsl: 0 0% 100%;
+    --ui-border-alpha: 0.16;
+}
+
+:root[data-theme='liquid']:not(.light) .mri-surface {
+    --ui-surface-alpha: calc(var(--ui-opacity, 1) * 0.4);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.22),
+        inset 1px 0 0 rgba(255, 255, 255, 0.06),
+        var(--tw-ring-offset-shadow, 0 0 #0000),
+        var(--tw-ring-shadow, 0 0 #0000),
+        var(--tw-shadow, 0 0 #0000);
+}
+
+:root[data-theme='liquid']:not(.light) .mri-surface * {
+    --ui-surface-alpha: var(--ui-opacity, 1);
+}
+
+:root[data-theme='liquid']:not(.light) .mri-surface-card {
+    --ui-surface-alpha-card: calc(var(--ui-opacity, 1) * 0.6);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.12),
+        var(--tw-ring-offset-shadow, 0 0 #0000),
+        var(--tw-ring-shadow, 0 0 #0000),
+        var(--tw-shadow, 0 0 #0000);
+}
+
+/* Fundo claro atrás do vidro (data-glass-backdrop do startGameGlass): texto escuro. */
+:root[data-theme='liquid']:not(.light) .mri-surface[data-glass-backdrop='bright'] {
+    color: hsl(240 10% 10%);
+}

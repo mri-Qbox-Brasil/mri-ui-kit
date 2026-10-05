@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react'
-import { useEffect, useRef, type CSSProperties } from 'react'
+import { useEffect, useRef, useState, type CSSProperties } from 'react'
 import { startGameGlass } from './gameGlass'
+import { startSuiteGlass } from './suiteGlass'
 
 // Stands in for the GTA frame: busy enough to show blur, refraction and color split.
 function paintScene(canvas: HTMLCanvasElement) {
@@ -58,6 +59,43 @@ function Demo() {
   )
 }
 
+// Tema da suíte: .mri-surface ganha o vidro com data-theme='liquid' no <html>, sem data-glass.
+function SuiteDemo({ theme: initial }: { theme: 'glass' | 'liquid' }) {
+  const scene = useRef<HTMLCanvasElement>(null)
+  const [theme, setTheme] = useState(initial)
+
+  useEffect(() => {
+    document.documentElement.setAttribute('data-theme', theme)
+  }, [theme])
+
+  useEffect(() => {
+    if (!scene.current) return
+    paintScene(scene.current)
+    const handle = startSuiteGlass({ fallbackImage: scene.current, temporal: 1 })
+    return () => handle.stop()
+  }, [])
+
+  return (
+    <>
+      <style>{'html, body, #storybook-root { background: transparent !important; }'}</style>
+      <canvas ref={scene} style={{ position: 'fixed', inset: 0, zIndex: -1 }} />
+      <div style={{ position: 'fixed', inset: 0, zIndex: 1 }} className="dark text-foreground">
+        <div className="mri-surface absolute left-16 top-16 w-[380px] space-y-3 rounded-xl border border-border bg-background p-5 shadow-2xl">
+          <p className="text-sm font-semibold">Menu de contexto</p>
+          <div className="mri-surface-card rounded-lg border border-border bg-card p-3 text-sm">Card dentro do painel</div>
+          <input className="w-full rounded-md border border-border bg-background px-3 py-2 text-sm" placeholder="Input" />
+          <button
+            className="rounded-md bg-primary px-3 py-2 text-sm text-primary-foreground"
+            onClick={() => setTheme((t) => (t === 'liquid' ? 'glass' : 'liquid'))}
+          >
+            Tema: {theme}
+          </button>
+        </div>
+      </div>
+    </>
+  )
+}
+
 const meta = {
   title: 'Lib/GameGlass',
   component: Demo,
@@ -68,3 +106,7 @@ export default meta
 type Story = StoryObj<typeof meta>
 
 export const Showcase: Story = {}
+
+export const SuiteLiquid: StoryObj<typeof SuiteDemo> = { render: () => <SuiteDemo theme="liquid" /> }
+
+export const SuiteGlass: StoryObj<typeof SuiteDemo> = { render: () => <SuiteDemo theme="glass" /> }
