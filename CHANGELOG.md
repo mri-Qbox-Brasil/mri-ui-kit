@@ -1,3 +1,10 @@
+## [4.31.3](https://github.com/mri-Qbox-Brasil/mri-ui-kit/compare/v4.31.2...v4.31.3) (2026-10-05)
+
+
+### Performance Improvements
+
+* **animation:** pulsos finitos no preset e nos estados que ficavam piscando ([0d2f793](https://github.com/mri-Qbox-Brasil/mri-ui-kit/commit/0d2f793da554cd908e9e9535891dea151f97e347))
+
 ## [4.31.2](https://github.com/mri-Qbox-Brasil/mri-ui-kit/compare/v4.31.1...v4.31.2) (2026-10-01)
 
 
