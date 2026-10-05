@@ -1,3 +1,10 @@
+## [4.33.1](https://github.com/mri-Qbox-Brasil/mri-ui-kit/compare/v4.33.0...v4.33.1) (2026-10-05)
+
+
+### Bug Fixes
+
+* **theme:** vidro da suite so na superficie de topo, sem vazar icones da lista ([7ba6543](https://github.com/mri-Qbox-Brasil/mri-ui-kit/commit/7ba654374fab09c24932124b7d072d3b5ead86b9))
+
 # [4.33.0](https://github.com/mri-Qbox-Brasil/mri-ui-kit/compare/v4.32.0...v4.33.0) (2026-10-05)
 
 
