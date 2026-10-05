@@ -140,19 +140,24 @@ cfx e é desenhado num canvas atrás da UI, no formato do elemento.
   `data-glass-dispersion`, `data-glass-specular` (0..1). Saída: `data-glass-backdrop`
   (`bright`/`dark`) pra trocar a cor do texto.
 
-### Tema  da suíte ()
+### Tema `liquid` da suíte (`startSuiteGlass`)
 
-Com  no  (escolhido no  ou pelo jogador), toda
- vira vidro fosco com o jogo desfocado atrás. Basta chamar uma vez no boot:
+Com `data-theme='liquid'` no `<html>` (escolhido no `/uiconfig` ou pelo jogador), toda
+`.mri-surface` vira vidro fosco com o jogo desfocado atrás. Basta chamar uma vez no boot:
 
-\
-- Liga e desliga sozinho quando o tema muda; nos outros temas só vale o  marcado à mão.
-- A tinta do painel é a opacidade do  vezes 0.4 (vezes 0.6 nos cards); inputs e
+```ts
+import { startSuiteGlass } from '@mriqbox/ui-kit';
+
+startSuiteGlass();
+```
+
+- Liga e desliga sozinho quando o tema muda; nos outros temas só vale o `data-glass` marcado à mão.
+- A tinta do painel é a opacidade do `/uiconfig` vezes 0.4 (vezes 0.6 nos cards); inputs e
   linhas dentro dele voltam à opacidade normal.
-- Mesmo cuidado do : root acima do canvas, / transparentes.
-- Não marque como  tela que fica aberta o tempo todo (HUD): cada página com vidro
+- Mesmo cuidado do `startGameGlass`: root acima do canvas, `html` e `body` transparentes.
+- Não marque como `mri-surface` tela que fica aberta o tempo todo (HUD): cada página com vidro
   visível desenha a cada frame.
-- Stories:  >  e  (o botão alterna o tema).
+- Stories: `Lib/GameGlass` > `Suite Liquid` e `Suite Glass` (o botão alterna o tema).
 
 ## 5. Accent e fundo (convars)
 
