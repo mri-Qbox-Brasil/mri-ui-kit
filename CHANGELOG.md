@@ -1,3 +1,10 @@
+# [4.32.0](https://github.com/mri-Qbox-Brasil/mri-ui-kit/compare/v4.31.3...v4.32.0) (2026-10-05)
+
+
+### Features
+
+* **gameGlass:** blur do jogo atrás de elementos data-glass, com modo liquid ([ead2efa](https://github.com/mri-Qbox-Brasil/mri-ui-kit/commit/ead2efaf66cf62ca32cdcb3182a5189741d98467))
+
 ## [4.31.3](https://github.com/mri-Qbox-Brasil/mri-ui-kit/compare/v4.31.2...v4.31.3) (2026-10-05)
 
 
