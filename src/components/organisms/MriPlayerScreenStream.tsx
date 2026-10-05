@@ -311,7 +311,7 @@ export function MriPlayerScreenStream({
             {error && (
                 <div className="absolute inset-0 flex flex-col items-center justify-center gap-4 text-red-400 z-10 bg-zinc-950/95 backdrop-blur-xl p-8 text-center animate-in zoom-in-95 duration-300">
                     <div className="w-12 h-12 rounded-full bg-red-500/10 flex items-center justify-center border border-red-500/20 shadow-[0_0_20px_rgba(239,68,68,0.1)]">
-                        <AlertCircle className="w-6 h-6 animate-bounce" />
+                        <AlertCircle className="w-6 h-6 animate-bounce-few" />
                     </div>
                     <div className="space-y-1">
                         <h4 className="text-sm font-black uppercase tracking-widest">{getLabel('error_title', 'Connection Failed')}</h4>

@@ -102,7 +102,7 @@ export function MriPlayerVitals({ vitals, size = 'compact', onAction, onIconClic
                             className={cn(
                                 "group/vital relative space-y-3 p-4 rounded-xl bg-card border border-border/50 transition-all cursor-pointer select-none overflow-hidden",
                                 "hover:border-primary/20 hover:bg-muted/50 hover:shadow-xl hover:shadow-black/20 active:scale-[0.98]",
-                                (isLow || isHigh) && "animate-pulse border-red-500/20 bg-red-500/[0.02]",
+                                (isLow || isHigh) && "animate-pulse-few border-red-500/20 bg-red-500/[0.02]",
                                 isDisabled && "opacity-40 grayscale pointer-events-none"
                             )}
                             onClick={!isDisabled ? () => onAction?.(v.key, label, val) : undefined}

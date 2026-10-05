@@ -89,7 +89,7 @@ export function MriVitalAdjustModal({
                         config.text,
                         config.border
                     )}>
-                        <Icon size={24} className="animate-pulse" />
+                        <Icon size={24} className="animate-pulse-few" />
                     </div>
                     <div>
                         <h2 className="text-xl font-black text-foreground tracking-tight uppercase">{displayTitle}</h2>

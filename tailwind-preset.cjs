@@ -92,6 +92,11 @@ module.exports = {
                 'accordion-down': 'accordion-down 0.2s ease-out',
                 'accordion-up': 'accordion-up 0.2s ease-out',
                 shimmer: 'shimmer 2s ease-in-out infinite',
+                // Finite on purpose: an infinite animation makes the FiveM CEF repaint every frame.
+                'ping-few': 'ping 1s cubic-bezier(0, 0, 0.2, 1) 3 forwards',
+                'pulse-few': 'pulse 2s cubic-bezier(0.4, 0, 0.6, 1) 3',
+                'pulse-once': 'pulse 0.8s cubic-bezier(0.4, 0, 0.6, 1) 1',
+                'bounce-few': 'bounce 1s 3',
             },
         },
     },
