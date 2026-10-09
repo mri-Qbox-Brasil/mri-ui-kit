@@ -1,3 +1,16 @@
+# [4.35.0](https://github.com/mri-Qbox-Brasil/mri-ui-kit/compare/v4.34.0...v4.35.0) (2026-10-09)
+
+
+### Bug Fixes
+
+* **plugin:** override de accent do /uiconfig na ponte, igual ao host ([99c094d](https://github.com/mri-Qbox-Brasil/mri-ui-kit/commit/99c094d185b14dc8841418400c299f5aa7690a4b))
+
+
+### Features
+
+* **plugin:** ponte de plugin do mri_Qadmin com o tema aplicado antes da pintura ([f79ee33](https://github.com/mri-Qbox-Brasil/mri-ui-kit/commit/f79ee33065b8cb5978a8ce009652ee604028dd44))
+* **plugin:** requestPluginClose e onInit na ponte de plugin ([bc6078f](https://github.com/mri-Qbox-Brasil/mri-ui-kit/commit/bc6078fbf08ac52a6de5b4e07ab9748e96290204))
+
 # [4.34.0](https://github.com/mri-Qbox-Brasil/mri-ui-kit/compare/v4.33.1...v4.34.0) (2026-10-05)
 
 
