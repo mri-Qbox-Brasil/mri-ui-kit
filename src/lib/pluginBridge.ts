@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { applyUiConfig, type MriUiConfig } from './applyUiConfig'
 import { DEFAULT_ACCENT, isHexColor, setSuiteAccent, setSuiteBackground } from './suiteColors'
 
@@ -44,6 +44,17 @@ export function isPluginEmbedded(): boolean {
   return typeof window !== 'undefined' && new URLSearchParams(window.location.search).get('embedded') === '1'
 }
 
+/** Posts to the mri_Qadmin host; no-op outside an iframe. */
+export function sendToPluginHost(msg: MriPluginGuestMessage): void {
+  if (typeof window === 'undefined' || window.self === window.top) return
+  window.parent.postMessage(msg, '*')
+}
+
+/** Asks the host to close the panel; usable outside React (stores, plain handlers). */
+export function requestPluginClose(): void {
+  sendToPluginHost({ type: 'mri-plugin/request-close' })
+}
+
 /** Applies the host theme: accent, background, /uiconfig and data-theme. */
 export function applyHostTheme(theme: { accentColor?: string; backgroundColor?: string; uiConfig?: MriPluginUiConfig | null }): void {
   if (isHexColor(theme.accentColor)) setSuiteAccent(theme.accentColor)
@@ -77,6 +88,8 @@ export interface UsePluginBridgeGuestOptions {
   applyTheme?: boolean
   /** ESC asks the host to close, since keys pressed in the iframe never reach it (default true). */
   closeOnEscape?: boolean
+  /** Runs on the host init, after the theme and before the first render with `initialized`. */
+  onInit?: (init: Extract<MriPluginHostMessage, { type: 'mri-plugin/init' }>) => void
   onClose?: () => void
   onNavigate?: (target: MriPluginTarget) => void
 }
@@ -108,11 +121,6 @@ export function usePluginBridgeGuest(options: UsePluginBridgeGuestOptions = {}):
     optionsRef.current = options
   })
 
-  const sendToHost = useCallback((msg: MriPluginGuestMessage) => {
-    if (typeof window === 'undefined' || window.self === window.top) return
-    window.parent.postMessage(msg, '*')
-  }, [])
-
   useEffect(() => {
     const onMessage = (event: MessageEvent) => {
       if (!isMriPluginMessage(event.data)) return
@@ -120,6 +128,7 @@ export function usePluginBridgeGuest(options: UsePluginBridgeGuestOptions = {}):
       switch (msg.type) {
         case 'mri-plugin/init':
           if (optionsRef.current.applyTheme !== false) applyHostTheme(msg)
+          optionsRef.current.onInit?.(msg)
           setState({
             accentColor: msg.accentColor,
             backgroundColor: msg.backgroundColor ?? '',
@@ -159,11 +168,11 @@ export function usePluginBridgeGuest(options: UsePluginBridgeGuestOptions = {}):
       }
     }
     window.addEventListener('message', onMessage)
-    sendToHost({ type: 'mri-plugin/ready' })
+    sendToPluginHost({ type: 'mri-plugin/ready' })
     return () => window.removeEventListener('message', onMessage)
-  }, [sendToHost])
+  }, [])
 
-  const requestClose = useCallback(() => sendToHost({ type: 'mri-plugin/request-close' }), [sendToHost])
+  const requestClose = requestPluginClose
 
   useEffect(() => {
     if (!closeOnEscape || !state.initialized) return

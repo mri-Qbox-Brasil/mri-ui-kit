@@ -282,6 +282,11 @@ function PluginTab() {
   `embedded` (`?embedded=1`) e `requestClose`.
 - Resource com modo próprio fora do Qadmin chama o hook sempre e usa o
   `embedded` para escolher a tela.
+- Desenhe o painel só depois do `initialized`. Spinner ou "Carregando" antes
+  dele já aparece com as cores padrão.
+- `onInit` roda no `init`, depois do tema e antes do primeiro render
+  (ex.: carregar o idioma sem piscar o texto). Fora do React (store, handler
+  solto), feche com `requestPluginClose()`.
 
 ## 7. Fonte
 
