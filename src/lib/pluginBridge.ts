@@ -1,9 +1,9 @@
 import { useEffect, useRef, useState } from 'react'
 import { applyUiConfig, type MriUiConfig } from './applyUiConfig'
-import { DEFAULT_ACCENT, isHexColor, setSuiteAccent, setSuiteBackground } from './suiteColors'
+import { DEFAULT_ACCENT, isHexColor, setAccentOverride, setSuiteAccent, setSuiteBackground } from './suiteColors'
 
 /** Visual config the mri_Qadmin host forwards from the ox_lib /uiconfig panel. */
-export type MriPluginUiConfig = MriUiConfig & { theme?: string }
+export type MriPluginUiConfig = MriUiConfig & { theme?: string; accentColor?: string }
 
 /** Messages the host (mri_Qadmin) posts to the plugin iframe. */
 export type MriPluginHostMessage =
@@ -62,6 +62,8 @@ export function applyHostTheme(theme: { accentColor?: string; backgroundColor?: 
   const cfg = theme.uiConfig
   if (!cfg || typeof cfg !== 'object' || typeof document === 'undefined') return
   applyUiConfig(cfg)
+  // Same precedence as the host: the /uiconfig accent overrides the convar; the background stays the host's.
+  setAccentOverride(cfg.accentColor)
   if (cfg.theme) {
     document.documentElement.setAttribute('data-theme', cfg.theme === 'glass' || cfg.theme === 'liquid' ? cfg.theme : 'dark')
   }
