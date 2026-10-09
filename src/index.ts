@@ -115,3 +115,6 @@ export * from './lib/suiteColors'
 // Blur do jogo atrás de elementos data-glass (liquid glass na NUI).
 export * from './lib/gameGlass'
 export * from './lib/suiteGlass'
+
+// Plugin guest of mri_Qadmin: postMessage bridge with the host theme applied before paint.
+export * from './lib/pluginBridge'

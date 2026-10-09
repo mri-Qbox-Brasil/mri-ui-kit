@@ -256,6 +256,33 @@ useNuiEvent<SuiteUiConfig>('applyUiConfig', applySuiteUiConfig);
 
 Payload sempre dentro de `data` quando o `useNuiEvent` do resource lê `event.data.data`.
 
+### Plugin do mri_Qadmin
+
+Dentro do Qadmin o tema vem do host pela ponte de plugin, não pelas seções 5 e 6. Use
+o `usePluginBridgeGuest` do kit, sem cópia local da ponte (`usePluginBridge.ts`,
+`types.ts`, `embed.ts`) nem hook de tema por cima:
+
+```tsx
+import { usePluginBridgeGuest } from '@mriqbox/ui-kit';
+
+function PluginTab() {
+  const bridge = usePluginBridgeGuest();
+  if (!bridge.initialized) return null;
+  return <Panel />;
+}
+```
+
+- Ele manda o `ready`, aplica accent, fundo, `/uiconfig` e `data-theme` assim que
+  chega o `init` (antes do React desenhar, então não pisca a cor padrão) e
+  reaplica no `theme-changed`.
+- ESC pede ao host pra fechar (a tecla no iframe não chega no Qadmin), menos com
+  dropdown, popover ou modal aberto. `closeOnEscape: false` desliga.
+- Devolve `locale`, `perms`, `visible` (painel escondido sem desmontar), `page`,
+  `category` e `focus` (do `init` e do `navigate`, também em `onNavigate`),
+  `embedded` (`?embedded=1`) e `requestClose`.
+- Resource com modo próprio fora do Qadmin chama o hook sempre e usa o
+  `embedded` para escolher a tela.
+
 ## 7. Fonte
 
 O resource não carrega fonte. O `themes.css` do kit pré-carrega Saira, Inter,
