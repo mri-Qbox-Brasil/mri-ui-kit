@@ -1,5 +1,6 @@
 import React from "react";
 import { MriButton, MriModal } from "../../index";
+import { MriModalClose } from "./MriModal";
 import { X, LucideIcon } from "lucide-react";
 import { cn } from "../../lib/utils";
 
@@ -30,7 +31,7 @@ export const MriActionModal = ({
   cancelLabel = "Cancel",
   isConfirmDisabled = false,
   maxWidth = "max-w-sm",
-  hideBlur = false,
+  hideBlur = true,
   hideOverlay = false,
   children,
 }: MriActionModalProps) => {
@@ -57,21 +58,29 @@ export const MriActionModal = ({
           </div>
           <p className="font-bold text-lg text-foreground">{title}</p>
         </div>
-        <button
-          type="button"
-          onClick={onClose}
-          className="text-muted-foreground hover:text-foreground transition-colors"
-        >
-          <X className="w-5 h-5" />
-        </button>
+        <MriModalClose>
+          {(close) => (
+            <button
+              type="button"
+              onClick={close}
+              className="text-muted-foreground hover:text-foreground transition-colors"
+            >
+              <X className="w-5 h-5" />
+            </button>
+          )}
+        </MriModalClose>
       </div>
 
       <div className="space-y-4">{children}</div>
 
       <div className="mt-6 flex gap-3">
-        <MriButton type="button" onClick={onClose} variant="ghost" className="flex-1">
-          {cancelLabel}
-        </MriButton>
+        <MriModalClose>
+          {(close) => (
+            <MriButton type="button" onClick={close} variant="ghost" className="flex-1">
+              {cancelLabel}
+            </MriButton>
+          )}
+        </MriModalClose>
         {onConfirm && (
           <MriButton
             type="button"

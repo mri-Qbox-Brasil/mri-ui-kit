@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { MriModal } from '@/components/molecules/MriModal'
+import { MriModal, MriModalClose } from '@/components/molecules/MriModal'
 import { MriButton } from '@/components/atoms/MriButton'
 import { MriSlider } from '@/components/atoms/MriSlider'
 import { Save, X, type LucideIcon } from 'lucide-react'
@@ -78,7 +78,7 @@ export function MriVitalAdjustModal({
     const displayNewValue = newValueLabel || getLabel('newValue', 'New Value')
 
     return (
-        <MriModal hideBlur={hideBlur} hideOverlay={hideOverlay} onClose={onClose} className="w-[420px] p-0 bg-card/95 border-primary/10 backdrop-blur-xl shadow-2xl overflow-hidden animate-in zoom-in-95 duration-200">
+        <MriModal hideBlur={hideBlur} hideOverlay={hideOverlay} onClose={onClose} className="w-[420px] p-0 bg-card/95 border-primary/10 backdrop-blur-xl shadow-2xl overflow-hidden">
             {/* Header */}
             <div className="p-6 pb-4 border-b border-border/40 relative overflow-hidden">
                 <div className={`absolute top-0 right-0 w-32 h-32 ${config.bg}/5 blur-3xl rounded-full -mr-16 -mt-16`} />
@@ -129,14 +129,18 @@ export function MriVitalAdjustModal({
 
             {/* Footer */}
             <div className="p-6 pt-2 flex gap-4 bg-muted/30">
-                <MriButton
-                    type="button"
-                    variant="ghost"
-                    className="flex-1 h-12 gap-2 text-muted-foreground border border-transparent hover:border-border/50 transition-all uppercase text-xs"
-                    onClick={onClose}
-                >
-                    <X size={16} /> {displayCancel}
-                </MriButton>
+                <MriModalClose>
+                    {(close) => (
+                        <MriButton
+                            type="button"
+                            variant="ghost"
+                            className="flex-1 h-12 gap-2 text-muted-foreground border border-transparent hover:border-border/50 transition-all uppercase text-xs"
+                            onClick={close}
+                        >
+                            <X size={16} /> {displayCancel}
+                        </MriButton>
+                    )}
+                </MriModalClose>
                 <MriButton
                     type="button"
                     variant="default"

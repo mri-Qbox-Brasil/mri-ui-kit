@@ -77,7 +77,7 @@ npx @mriqbox/ui-kit add mri-button
 | Componente | Descrição |
 |-----------|-------------|
 | `MriCard` | Container de cartão com Header, Content e Footer |
-| `MriModal` | Dialog modal com overlay e animações |
+| `MriModal` | Dialog modal com fundo leve (preto 40%, sem blur) e fade de entrada e saída. Botão de dentro fecha com `useMriModalClose()` ou `<MriModalClose>` pra animar a saída antes do `onClose` |
 | `MriSelect` | Dropdown select com busca e single/multi select |
 | `MriDatePicker` | Seleção de data com calendário e presets |
 | `MriThemeToggle` | Toggle de modo claro/escuro |
