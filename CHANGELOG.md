@@ -1,3 +1,10 @@
+# [4.36.0](https://github.com/mri-Qbox-Brasil/mri-ui-kit/compare/v4.35.0...v4.36.0) (2026-10-12)
+
+
+### Features
+
+* **modal:** light backdrop without blur, smooth fade in and out, and animated close for the modal's own buttons ([ba79740](https://github.com/mri-Qbox-Brasil/mri-ui-kit/commit/ba797401da0b6ed8c2a2f1b2bb9ded810bcb5f77))
+
 # [4.35.0](https://github.com/mri-Qbox-Brasil/mri-ui-kit/compare/v4.34.0...v4.35.0) (2026-10-09)
 
 
