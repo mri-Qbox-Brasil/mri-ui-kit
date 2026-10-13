@@ -1,3 +1,10 @@
+## [4.36.1](https://github.com/mri-Qbox-Brasil/mri-ui-kit/compare/v4.36.0...v4.36.1) (2026-10-13)
+
+
+### Bug Fixes
+
+* **ci:** concede packages read ao update-actions apos a troca para o app ([4f70ac1](https://github.com/mri-Qbox-Brasil/mri-ui-kit/commit/4f70ac1e223fbb6ce8cf37233773a07f6d771b75))
+
 # [4.36.0](https://github.com/mri-Qbox-Brasil/mri-ui-kit/compare/v4.35.0...v4.36.0) (2026-10-12)
 
 
