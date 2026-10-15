@@ -5,16 +5,16 @@ import { cn } from '@/lib/utils'
 export interface MriBlipSpriteProps {
     /** URL completa do sprite (PNG/WEBP). */
     src: string
-    /** Cor do blip. Com ela o sprite e tingido via CSS mask; sem ela vira `<img>`. */
+    /** Cor do blip. Com ela o sprite é tingido mantendo o contorno; sem ela vira `<img>`. */
     tint?: string
     className?: string
     style?: React.CSSProperties
 }
 
 /**
- * Sprite de blip do FiveM. Usa `mask-image` pra tingir o PNG/WEBP na cor
- * escolhida (o mesmo efeito do jogo, onde o sprite branco recebe o color ID);
- * sem `tint` cai num `<img>` normal. Erro de carregamento vira um placeholder
+ * Sprite de blip do FiveM. Com `tint`, a cor entra em multiply só dentro do
+ * sprite, então o branco vira a cor do blip e o contorno escuro continua
+ * (o mesmo efeito do jogo); sem `tint` cai num `<img>` normal. Erro de carregamento vira um placeholder
  * `?` com o motivo no `title` em vez de imagem quebrada.
  *
  * ```tsx
@@ -54,22 +54,25 @@ export function MriBlipSprite({ src, tint, className, style }: MriBlipSpriteProp
     }
 
     if (tint) {
+        // Multiply keeps the sprite's dark outline; a plain mask would flatten it into the tint.
         return (
-            <div
-                className={className}
-                style={{
-                    ...style,
-                    backgroundColor: tint,
-                    WebkitMaskImage: `url(${src})`,
-                    maskImage: `url(${src})`,
-                    WebkitMaskSize: 'contain',
-                    maskSize: 'contain',
-                    WebkitMaskRepeat: 'no-repeat',
-                    maskRepeat: 'no-repeat',
-                    WebkitMaskPosition: 'center',
-                    maskPosition: 'center',
-                }}
-            />
+            <div className={cn('relative isolate', className)} style={style}>
+                <img
+                    src={src}
+                    alt=""
+                    draggable={false}
+                    className="absolute inset-0 h-full w-full object-contain"
+                />
+                <div
+                    className="absolute inset-0"
+                    style={{
+                        backgroundColor: tint,
+                        mixBlendMode: 'multiply',
+                        WebkitMask: `url(${src}) center/contain no-repeat`,
+                        mask: `url(${src}) center/contain no-repeat`,
+                    }}
+                />
+            </div>
         )
     }
 
