@@ -1,3 +1,10 @@
+## [4.36.2](https://github.com/mri-Qbox-Brasil/mri-ui-kit/compare/v4.36.1...v4.36.2) (2026-10-15)
+
+
+### Bug Fixes
+
+* **blip-sprite:** tint keeps the sprite's dark outline instead of flattening it ([33c6e78](https://github.com/mri-Qbox-Brasil/mri-ui-kit/commit/33c6e787b5fb95081603969cb782a619e6f9a390))
+
 ## [4.36.1](https://github.com/mri-Qbox-Brasil/mri-ui-kit/compare/v4.36.0...v4.36.1) (2026-10-13)
 
 
