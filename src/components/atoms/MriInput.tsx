@@ -27,14 +27,15 @@ export const MriInput = React.forwardRef<HTMLInputElement, MriInputProps>(
             className={cn(
               'w-full rounded-lg border bg-background/50 text-foreground focus:border-ring focus:outline-none placeholder:text-muted-foreground transition-colors disabled:opacity-50',
               size === 'default' ? 'h-9 text-sm' : 'h-8 text-xs',
-              leftIcon ? 'pl-9' : 'px-3',
-              rightIcon ? 'pr-9' : 'px-3',
+              leftIcon ? 'pl-9' : 'pl-3',
+              rightIcon ? 'pr-9' : 'pr-3',
               hasError ? 'border-destructive focus:border-destructive' : 'border-input',
               className
             )}
           />
           {rightIcon && (
-            <div className="absolute right-3 flex items-center justify-center text-muted-foreground pointer-events-none [&>svg]:size-4">
+            // A plain icon lets the click reach the input; a button (show password, clear) stays clickable.
+            <div className="absolute right-3 flex items-center justify-center text-muted-foreground pointer-events-none [&>svg]:size-4 [&_button]:pointer-events-auto [&_a]:pointer-events-auto">
               {rightIcon}
             </div>
           )}
