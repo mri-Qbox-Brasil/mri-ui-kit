@@ -154,6 +154,21 @@
     box-shadow: 0 0 0 3px hsl(var(--primary) / 0.35);
 }
 
+.mri-map-bare {
+    position: relative;
+    border-radius: 9999px;
+    cursor: pointer;
+    transition: transform 120ms ease;
+}
+
+.mri-map-bare:hover {
+    transform: scale(1.2);
+}
+
+.mri-map-bare.is-active {
+    box-shadow: 0 0 0 3px hsl(var(--background)), 0 0 0 5px hsl(var(--primary));
+}
+
 .mri-map-pin-count {
     position: absolute;
     top: -6px;

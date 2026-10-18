@@ -148,15 +148,16 @@ export interface MriMapMarkerProps {
   onClick?: () => void
   /** Makes the pin draggable; returns where it was dropped, keeping the original z. */
   onDragEnd?: (point: MriMapPoint) => void
-  /** Full custom pin (sprite, photo): replaces the default look and is drawn as given. */
-  icon?: L.DivIcon
+  /** Draws html as given, without the round pin around it (sprites, photos). */
+  bare?: boolean
   zIndexOffset?: number
 }
 
-function pinIcon(html: string | undefined, size: number, active: boolean, count?: number) {
+function pinIcon(html: string | undefined, size: number, active: boolean, bare: boolean, count?: number) {
   const badge = count && count > 1 ? `<span class="mri-map-pin-count">${count}</span>` : ''
+  const look = bare ? 'mri-map-bare' : `mri-map-pin${html ? '' : ' is-dot'}`
   return L.divIcon({
-    html: `<div class="mri-map-pin${active ? ' is-active' : ''}${html ? '' : ' is-dot'}" style="width:${size}px;height:${size}px">${html ?? ''}${badge}</div>`,
+    html: `<div class="${look}${active ? ' is-active' : ''}" style="width:${size}px;height:${size}px">${html ?? ''}${badge}</div>`,
     className: 'mri-map-pin-root',
     iconSize: [size, size],
     iconAnchor: [size / 2, size / 2],
@@ -164,9 +165,9 @@ function pinIcon(html: string | undefined, size: number, active: boolean, count?
 }
 
 /** A pin on the map in world coordinates, with the panel theme. */
-export function MriMapMarker({ position, html, size, active = false, count, tooltip, permanent, onClick, onDragEnd, icon, zIndexOffset }: MriMapMarkerProps) {
+export function MriMapMarker({ position, html, size, active = false, count, tooltip, permanent, onClick, onDragEnd, bare = false, zIndexOffset }: MriMapMarkerProps) {
   const px = size ?? (html ? (active ? 34 : 28) : active ? 22 : 16)
-  const built = useMemo(() => icon ?? pinIcon(html, px, active, count), [icon, html, px, active, count])
+  const built = useMemo(() => pinIcon(html, px, active, bare, count), [html, px, active, bare, count])
   return (
     <Marker
       position={toMapLatLng(position)}
