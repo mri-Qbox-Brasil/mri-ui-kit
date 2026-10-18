@@ -1,3 +1,10 @@
+## [4.38.1](https://github.com/mri-Qbox-Brasil/mri-ui-kit/compare/v4.38.0...v4.38.1) (2026-10-18)
+
+
+### Bug Fixes
+
+* **map:** MriMapFit enquadra quando o painel aparece, mesmo montado escondido ([89b30ec](https://github.com/mri-Qbox-Brasil/mri-ui-kit/commit/89b30ece2d417cea3efefd1d6e7f948970ca94ed))
+
 # [4.38.0](https://github.com/mri-Qbox-Brasil/mri-ui-kit/compare/v4.37.0...v4.38.0) (2026-10-18)
 
 
