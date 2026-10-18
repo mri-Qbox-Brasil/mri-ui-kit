@@ -1,3 +1,10 @@
+# [4.37.0](https://github.com/mri-Qbox-Brasil/mri-ui-kit/compare/v4.36.2...v4.37.0) (2026-10-18)
+
+
+### Features
+
+* **map:** MriGameMap e MriMapEditorLayout, o mapa do GTA e as três colunas dos painéis com mapa ([36740cf](https://github.com/mri-Qbox-Brasil/mri-ui-kit/commit/36740cf1aefcf4420d9191e03b51e7690b4ff1ce))
+
 ## [4.36.2](https://github.com/mri-Qbox-Brasil/mri-ui-kit/compare/v4.36.1...v4.36.2) (2026-10-15)
 
 
