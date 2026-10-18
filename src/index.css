@@ -1,4 +1,5 @@
 @import '../themes.css';
+@import 'leaflet/dist/leaflet.css';
 
 @tailwind base;
 @tailwind components;
@@ -92,3 +93,99 @@
 ::-webkit-scrollbar-thumb:hover {
     @apply bg-muted-foreground/30;
 }
+
+/* MriGameMap: Leaflet draws its own DOM, so it reads the same theme tokens as the panel */
+.mri-game-map .leaflet-container {
+    background: hsl(var(--muted));
+    font-family: inherit;
+}
+
+.mri-game-map .leaflet-tooltip {
+    background: hsl(var(--popover));
+    color: hsl(var(--popover-foreground));
+    border: 1px solid hsl(var(--border));
+    border-radius: calc(var(--radius) - 2px);
+    box-shadow: 0 6px 20px rgb(0 0 0 / 0.35);
+    font-size: 12px;
+    padding: 4px 8px;
+}
+
+.mri-game-map .leaflet-tooltip-top::before {
+    border-top-color: hsl(var(--border));
+}
+
+.mri-map-pin-root {
+    background: none;
+    border: none;
+}
+
+.mri-map-pin {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 9999px;
+    background: hsl(var(--popover));
+    color: hsl(var(--foreground));
+    border: 2px solid hsl(var(--foreground) / 0.35);
+    cursor: pointer;
+    transition: transform 120ms ease;
+}
+
+.mri-map-pin svg,
+.mri-map-pin img {
+    width: 55%;
+    height: 55%;
+}
+
+.mri-map-pin.is-dot {
+    background: hsl(var(--primary));
+    border-color: hsl(var(--background));
+}
+
+.mri-map-pin:hover {
+    transform: scale(1.15);
+}
+
+.mri-map-pin.is-active {
+    background: hsl(var(--primary));
+    color: hsl(var(--primary-foreground));
+    border-color: hsl(var(--background));
+    box-shadow: 0 0 0 3px hsl(var(--primary) / 0.35);
+}
+
+.mri-map-pin-count {
+    position: absolute;
+    top: -6px;
+    right: -6px;
+    min-width: 16px;
+    height: 16px;
+    padding: 0 4px;
+    border-radius: 9999px;
+    background: hsl(var(--foreground));
+    color: hsl(var(--background));
+    font-size: 10px;
+    font-weight: 700;
+    line-height: 16px;
+    text-align: center;
+}
+
+.mri-map-shape,
+.mri-map-line {
+    --mri-map-tone: var(--primary);
+    stroke: hsl(var(--mri-map-tone));
+    fill: none;
+}
+
+.mri-map-shape {
+    fill: hsl(var(--mri-map-tone));
+    fill-opacity: 0.18;
+}
+
+.mri-map-shape.is-active {
+    fill-opacity: 0.32;
+}
+
+.mri-map-shape.is-warning, .mri-map-line.is-warning { --mri-map-tone: var(--warning, 38 92% 50%); }
+.mri-map-shape.is-destructive, .mri-map-line.is-destructive { --mri-map-tone: var(--destructive); }
+.mri-map-shape.is-muted, .mri-map-line.is-muted { --mri-map-tone: var(--muted-foreground); }

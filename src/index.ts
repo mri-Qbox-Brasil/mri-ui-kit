@@ -72,10 +72,12 @@ export * from './components/organisms/MriSidebar'
 export * from './components/organisms/MriTopbar'
 export * from './components/organisms/MriKeyboardVisualizer'
 export * from './components/organisms/MriPlayerScreenStream'
+export * from './components/organisms/MriGameMap'
 
 // Templates
 export * from './components/templates/MriDashboardLayout'
 export * from './components/templates/MriTabletFrame'
+export * from './components/templates/MriMapEditorLayout'
 
 // HUD shapes (gauges/rings/bars SVG — apresentacionais, reusaveis em qualquer HUD)
 export * from './components/hud/shapes/shape-types'
