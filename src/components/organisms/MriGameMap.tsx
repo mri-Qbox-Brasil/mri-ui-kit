@@ -101,8 +101,22 @@ export function MriMapFit({ points, padding = 60, maxZoom = 3, once = true }: Mr
   const key = pointsKey(points)
   useEffect(() => {
     if ((once && done.current) || !points.length) return
-    done.current = true
-    map.fitBounds(L.latLngBounds(points.map(toMapLatLng)), { padding: [padding, padding], maxZoom })
+    const fit = () => {
+      map.invalidateSize()
+      if (!map.getSize().x || !map.getSize().y) return false
+      done.current = true
+      map.fitBounds(L.latLngBounds(points.map(toMapLatLng)), { padding: [padding, padding], maxZoom })
+      return true
+    }
+    if (fit()) return
+    // a panel mounted hidden (plugin iframe, closed tab) has no size yet: frame it once it shows
+    const onResize = () => {
+      if (fit()) map.off('resize', onResize)
+    }
+    map.on('resize', onResize)
+    return () => {
+      map.off('resize', onResize)
+    }
   }, [map, key]) // eslint-disable-line react-hooks/exhaustive-deps
   return null
 }
