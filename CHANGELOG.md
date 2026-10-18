@@ -1,3 +1,10 @@
+# [4.38.0](https://github.com/mri-Qbox-Brasil/mri-ui-kit/compare/v4.37.0...v4.38.0) (2026-10-18)
+
+
+### Features
+
+* **map:** pino sem moldura no MriMapMarker para sprite e foto ([0f289df](https://github.com/mri-Qbox-Brasil/mri-ui-kit/commit/0f289df0f673580190a59c582b66ea88ab58c7ed))
+
 # [4.37.0](https://github.com/mri-Qbox-Brasil/mri-ui-kit/compare/v4.36.2...v4.37.0) (2026-10-18)
 
 
