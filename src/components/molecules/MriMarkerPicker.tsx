@@ -123,7 +123,7 @@ function MriMarkerPickerCompact(props: MriMarkerPickerProps) {
         </button>
       </MriPopoverTrigger>
       <MriPopoverContent
-        className="w-[640px] p-3 bg-card"
+        className="w-[640px] p-3 bg-popover"
         align="start"
         sideOffset={6}
       >

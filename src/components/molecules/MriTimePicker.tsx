@@ -116,7 +116,7 @@ export function MriTimePicker({ value, onChange, disabled, hourLabel = "Hora", m
                     )}
                 </div>
             </MriPopoverTrigger>
-            <MriPopoverContent className="w-auto p-0 bg-card border-border" align="start">
+            <MriPopoverContent className="w-auto p-0 bg-popover border-border" align="start">
                 <div className="flex h-[300px] divide-x divide-border">
                     {/* Hours Column */}
                     <div className="flex flex-col">
