@@ -1,3 +1,10 @@
+## [4.38.2](https://github.com/mri-Qbox-Brasil/mri-ui-kit/compare/v4.38.1...v4.38.2) (2026-10-19)
+
+
+### Bug Fixes
+
+* **input:** ícone de um lado não zera o recuo do texto e botão no rightIcon recebe clique ([23856f1](https://github.com/mri-Qbox-Brasil/mri-ui-kit/commit/23856f12f3832fd5c417b3e0b2710cfe2b9195b7))
+
 ## [4.38.1](https://github.com/mri-Qbox-Brasil/mri-ui-kit/compare/v4.38.0...v4.38.1) (2026-10-18)
 
 
