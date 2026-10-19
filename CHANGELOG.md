@@ -1,3 +1,10 @@
+## [4.38.3](https://github.com/mri-Qbox-Brasil/mri-ui-kit/compare/v4.38.2...v4.38.3) (2026-10-19)
+
+
+### Bug Fixes
+
+* **popover:** seletores de blip, marcador e horário com fundo sólido, sem seguir a opacidade dos painéis ([28d2c89](https://github.com/mri-Qbox-Brasil/mri-ui-kit/commit/28d2c89b166ed1628d6d8c34b6e18c3149639445))
+
 ## [4.38.2](https://github.com/mri-Qbox-Brasil/mri-ui-kit/compare/v4.38.1...v4.38.2) (2026-10-19)
 
 
