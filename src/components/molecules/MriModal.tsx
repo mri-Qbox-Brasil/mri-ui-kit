@@ -74,7 +74,7 @@ export function MriModal({
           className={cn(
             "fixed inset-0 z-50 data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0",
             "data-[state=open]:duration-200 data-[state=open]:ease-out data-[state=closed]:duration-150 data-[state=closed]:ease-in",
-            !hideOverlay && "bg-black/40",
+            !hideOverlay && "bg-black/60",
             !hideBlur && "backdrop-blur-sm"
           )}
         />
@@ -98,7 +98,7 @@ export function MriModal({
             }
           }}
           className={cn(
-            "fixed left-[50%] top-[50%] z-50 grid w-full max-w-sm translate-x-[-50%] translate-y-[-50%] gap-4 border border-border bg-card mri-surface p-6 shadow-2xl rounded-xl outline-none",
+            "fixed left-[50%] top-[50%] z-50 grid w-full max-w-sm translate-x-[-50%] translate-y-[-50%] gap-4 border border-border bg-popover p-6 shadow-2xl rounded-xl outline-none",
             "data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=open]:fade-in-0 data-[state=closed]:fade-out-0 data-[state=open]:zoom-in-[0.97] data-[state=closed]:zoom-out-[0.97]",
             "data-[state=open]:duration-200 data-[state=open]:ease-out data-[state=closed]:duration-150 data-[state=closed]:ease-in",
             className
