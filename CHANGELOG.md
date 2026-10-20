@@ -1,3 +1,10 @@
+## [4.38.4](https://github.com/mri-Qbox-Brasil/mri-ui-kit/compare/v4.38.3...v4.38.4) (2026-10-20)
+
+
+### Bug Fixes
+
+* **modal:** janela com fundo sólido, sem seguir a opacidade dos painéis, e fundo atrás mais escuro ([48cde6b](https://github.com/mri-Qbox-Brasil/mri-ui-kit/commit/48cde6b8d60866e7e2eed41390243ad4313e86e2))
+
 ## [4.38.3](https://github.com/mri-Qbox-Brasil/mri-ui-kit/compare/v4.38.2...v4.38.3) (2026-10-19)
 
 
