@@ -1,3 +1,10 @@
+## [4.38.5](https://github.com/mri-Qbox-Brasil/mri-ui-kit/compare/v4.38.4...v4.38.5) (2026-10-20)
+
+
+### Bug Fixes
+
+* **map:** MriMapFocus espera o mapa aparecer em vez de voar num mapa escondido e derrubar a página ([a254300](https://github.com/mri-Qbox-Brasil/mri-ui-kit/commit/a2543008a485dd7fa571d8f9e33cfe67ca7ad1ef))
+
 ## [4.38.4](https://github.com/mri-Qbox-Brasil/mri-ui-kit/compare/v4.38.3...v4.38.4) (2026-10-20)
 
 
