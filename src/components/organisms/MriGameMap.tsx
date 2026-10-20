@@ -137,11 +137,25 @@ export function MriMapFocus({ points, zoom, padding = 60 }: MriMapFocusProps) {
   const key = points ? pointsKey(points) : ''
   useEffect(() => {
     if (!points?.length) return
-    const bounds = L.latLngBounds(points.map(toMapLatLng))
-    const tight = bounds.getNorthEast().distanceTo(bounds.getSouthWest()) < FOCUS_RADIUS * 2
-    if (tight && zoom === undefined) map.panTo(bounds.getCenter(), { animate: true })
-    else if (tight) map.flyTo(bounds.getCenter(), Math.max(map.getZoom(), zoom!), { duration: 0.6 })
-    else map.flyToBounds(bounds, { padding: [padding, padding], maxZoom: zoom ?? map.getZoom(), duration: 0.6 })
+    const focus = () => {
+      map.invalidateSize()
+      if (!map.getSize().x || !map.getSize().y) return false
+      const bounds = L.latLngBounds(points.map(toMapLatLng))
+      const tight = bounds.getNorthEast().distanceTo(bounds.getSouthWest()) < FOCUS_RADIUS * 2
+      if (tight && zoom === undefined) map.panTo(bounds.getCenter(), { animate: true })
+      else if (tight) map.flyTo(bounds.getCenter(), Math.max(map.getZoom(), zoom!), { duration: 0.6 })
+      else map.flyToBounds(bounds, { padding: [padding, padding], maxZoom: zoom ?? map.getZoom(), duration: 0.6 })
+      return true
+    }
+    if (focus()) return
+    // flying a hidden 0x0 map gives NaN and throws (mri_Qadmin hides the tab during world tools): wait until it shows
+    const onResize = () => {
+      if (focus()) map.off('resize', onResize)
+    }
+    map.on('resize', onResize)
+    return () => {
+      map.off('resize', onResize)
+    }
   }, [map, key]) // eslint-disable-line react-hooks/exhaustive-deps
   return null
 }
