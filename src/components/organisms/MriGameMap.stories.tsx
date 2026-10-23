@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react'
 import { useState } from 'react'
-import { MriGameMap, MriMapFit, MriMapFocus, MriMapMarker, MriMapPolygon, MriMapPolyline, type MriMapPoint } from './MriGameMap'
+import { MriGameMap, MriMapFit, MriMapFocus, MriMapMarker, MriMapPolygon, MriMapSelectedCard, MriMapLegend, MriMapPolyline, type MriMapPoint } from './MriGameMap'
 import { MriMapEditorLayout } from '../templates/MriMapEditorLayout'
 
 const meta: Meta<typeof MriGameMap> = {
@@ -81,7 +81,14 @@ function EditorLayoutDemo() {
             </ul>
           }
           map={
-            <MriGameMap>
+            <MriGameMap
+              overlay={
+                <>
+                  {current && <MriMapSelectedCard title={current.label} subtitle="Zona marcada" goToLabel="Ir até lá" onGoTo={() => {}} />}
+                  <MriMapLegend items={[{ label: 'Ativa', tone: 'primary' }, { label: 'Em obra', tone: 'warning' }]} />
+                </>
+              }
+            >
               <MriMapFit points={PLACES.flatMap((p) => p.points)} maxZoom={4} />
               <MriMapFocus points={current?.points ?? null} zoom={4} />
               {PLACES.map((p) => (

@@ -1,7 +1,9 @@
 import { useEffect, useMemo, useRef, type ReactNode } from 'react'
 import L from 'leaflet'
 import { MapContainer, Marker, Polygon, Polyline, TileLayer, Tooltip, useMap, useMapEvents } from 'react-leaflet'
+import { Navigation } from 'lucide-react'
 import { cn } from '../../lib/utils'
+import { MriButton } from '../atoms/MriButton'
 
 /** A point in GTA world units; z is kept by the caller and ignored by the map. */
 export interface MriMapPoint {
@@ -36,6 +38,8 @@ export interface MriGameMapProps {
   /** Click on empty map, in world units. */
   onMapClick?: (point: MriMapPoint) => void
   tiles?: string
+  /** Drawn over the map but outside Leaflet (MriMapSelectedCard, MriMapLegend), so clicks never drag it. */
+  overlay?: ReactNode
 }
 
 // Leaflet measures its box once; panels grow in after mount, so it remeasures on resize.
@@ -64,7 +68,7 @@ function ClickHandler({ onMapClick }: { onMapClick: (point: MriMapPoint) => void
  * </MriGameMap>
  * ```
  */
-export function MriGameMap({ children, className, center = { x: 0, y: 0 }, zoom = 2, minZoom = 1, maxZoom = 5, onMapClick, tiles = GTA_MAP_TILES }: MriGameMapProps) {
+export function MriGameMap({ children, className, center = { x: 0, y: 0 }, zoom = 2, minZoom = 1, maxZoom = 5, onMapClick, tiles = GTA_MAP_TILES, overlay }: MriGameMapProps) {
   return (
     <div className={cn('mri-game-map relative isolate h-full w-full overflow-hidden', className)}>
       <MapContainer
@@ -82,6 +86,7 @@ export function MriGameMap({ children, className, center = { x: 0, y: 0 }, zoom 
         {onMapClick && <ClickHandler onMapClick={onMapClick} />}
         {children}
       </MapContainer>
+      {overlay}
     </div>
   )
 }
@@ -257,4 +262,72 @@ export interface MriMapPolylineProps {
 export function MriMapPolyline({ points, tone = 'primary', dashed = true }: MriMapPolylineProps) {
   if (points.length < 2) return null
   return <Polyline key={tone} className={cn('mri-map-line', `is-${tone}`)} positions={points.map(toMapLatLng)} pathOptions={{ weight: 2, dashArray: dashed ? '6 6' : undefined }} />
+}
+
+export interface MriMapSelectedCardProps {
+  title: ReactNode
+  /** One line under the title saying what the place is, e.g. "Open · 4 spots". */
+  subtitle?: ReactNode
+  /** Teleports the admin; the resource closes its panel and loads the place first (mri-world-placement goto.lua). */
+  onGoTo?: () => void
+  goToLabel?: string
+  /** Extra buttons next to Go there, e.g. an icon button that marks the place again. */
+  actions?: ReactNode
+  children?: ReactNode
+  className?: string
+}
+
+/** Card of the selected place on top of the map, with Go there; pass it as the MriGameMap overlay. */
+export function MriMapSelectedCard({ title, subtitle, onGoTo, goToLabel = 'Go there', actions, children, className }: MriMapSelectedCardProps) {
+  return (
+    <div className={cn('pointer-events-auto absolute left-3 top-3 z-[500] flex w-64 flex-col gap-2 rounded-xl border border-border bg-popover p-3 shadow-xl', className)}>
+      <div className="min-w-0">
+        <p className="truncate text-sm font-semibold text-foreground">{title}</p>
+        {subtitle && <p className="text-[11px] text-muted-foreground">{subtitle}</p>}
+      </div>
+      {children}
+      {(onGoTo || actions) && (
+        <div className="flex gap-2">
+          {onGoTo && (
+            <MriButton size="sm" className="flex-1" onClick={onGoTo} data-map-goto>
+              <Navigation className="mr-1.5 h-3.5 w-3.5" /> {goToLabel}
+            </MriButton>
+          )}
+          {actions}
+        </div>
+      )}
+    </div>
+  )
+}
+
+export interface MriMapLegendItem {
+  label: string
+  /** Same markup as the pin html; without it a swatch in the tone colour. */
+  html?: string
+  tone?: MriMapTone
+}
+
+/** What each pin or colour means, bottom left of the map; pass it in the MriGameMap overlay. */
+export function MriMapLegend({ items, className }: { items: MriMapLegendItem[]; className?: string }) {
+  return (
+    <div className={cn('pointer-events-none absolute bottom-3 left-3 z-[500] flex flex-wrap gap-3 rounded-lg border border-border bg-popover px-3 py-1.5', className)}>
+      {items.map((item) => (
+        <span key={item.label} className="flex items-center gap-1.5 text-[10px] text-muted-foreground">
+          {item.html ? (
+            <span className="flex h-3.5 w-3.5 items-center justify-center text-foreground [&>svg]:h-3 [&>svg]:w-3" dangerouslySetInnerHTML={{ __html: item.html }} />
+          ) : (
+            <span className={cn('h-2.5 w-2.5 rounded-sm', LEGEND_TONE[item.tone ?? 'primary'])} />
+          )}
+          {item.label}
+        </span>
+      ))}
+    </div>
+  )
+}
+
+const LEGEND_TONE: Record<MriMapTone, string> = {
+  primary: 'bg-primary',
+  warning: 'bg-warning',
+  destructive: 'bg-destructive',
+  muted: 'bg-muted-foreground',
 }
