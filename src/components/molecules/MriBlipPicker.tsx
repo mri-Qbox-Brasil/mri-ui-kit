@@ -326,10 +326,7 @@ function BlipPickerBody({
                 <MriBlipSprite
                   src={spriteUrl(normalizedBase, selectedEntry)}
                   tint={selectedColor.hex}
-                  style={{
-                    width: `${Math.min(scale * 64, 96)}px`,
-                    height: `${Math.min(scale * 64, 96)}px`,
-                  }}
+                  className="w-20 h-20"
                 />
               ) : (
                 <Sparkles className="w-8 h-8 text-muted-foreground" />
