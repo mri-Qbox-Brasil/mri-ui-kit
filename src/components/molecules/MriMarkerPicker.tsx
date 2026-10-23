@@ -251,10 +251,6 @@ function MarkerPickerBody({
               base={normalizedBase}
               color={color}
               className="w-24 h-24 rounded"
-              imageStyle={{
-                width: `${Math.min(scale.x * 32, 96)}px`,
-                height: `${Math.min(scale.z * 32, 96)}px`,
-              }}
               fallbackText={`Type ${type}`}
             />
             <div className="flex-1 min-w-0 space-y-1 text-xs">
