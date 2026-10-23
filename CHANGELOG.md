@@ -1,3 +1,10 @@
+## [4.38.7](https://github.com/mri-Qbox-Brasil/mri-ui-kit/compare/v4.38.6...v4.38.7) (2026-10-23)
+
+
+### Bug Fixes
+
+* **marker-picker:** preview do marcador ocupa o quadro em vez de encolher pela escala ([ba871ef](https://github.com/mri-Qbox-Brasil/mri-ui-kit/commit/ba871efca68a4aeb4aded6f5715ea8cc88ae7f36))
+
 ## [4.38.6](https://github.com/mri-Qbox-Brasil/mri-ui-kit/compare/v4.38.5...v4.38.6) (2026-10-23)
 
 
