@@ -1,3 +1,10 @@
+# [4.39.0](https://github.com/mri-Qbox-Brasil/mri-ui-kit/compare/v4.38.7...v4.39.0) (2026-10-23)
+
+
+### Features
+
+* **map:** cartão do lugar escolhido com Ir até lá e legenda por cima do MriGameMap (overlay) ([d5051e8](https://github.com/mri-Qbox-Brasil/mri-ui-kit/commit/d5051e8a23ba2cf2127e101e912b85da6aa1e733))
+
 ## [4.38.7](https://github.com/mri-Qbox-Brasil/mri-ui-kit/compare/v4.38.6...v4.38.7) (2026-10-23)
 
 
