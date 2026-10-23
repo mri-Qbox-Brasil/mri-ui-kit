@@ -1,3 +1,10 @@
+## [4.38.6](https://github.com/mri-Qbox-Brasil/mri-ui-kit/compare/v4.38.5...v4.38.6) (2026-10-23)
+
+
+### Bug Fixes
+
+* **blip-picker:** preview do blip ocupa o quadro em vez de ficar pequeno no meio ([bab9666](https://github.com/mri-Qbox-Brasil/mri-ui-kit/commit/bab9666fce543c96ce527177bb9c8c14e3f40609))
+
 ## [4.38.5](https://github.com/mri-Qbox-Brasil/mri-ui-kit/compare/v4.38.4...v4.38.5) (2026-10-20)
 
 
