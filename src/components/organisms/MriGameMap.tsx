@@ -81,7 +81,8 @@ export function MriGameMap({ children, className, center = { x: 0, y: 0 }, zoom 
         attributionControl={false}
         className="h-full w-full"
       >
-        <TileLayer url={tiles} noWrap tileSize={256} minZoom={0} maxZoom={5} />
+        {/* The atlas has tiles up to level 5; deeper zoom stretches them */}
+        <TileLayer url={tiles} noWrap tileSize={256} minZoom={0} maxNativeZoom={5} maxZoom={Math.max(5, maxZoom)} />
         <Resize />
         {onMapClick && <ClickHandler onMapClick={onMapClick} />}
         {children}
