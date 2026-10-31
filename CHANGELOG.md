@@ -1,3 +1,10 @@
+## [4.39.1](https://github.com/mri-Qbox-Brasil/mri-ui-kit/compare/v4.39.0...v4.39.1) (2026-10-31)
+
+
+### Bug Fixes
+
+* **map:** zoom do MriGameMap passa do nível 5 ampliando as imagens do atlas ([f848b9a](https://github.com/mri-Qbox-Brasil/mri-ui-kit/commit/f848b9ace8120c38b299223056658e5b751f314e))
+
 # [4.39.0](https://github.com/mri-Qbox-Brasil/mri-ui-kit/compare/v4.38.7...v4.39.0) (2026-10-23)
 
 
