@@ -44,7 +44,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v7
         with:
-          node-version: 24.x
+          node-version: 26.x
           cache: 'pnpm'
 
       # Trusted publishing exige npm >= 11.5.1; o npm que vem junto do Node 24
