@@ -1,7 +1,7 @@
 import * as React from 'react'
 import { cn } from '@/lib/utils'
 
-export interface MriProgressBarProps {
+export interface MriProgressBarProps extends Omit<React.HTMLAttributes<HTMLDivElement>, 'color'> {
     value: number
     /** Valor que representa 100%. Default: 100. */
     max?: number
@@ -56,12 +56,12 @@ export const MriProgressBar = React.forwardRef<HTMLDivElement, MriProgressBarPro
 
         return (
             <div
+                {...rest}
                 ref={ref}
                 role="progressbar"
                 aria-valuenow={value}
                 aria-valuemin={0}
                 aria-valuemax={max}
-                aria-label={rest['aria-label']}
                 className={cn(
                     'relative w-full overflow-hidden rounded-sm border border-foreground/5 bg-foreground/5',
                     SIZES[size],

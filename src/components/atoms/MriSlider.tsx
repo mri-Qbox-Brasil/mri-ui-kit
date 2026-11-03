@@ -2,7 +2,7 @@ import * as React from 'react'
 import { colord } from 'colord'
 import { cn } from '@/lib/utils'
 
-export interface MriSliderProps {
+export interface MriSliderProps extends Omit<React.HTMLAttributes<HTMLDivElement>, 'onChange' | 'color'> {
     value: number
     onChange: (value: number) => void
     min?: number
@@ -150,6 +150,7 @@ export const MriSlider = React.forwardRef<HTMLInputElement, MriSliderProps>(
             formatTick = String,
             className,
             id,
+            'aria-label': ariaLabel,
             ...rest
         },
         ref
@@ -172,7 +173,7 @@ export const MriSlider = React.forwardRef<HTMLInputElement, MriSliderProps>(
                 : []
 
         return (
-            <div className={cn('w-full', className)}>
+            <div {...rest} className={cn('w-full', className)}>
                 <input
                     ref={ref}
                     id={id}
@@ -194,7 +195,7 @@ export const MriSlider = React.forwardRef<HTMLInputElement, MriSliderProps>(
                             '--mri-slider-glow-hover': glow ? `0 0 25px ${fill}` : 'none',
                         } as React.CSSProperties
                     }
-                    aria-label={rest['aria-label']}
+                    aria-label={ariaLabel}
                 />
                 {tickValues.length > 0 && (
                     <div className="flex justify-between mt-2 text-[10px] font-black font-mono text-muted-foreground/40 uppercase tracking-tighter">

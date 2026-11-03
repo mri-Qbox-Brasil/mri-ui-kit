@@ -2,7 +2,7 @@ import * as React from 'react'
 import { Check, Minus } from 'lucide-react'
 import { cn } from '@/lib/utils'
 
-export interface MriCheckboxProps {
+export interface MriCheckboxProps extends Omit<React.LabelHTMLAttributes<HTMLLabelElement>, 'onChange'> {
     checked: boolean
     onCheckedChange: (checked: boolean) => void
     /** Estado parcial (pai de uma lista com selecao mista). Sobrepoe o visual de `checked`. */
@@ -37,7 +37,7 @@ const SIZES = {
  */
 export const MriCheckbox = React.forwardRef<HTMLInputElement, MriCheckboxProps>(
     (
-        { checked, onCheckedChange, indeterminate = false, disabled, size = 'default', label, className, id, ...rest },
+        { checked, onCheckedChange, indeterminate = false, disabled, size = 'default', label, className, id, 'aria-label': ariaLabel, ...rest },
         ref
     ) => {
         const s = SIZES[size]
@@ -50,6 +50,7 @@ export const MriCheckbox = React.forwardRef<HTMLInputElement, MriCheckboxProps>(
 
         return (
             <label
+                {...rest}
                 className={cn(
                     'inline-flex items-center gap-2 select-none',
                     disabled ? 'cursor-not-allowed opacity-50' : 'cursor-pointer',
@@ -68,7 +69,7 @@ export const MriCheckbox = React.forwardRef<HTMLInputElement, MriCheckboxProps>(
                     disabled={disabled}
                     onChange={(e) => onCheckedChange(e.target.checked)}
                     className="sr-only peer"
-                    aria-label={rest['aria-label']}
+                    aria-label={ariaLabel}
                 />
                 <span
                     className={cn(

@@ -1,7 +1,7 @@
 import * as React from 'react'
 import { cn } from '@/lib/utils'
 
-export interface MriSwitchProps {
+export interface MriSwitchProps extends Omit<React.LabelHTMLAttributes<HTMLLabelElement>, 'onChange'> {
     checked: boolean
     onCheckedChange: (checked: boolean) => void
     disabled?: boolean
@@ -38,11 +38,12 @@ const SIZES = {
  * ```
  */
 export const MriSwitch = React.forwardRef<HTMLInputElement, MriSwitchProps>(
-    ({ checked, onCheckedChange, disabled, size = 'default', showState = false, className, id, ...rest }, ref) => {
+    ({ checked, onCheckedChange, disabled, size = 'default', showState = false, className, id, 'aria-label': ariaLabel, ...rest }, ref) => {
         const s = SIZES[size]
 
         return (
             <label
+                {...rest}
                 className={cn(
                     'relative inline-flex items-center shrink-0',
                     disabled ? 'cursor-not-allowed opacity-50' : 'cursor-pointer',
@@ -57,7 +58,7 @@ export const MriSwitch = React.forwardRef<HTMLInputElement, MriSwitchProps>(
                     disabled={disabled}
                     onChange={(e) => onCheckedChange(e.target.checked)}
                     className="sr-only peer"
-                    aria-label={rest['aria-label']}
+                    aria-label={ariaLabel}
                 />
                 <div
                     className={cn(
