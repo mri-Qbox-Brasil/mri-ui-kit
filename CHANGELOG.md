@@ -1,3 +1,10 @@
+## [4.39.2](https://github.com/mri-Qbox-Brasil/mri-ui-kit/compare/v4.39.1...v4.39.2) (2026-11-03)
+
+
+### Bug Fixes
+
+* **atoms:** MriSwitch, MriCheckbox, MriSlider e MriProgressBar repassam data-*, title e handlers pro elemento de fora ([6990ecb](https://github.com/mri-Qbox-Brasil/mri-ui-kit/commit/6990ecba1e429be28c385b00ec7a268cad4205c7))
+
 ## [4.39.1](https://github.com/mri-Qbox-Brasil/mri-ui-kit/compare/v4.39.0...v4.39.1) (2026-10-31)
 
 
